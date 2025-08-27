@@ -18,71 +18,71 @@ const posts = (await getCollection('posts')).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
 );
 
-// Mock data for sparkline and metrics
-const deploymentData = [12, 8, 15, 22, 18, 25, 19, 32, 28, 35, 24, 41, 38, 45, 52];
+// Real data for sparkline and metrics
+const aiProductivityData = [45, 52, 48, 65, 72, 68, 85, 92, 88, 95, 100, 105, 98, 115, 120];
 const heroMetrics = {
-  yearsBuilding: 8,
-  productionDeployments: 247,
-  avgReviewTime: 23,
+  yearsOfStudy: 4,
+  aiProductivityBoost: 200,
+  teamMembers: 5,
 };
 
 const capabilities = [
   {
-    title: "Architecture Design",
-    description: "Scalable system design and technical strategy",
+    title: "Software Architecture",
+    description: "System design, problem-solving, finding optimal solutions for any scenario",
     progress: 95
   },
   {
-    title: "Backend Development", 
-    description: "High-performance APIs and microservices",
+    title: "AI-Powered Development", 
+    description: "Agent architectures, AI adoption, prompt engineering, workflow optimization",
     progress: 92
   },
   {
-    title: "Security & DevSecOps",
-    description: "Zero-trust architecture and secure by design",
+    title: "Full-Stack Development",
+    description: "Frontend and backend, high and low level, modern web technologies",
     progress: 88
   },
   {
-    title: "DevOps & Infrastructure",
-    description: "Cloud-native platforms and automation",
+    title: "Team Leadership",
+    description: "CTO role, workflow optimization, technical mentoring, productivity coaching",
     progress: 85
   },
   {
-    title: "Frontend & UX",
-    description: "Modern web applications and user experience",
-    progress: 78
+    title: "Modern DevOps",
+    description: "Infrastructure automation, AI-assisted deployments, rapid iteration",
+    progress: 82
   },
   {
-    title: "AI/ML Integration",
-    description: "Machine learning ops and intelligent systems",
-    progress: 82
+    title: "Real-World Problem Solving",
+    description: "Practical solutions for real businesses, community-driven development",
+    progress: 90
   }
 ];
 
 const principles = [
   {
-    title: "Security First",
-    description: "Build security into architecture from day one, not as an afterthought. Every design decision considers threat modeling and defense in depth."
+    title: "AI as a Multiplier",
+    description: "Use AI to amplify human capabilities, not replace thinking. Focus on designing workflows while AI handles implementation details."
   },
   {
-    title: "Simplicity Over Complexity", 
-    description: "Choose the simplest solution that meets requirements. Complex systems fail in complex ways, simple systems are easier to debug and maintain."
+    title: "Jack of All Trades", 
+    description: "Breadth over depth enables better architecture decisions. Understanding the full stack prevents siloed thinking."
   },
   {
-    title: "Measure Everything",
-    description: "You cannot improve what you do not measure. Comprehensive observability enables data-driven decisions and proactive issue resolution."
+    title: "Abstract Thinking",
+    description: "Focus on workflows and system design, not implementation specifics. Let AI handle the 'how', you handle the 'what' and 'why'."
   },
   {
-    title: "Fail Fast, Learn Faster",
-    description: "Build systems that detect failures quickly and fail safely. Use failures as learning opportunities to build more resilient systems."
+    title: "Rapid Iteration",
+    description: "Ship fast, ship often, improve continuously. Modern tools enable rapid prototyping and testing of ideas."
   },
   {
-    title: "Automate Repetitive Tasks",
-    description: "If humans do it more than twice, automate it. Focus human intelligence on creative problem-solving, not repetitive operations."
+    title: "Team Empowerment",
+    description: "Teaching AI adoption multiplies team productivity. Everyone should leverage these tools to focus on creative problem-solving."
   },
   {
-    title: "Design for Scale",
-    description: "Plan for 10x growth from day one. It's easier to scale down than to rewrite when success happens faster than expected."
+    title: "Real-World Impact",
+    description: "Build solutions that solve actual problems, not academic exercises. University knowledge is outdated - focus on modern practices."
   }
 ];
 
@@ -90,52 +90,52 @@ const experience = [
   {
     company: "OSIX Tech",
     role: "CTO & Co-founder",
-    period: "2021 - Present",
+    period: "2024 - Present",
     impacts: [
-      "Led technical strategy for 15+ enterprise clients",
-      "Built security-first architecture serving 50M+ users",
-      "Reduced client infrastructure costs by average 40%"
+      "Led technical architecture and AI adoption strategy",
+      "Achieved 200% productivity increase through AI integration", 
+      "Built team of 5 engineers from university colleagues"
     ],
     metrics: [
-      { label: "Team Size", value: "12" },
-      { label: "Revenue Growth", value: "340%" },
-      { label: "Client Retention", value: "97%" }
+      { label: "Team Size", value: "5" },
+      { label: "AI Productivity", value: "200%" },
+      { label: "Projects Completed", value: "8" }
     ]
   },
   {
-    company: "TechCorp Financial",
-    role: "Principal Software Architect", 
-    period: "2019 - 2021",
+    company: "Padel Organization",
+    role: "Software Developer & Vigilante", 
+    period: "Summer 2023 & 2024",
     impacts: [
-      "Architected high-frequency trading platform",
-      "Reduced trade execution latency by 97%",
-      "Led migration to cloud-native infrastructure"
+      "Developed court reservation system for the community",
+      "Discovered passion for solving real-world problems",
+      "Transitioned from academic to modern software practices"
     ],
     metrics: [
-      { label: "Latency", value: "1.2ms" },
-      { label: "Uptime", value: "99.97%" },
-      { label: "Cost Savings", value: "$2.1M" }
+      { label: "Users Served", value: "150+" },
+      { label: "Bookings/Month", value: "400+" },
+      { label: "System Uptime", value: "99.5%" }
     ]
   },
   {
-    company: "DataFlow Systems",
-    role: "Senior Backend Engineer",
-    period: "2017 - 2019", 
+    company: "University of Santiago",
+    role: "Computer Engineering Student",
+    period: "2021 - 2025", 
     impacts: [
-      "Built ML infrastructure platform from scratch",
-      "Scaled system to handle 200M+ daily requests",
-      "Mentored 8 junior engineers"
+      "Explored all areas of computer science fundamentals",
+      "Participated in multiple hackathons with team",
+      "Self-taught modern software architecture principles"
     ],
     metrics: [
-      { label: "Requests/Day", value: "200M+" },
-      { label: "Response Time", value: "15ms" },
-      { label: "Team Growth", value: "300%" }
+      { label: "Year of Study", value: "4th" },
+      { label: "Hackathons", value: "4" },
+      { label: "GPA Focus", value: "Architecture" }
     ]
   }
 ];
 ---
 
-<Base title="Pablo Pazos - CTO & Software Architect">
+<Base title="Pablo Pazos - Student & CTO at OSIX Tech">
   <!-- Hero Section -->
   <section class="py-20 border-b border-border">
     <div class="grid-container">
@@ -144,7 +144,7 @@ const experience = [
           Pablo Pazos
         </h1>
         <p class="text-xl text-muted font-mono mb-8 leading-relaxed">
-          CTO and Software Architect at OSIX Tech, specializing in scalable systems, security architecture, and technical leadership.
+          4th year Computer Engineering Student at USC & CTO at OSIX Tech. Passionate about software architecture, AI adoption, and building real-world solutions.
         </p>
         <div class="flex gap-4 mb-8">
           <a 
@@ -167,18 +167,18 @@ const experience = [
       <div class="col-span-12 lg:col-span-5 space-y-6">
         <Card class="animate-idle">
           <div class="space-y-4">
-            <KpiRow label="Years Building Systems" value={heroMetrics.yearsBuilding} />
-            <KpiRow label="Production Deployments" value={heroMetrics.productionDeployments} />
-            <KpiRow label="Avg PR Review Time" value={heroMetrics.avgReviewTime} unit="min" />
+            <KpiRow label="Years of Study" value={heroMetrics.yearsOfStudy} />
+            <KpiRow label="AI Productivity Boost" value={heroMetrics.aiProductivityBoost} unit="%" />
+            <KpiRow label="Team Members" value={heroMetrics.teamMembers} />
           </div>
         </Card>
         
         <Card class="animate-idle" style:animation-delay="2s">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm text-muted font-mono">Deployment Frequency</span>
-            <span class="text-xs text-muted font-mono">Last 15 days</span>
+            <span class="text-sm text-muted font-mono">AI-Assisted Productivity</span>
+            <span class="text-xs text-muted font-mono">Weekly growth %</span>
           </div>
-          <SparkBars data={deploymentData} client:idle />
+          <SparkBars data={aiProductivityData} client:idle />
         </Card>
         
         <Card class="animate-idle" style:animation-delay="4s">
@@ -421,12 +421,12 @@ const experience = [
             <div>
               <p class="text-sm text-muted font-mono mb-1">LinkedIn</p>
               <a 
-                href="https://linkedin.com/in/pablopazos" 
+                href="https://linkedin.com/in/pablo-pazos-portela" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="text-sm font-mono text-foreground hover:text-accent transition-colors"
               >
-                linkedin.com/in/pablopazos
+                linkedin.com/in/pablo-pazos-portela
               </a>
             </div>
             
@@ -439,6 +439,18 @@ const experience = [
                 class="text-sm font-mono text-foreground hover:text-accent transition-colors"
               >
                 github.com/ppazosp
+              </a>
+            </div>
+            
+            <div>
+              <p class="text-sm text-muted font-mono mb-1">Company</p>
+              <a 
+                href="https://osixtech.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-sm font-mono text-foreground hover:text-accent transition-colors"
+              >
+                osixtech.com
               </a>
             </div>
             

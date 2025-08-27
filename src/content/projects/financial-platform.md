@@ -1,33 +1,31 @@
 ---
-title: "High-Frequency Trading Platform"
-role: "Lead Architect"
-problem: "Legacy trading system couldn't handle increasing market volatility and had latency issues causing significant revenue loss during peak trading hours."
-approach: "Redesigned the core architecture using event sourcing and CQRS patterns, implemented microsecond-level optimizations, and deployed on bare-metal servers with custom kernel tuning."
-outcome: "Reduced average trade execution latency from 45ms to 1.2ms and increased system throughput by 340%, enabling the firm to capture $2.3M additional revenue monthly."
-stack: ["C++", "Rust", "Apache Kafka", "Redis", "PostgreSQL", "Linux RT", "DPDK"]
+title: "Padel Court Reservation System"
+role: "Full-Stack Developer"
+problem: "The padel community lacked an efficient booking system, leading to conflicts, double bookings, and frustrated players who couldn't reserve courts."
+approach: "Built a modern web application with real-time availability, user authentication, payment integration, and administrative dashboard for court management."
+outcome: "Streamlined the booking process for 150+ active users, handling 400+ monthly reservations with 99.5% uptime and zero booking conflicts."
+stack: ["React", "Node.js", "Express", "PostgreSQL", "Socket.io", "Stripe API", "JWT Auth"]
 metrics:
-  - label: "Latency Reduction"
-    value: "97.3%"
-  - label: "Throughput Increase" 
-    value: "340%"
-  - label: "Additional Revenue"
-    value: "$2.3M/mo"
+  - label: "Active Users"
+    value: "150+"
+  - label: "Monthly Bookings" 
+    value: "400+"
   - label: "System Uptime"
-    value: "99.97%"
-links:
-  - label: "Technical Deep Dive"
-    url: "https://blog.example.com/hft-architecture"
+    value: "99.5%"
+  - label: "Booking Conflicts"
+    value: "0"
+links: []
 featured: true
-publishedAt: 2024-08-15
+publishedAt: 2024-07-15
 ---
 
-## Technical Implementation
+## Real-World Problem Solving
 
-The high-frequency trading platform required fundamental architectural changes to meet the demanding performance requirements. The solution involved multiple layers of optimization from the application layer down to the hardware configuration.
+This project was born from a real community need during my summer work at the padel organization. Seeing the daily frustration of players and staff dealing with manual booking processes sparked my interest in building practical software solutions.
 
-### Key Architectural Decisions
+### Key Features
 
-- **Event Sourcing**: All trading events are stored as immutable facts, enabling perfect audit trails and system state reconstruction
-- **CQRS Implementation**: Separated read and write operations with specialized data stores for each
-- **Memory Management**: Custom memory allocators to avoid garbage collection pauses
-- **Network Optimization**: Direct packet processing using DPDK to bypass kernel networking stack
+- **Real-time Availability**: Live updates prevent double bookings
+- **User Management**: Authentication and profile system for regular players  
+- **Payment Integration**: Secure online payments with Stripe
+- **Admin Dashboard**: Court management and booking oversight for staff
