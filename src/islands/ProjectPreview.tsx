@@ -33,45 +33,52 @@ export default function ProjectPreview({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="border-subtle rounded-lg p-6 bg-background transition-colors duration-200 hover:border-foreground/20">
-        <div className="flex items-start justify-between mb-3">
-          <div>
-            <h3 className="text-lg font-mono text-foreground mb-1">{title}</h3>
-            <p className="text-sm text-muted font-mono">{role}</p>
-          </div>
-          {links.length > 0 && (
-            <ExternalLink className="w-4 h-4 text-muted" />
-          )}
-        </div>
-        
-        <p className="text-sm text-muted font-mono leading-relaxed line-clamp-2">
-          {problem}
-        </p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {stack.slice(0, 3).map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-1 text-xs font-mono bg-border/50 text-muted rounded"
-            >
-              {tech}
-            </span>
-          ))}
-          {stack.length > 3 && (
-            <span className="px-2 py-1 text-xs font-mono text-muted">
-              +{stack.length - 3} more
-            </span>
-          )}
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {isHovered && (
+      <AnimatePresence mode="wait">
+        {!isHovered ? (
           <motion.div
-            className="absolute inset-0 z-10 border-subtle rounded-lg bg-background p-6 shadow-2xl border-foreground/20"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
+            key="preview"
+            className="border-subtle rounded-lg p-6 bg-background transition-colors duration-200 hover:border-foreground/20"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+          >
+            <div className="flex items-start justify-between mb-3">
+              <div>
+                <h3 className="text-lg font-mono text-foreground mb-1">{title}</h3>
+                <p className="text-sm text-muted font-mono">{role}</p>
+              </div>
+              {links.length > 0 && (
+                <ExternalLink className="w-4 h-4 text-muted" />
+              )}
+            </div>
+            
+            <p className="text-sm text-muted font-mono leading-relaxed line-clamp-2">
+              {problem}
+            </p>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {stack.slice(0, 3).map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2 py-1 text-xs font-mono bg-border/50 text-muted rounded"
+                >
+                  {tech}
+                </span>
+              ))}
+              {stack.length > 3 && (
+                <span className="px-2 py-1 text-xs font-mono text-muted">
+                  +{stack.length - 3} more
+                </span>
+              )}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="expanded"
+            className="border-subtle rounded-lg bg-background p-6 shadow-2xl border-foreground/20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
             <div className="flex items-start justify-between mb-4">

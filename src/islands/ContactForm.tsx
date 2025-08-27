@@ -54,7 +54,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
       const body = encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
       );
-      const mailtoLink = `mailto:pablo@osixtech.com?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:pablopazosp3@gmail.com?subject=${subject}&body=${body}`;
       
       // Open mailto link
       window.location.href = mailtoLink;
@@ -102,7 +102,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`border-subtle rounded-lg p-6 bg-background ${className}`}>
+    <form onSubmit={handleSubmit} className={`${className}`}>
       <div className="space-y-6">
         <div>
           <label htmlFor="name" className="block text-sm font-mono text-foreground mb-2">
@@ -142,7 +142,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
             value={formData.email}
             onChange={handleChange}
             className="w-full px-3 py-2 bg-background border border-border rounded font-mono text-sm text-foreground placeholder-muted focus:outline-none focus:border-foreground transition-colors"
-            placeholder="your.email@example.com"
+            placeholder="your email@example.com"
           />
           <AnimatePresence>
             {errors.email && (

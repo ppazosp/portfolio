@@ -1,63 +1,49 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import SectionTitle from '../components/SectionTitle.astro';
-import Card from '../components/Card.astro';
-import KpiRow from '../components/KpiRow.astro';
-import Divider from '../components/Divider.astro';
-import SparkBars from '../islands/SparkBars.tsx';
-import RingMeter from '../islands/RingMeter.tsx';
-import ProjectPreview from '../islands/ProjectPreview.tsx';
-import ContactForm from '../islands/ContactForm.tsx';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
 );
 
-const posts = (await getCollection('posts')).sort(
-  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
-);
-
-// Real data for sparkline and metrics
-const aiProductivityData = [45, 52, 48, 65, 72, 68, 85, 92, 88, 95, 100, 105, 98, 115, 120];
+// Real data for metrics
 const heroMetrics = {
   yearsOfStudy: 4,
   aiProductivityBoost: 200,
   teamMembers: 5,
 };
 
-const capabilities = [
-  {
+const expertiseHierarchy = {
+  primary: {
     title: "Software Architecture",
     description: "System design, problem-solving, finding optimal solutions for any scenario",
-    progress: 95
+    level: "Primary Expertise"
   },
-  {
-    title: "AI-Powered Development", 
-    description: "Agent architectures, AI adoption, prompt engineering, workflow optimization",
-    progress: 92
-  },
-  {
-    title: "Full-Stack Development",
-    description: "Frontend and backend, high and low level, modern web technologies",
-    progress: 88
-  },
-  {
-    title: "Team Leadership",
-    description: "CTO role, workflow optimization, technical mentoring, productivity coaching",
-    progress: 85
-  },
-  {
-    title: "Modern DevOps",
-    description: "Infrastructure automation, AI-assisted deployments, rapid iteration",
-    progress: 82
-  },
-  {
-    title: "Real-World Problem Solving",
-    description: "Practical solutions for real businesses, community-driven development",
-    progress: 90
-  }
-];
+  secondary: [
+    {
+      title: "AI-Powered Development",
+      description: "Agent architectures, AI adoption, prompt engineering, workflow optimization"
+    },
+    {
+      title: "Full-Stack Development", 
+      description: "Frontend and backend, high and low level, modern web technologies"
+    },
+    {
+      title: "Team Leadership",
+      description: "CTO role, workflow optimization, technical mentoring, productivity coaching"
+    }
+  ],
+  tertiary: [
+    {
+      title: "Modern DevOps",
+      description: "Infrastructure automation, AI-assisted deployments, rapid iteration"
+    },
+    {
+      title: "Real-World Problem Solving",
+      description: "Practical solutions for real businesses, community-driven development"
+    }
+  ]
+};
 
 const principles = [
   {
@@ -138,333 +124,380 @@ const experience = [
 <Base title="Pablo Pazos - Student & CTO at OSIX Tech">
   <!-- Hero Section -->
   <section class="py-20 border-b border-border">
-    <div class="grid-container">
-      <div class="col-span-12 lg:col-span-7">
-        <h1 class="text-4xl lg:text-5xl font-mono text-foreground mb-6 leading-tight">
-          Pablo Pazos
-        </h1>
-        <p class="text-xl text-muted font-mono mb-8 leading-relaxed">
-          4th year Computer Engineering Student at USC & CTO at OSIX Tech. Passionate about software architecture, AI adoption, and building real-world solutions.
-        </p>
-        <div class="flex gap-4 mb-8">
-          <a 
-            href="/pablo-pazos-cv.pdf" 
-            class="px-6 py-3 border border-foreground text-foreground font-mono text-sm hover:bg-foreground hover:text-background transition-colors duration-200 rounded"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View CV
-          </a>
-          <a 
-            href="#contact"
-            class="px-6 py-3 border border-border text-muted font-mono text-sm hover:border-foreground hover:text-foreground transition-colors duration-200 rounded"
-          >
-            Contact
-          </a>
-        </div>
-      </div>
-      
-      <div class="col-span-12 lg:col-span-5 space-y-6">
-        <Card class="animate-idle">
-          <div class="space-y-4">
-            <KpiRow label="Years of Study" value={heroMetrics.yearsOfStudy} />
-            <KpiRow label="AI Productivity Boost" value={heroMetrics.aiProductivityBoost} unit="%" />
-            <KpiRow label="Team Members" value={heroMetrics.teamMembers} />
+    <div class="max-w-6xl mx-auto px-6">
+      <!-- Header -->
+      <div class="border-b border-border pb-8 mb-16">
+        <div class="flex items-end justify-between">
+          <div class="flex items-end gap-8">
+            <!--<div class="relative group">
+              <img 
+                src="/assets/pablo-pazos.jpeg" 
+                alt="Pablo Pazos"
+                class="w-20 h-20 lg:w-24 lg:h-24 object-cover border border-border grayscale group-hover:grayscale-0 transition-all duration-500"
+              />
+              <div class="absolute inset-0 border border-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>-->
+            <h1 class="text-4xl lg:text-6xl font-mono text-foreground tracking-tight">
+              Pablo Pazos
+            </h1>
           </div>
-        </Card>
-        
-        <Card class="animate-idle" style:animation-delay="2s">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-sm text-muted font-mono">AI-Assisted Productivity</span>
-            <span class="text-xs text-muted font-mono">Weekly growth %</span>
-          </div>
-          <SparkBars data={aiProductivityData} client:idle />
-        </Card>
-        
-        <Card class="animate-idle" style:animation-delay="4s">
-          <RingMeter 
-            value={97} 
-            max={100} 
-            label="Current Availability" 
-            client:idle 
-          />
-        </Card>
-      </div>
-    </div>
-  </section>
-
-  <!-- Expertise Map -->
-  <section id="expertise" class="py-20 border-b border-border">
-    <div class="grid-container">
-      <div class="col-span-12">
-        <SectionTitle 
-          title="Expertise Map"
-          subtitle="Core capabilities developed through years of building and scaling production systems."
-        />
-      </div>
-      
-      <div class="col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {capabilities.map((capability) => (
-          <Card hover class="h-full">
-            <h3 class="text-lg font-mono text-foreground mb-2">{capability.title}</h3>
-            <p class="text-sm text-muted font-mono mb-4 leading-relaxed">{capability.description}</p>
-            <div class="flex items-center gap-3">
-              <div class="flex-1 h-1 bg-border rounded">
-                <div 
-                  class="h-full bg-foreground rounded transition-all duration-1000 ease-out"
-                  style={`width: ${capability.progress}%`}
-                ></div>
-              </div>
-              <span class="text-xs text-muted font-mono text-tabular">{capability.progress}%</span>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Case Studies -->
-  <section id="case-studies" class="py-20 border-b border-border">
-    <div class="grid-container">
-      <div class="col-span-12">
-        <SectionTitle 
-          title="Case Studies" 
-          subtitle="Selected projects demonstrating technical depth and business impact."
-        />
-      </div>
-      
-      <div class="col-span-12 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <ProjectPreview
-            title={project.data.title}
-            role={project.data.role}
-            problem={project.data.problem}
-            approach={project.data.approach}
-            outcome={project.data.outcome}
-            stack={project.data.stack}
-            metrics={project.data.metrics}
-            links={project.data.links}
-            client:idle
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Principles and Decisions -->
-  <section id="principles" class="py-20 border-b border-border">
-    <div class="grid-container">
-      <div class="col-span-12">
-        <SectionTitle 
-          title="Principles & Decisions"
-          subtitle="Core beliefs that guide technical decision-making and team leadership."
-        />
-      </div>
-      
-      <div class="col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {principles.map((principle, index) => (
-          <>
-            <Card hover>
-              <h3 class="text-lg font-mono text-foreground mb-3">{principle.title}</h3>
-              <p class="text-sm text-muted font-mono leading-relaxed">{principle.description}</p>
-            </Card>
-            {index === 2 && <div class="lg:col-span-2"><Divider /></div>}
-          </>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience Timeline -->
-  <section id="experience" class="py-20 border-b border-border">
-    <div class="grid-container">
-      <div class="col-span-12">
-        <SectionTitle 
-          title="Experience Timeline"
-          subtitle="Progressive technical leadership across different scales and domains."
-        />
-      </div>
-      
-      <div class="col-span-12">
-        <div class="relative">
-          <div class="absolute left-0 top-0 bottom-0 w-px bg-border"></div>
-          
-          <div class="space-y-12">
-            {experience.map((exp) => (
-              <div class="relative pl-8">
-                <div class="absolute left-0 top-2 w-2 h-2 bg-foreground rounded-full transform -translate-x-1/2"></div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div class="lg:col-span-2">
-                    <div class="mb-4">
-                      <h3 class="text-xl font-mono text-foreground mb-1">{exp.company}</h3>
-                      <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-                        <p class="text-lg text-muted font-mono">{exp.role}</p>
-                        <span class="hidden sm:block text-muted">·</span>
-                        <p class="text-sm text-muted font-mono text-tabular">{exp.period}</p>
-                      </div>
-                    </div>
-                    
-                    <ul class="space-y-2">
-                      {exp.impacts.map((impact) => (
-                        <li class="text-sm text-muted font-mono leading-relaxed flex items-start gap-2">
-                          <span class="text-foreground mt-1 text-xs">▸</span>
-                          {impact}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div class="lg:col-span-1">
-                    <Card>
-                      <div class="space-y-3">
-                        {exp.metrics.map((metric) => (
-                          <KpiRow 
-                            label={metric.label} 
-                            value={metric.value} 
-                            class="py-1"
-                          />
-                        ))}
-                      </div>
-                    </Card>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div class="text-right">
+            <div class="text-xs text-muted font-mono text-tabular mb-1">LOCATION</div>
+            <div class="text-sm text-foreground font-mono">Santiago, ES</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Open Source and Writing -->
-  <section id="writing" class="py-20 border-b border-border">
-    <div class="grid-container">
-      <div class="col-span-12">
-        <SectionTitle 
-          title="Open Source & Writing"
-          subtitle="Technical insights and tools shared with the developer community."
-        />
-      </div>
       
-      <div class="col-span-12">
-        <Card>
-          <div class="space-y-4">
-            {posts.map((post, index) => (
-              <div 
-                class={`flex items-center justify-between py-3 ${index !== posts.length - 1 ? 'border-b border-border' : ''}`}
-              >
-                <div class="flex-1">
-                  <a 
-                    href={post.data.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="text-sm font-mono text-foreground hover:text-accent transition-colors"
-                  >
-                    {post.data.title}
-                  </a>
-                  <p class="text-xs text-muted font-mono mt-1">{post.data.description}</p>
-                  {post.data.tags.length > 0 && (
-                    <div class="flex gap-2 mt-2">
-                      {post.data.tags.map((tag) => (
-                        <span class="px-2 py-0.5 text-xs font-mono bg-border/50 text-muted rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div class="text-right ml-4">
-                  {post.data.stars && (
-                    <p class="text-sm font-mono text-tabular text-foreground">⭐ {post.data.stars}</p>
-                  )}
-                  <p class="text-xs text-muted font-mono text-tabular">
-                    {post.data.publishedAt.toLocaleDateString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric',
-                      year: 'numeric'
-                    })}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-20">
-    <div class="grid-container">
-      <div class="col-span-12">
-        <SectionTitle 
-          title="Contact"
-          subtitle="Let's discuss your next technical challenge or potential collaboration."
-        />
-      </div>
-      
-      <div class="col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card>
-          <h3 class="text-lg font-mono text-foreground mb-6">Get In Touch</h3>
-          <div class="space-y-4">
-            <div>
-              <p class="text-sm text-muted font-mono mb-1">Email</p>
-              <a 
-                href="mailto:pablo@osixtech.com" 
-                class="text-sm font-mono text-foreground hover:text-accent transition-colors"
-              >
-                pablo@osixtech.com
-              </a>
+      <!-- Main Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <!-- Column 1: About (Expanded) -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="text-xs text-muted font-mono text-tabular">01 / ABOUT</div>
+          <div class="space-y-6">
+            <div class="space-y-4">
+              <p class="text-lg text-foreground font-mono leading-relaxed">
+                4th year Computer Engineering Student at USC
+              </p>
+              <p class="text-lg text-foreground font-mono leading-relaxed">
+                CTO & Co-founder at OSIX Tech
+              </p>
             </div>
             
-            <div>
-              <p class="text-sm text-muted font-mono mb-1">LinkedIn</p>
-              <a 
-                href="https://linkedin.com/in/pablo-pazos-portela" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="text-sm font-mono text-foreground hover:text-accent transition-colors"
-              >
-                linkedin.com/in/pablo-pazos-portela
-              </a>
-            </div>
-            
-            <div>
-              <p class="text-sm text-muted font-mono mb-1">GitHub</p>
-              <a 
-                href="https://github.com/ppazosp" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="text-sm font-mono text-foreground hover:text-accent transition-colors"
-              >
-                github.com/ppazosp
-              </a>
-            </div>
-            
-            <div>
-              <p class="text-sm text-muted font-mono mb-1">Company</p>
-              <a 
-                href="https://osixtech.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="text-sm font-mono text-foreground hover:text-accent transition-colors"
-              >
-                osixtech.com
-              </a>
-            </div>
-            
-            <div>
-              <p class="text-sm text-muted font-mono mb-1">Location</p>
-              <p class="text-sm font-mono text-foreground">
-                Santiago de Compostela, Spain (UTC+1)
+            <div class="space-y-4">
+              <p class="text-sm text-muted font-mono leading-[1.7]">
+                Leading technical architecture and AI adoption strategy while completing studies. 
+                Passionate about building real-world solutions that make a difference.
+              </p>
+              <p class="text-sm text-muted font-mono leading-[1.7]">
+                Achieved 200% productivity increase through AI integration across our team of 5 engineers. 
+                Currently in my 4th year of Computer Engineering studies, combining academic knowledge 
+                with real-world startup experience.
+              </p>
+              <p class="text-sm text-muted font-mono leading-[1.7]">
+                Focus areas include software architecture, AI-powered development workflows, 
+                full-stack web technologies, and team leadership. Always looking for opportunities 
+                to solve practical problems through innovative technical solutions.
               </p>
             </div>
           </div>
-        </Card>
+        </div>
         
-        <ContactForm client:idle />
+        <!-- Column 2: Contact & Actions -->
+        <div class="lg:col-span-1 space-y-6">
+          <div class="text-xs text-muted font-mono text-tabular">02 / CONTACT</div>
+          
+          <!-- Contact Links -->
+          <div class="space-y-4">
+            <div class="space-y-3">
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span class="text-sm text-muted font-mono">Email</span>
+                <a 
+                  href="mailto:pablopazosp3@gmail.com" 
+                  class="text-sm text-foreground font-mono hover:text-accent transition-colors"
+                >
+                  pablopazosp3@gmail.com
+                </a>
+              </div>
+              
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span class="text-sm text-muted font-mono">GitHub</span>
+                <a 
+                  href="https://github.com/ppazosp" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-sm text-foreground font-mono hover:text-accent transition-colors"
+                >
+                  ppazosp
+                </a>
+              </div>
+              
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span class="text-sm text-muted font-mono">LinkedIn</span>
+                <a 
+                  href="https://linkedin.com/in/pablo-pazos-portela" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-sm text-foreground font-mono hover:text-accent transition-colors"
+                >
+                  pablo-pazos-parada
+                </a>
+              </div>
+              
+              <div class="flex justify-between items-center py-2 border-b border-border">
+                <span class="text-sm text-muted font-mono">Company</span>
+                <a 
+                  href="https://osixtech.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-sm text-foreground font-mono hover:text-accent transition-colors"
+                >
+                  osix.tech
+                </a>
+              </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="pt-4 space-y-3">
+              <a 
+                href="/pablo-pazos-cv.pdf" 
+                class="block w-full py-3 px-6 border border-border text-center font-mono text-sm text-foreground hover:bg-foreground hover:text-background transition-colors duration-200"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Resume
+              </a>
+              
+              <div class="grid grid-cols-2 gap-2">
+                <a 
+                  href="mailto:pablopazosp3@gmail.com"
+                  class="py-2 px-4 border border-border text-center font-mono text-xs text-muted hover:border-foreground hover:text-foreground transition-colors duration-200"
+                >
+                  Email
+                </a>
+                <a 
+                  href="https://linkedin.com/in/pablo-pazos-portela"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="py-2 px-4 border border-border text-center font-mono text-xs text-muted hover:border-foreground hover:text-foreground transition-colors duration-200"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Expertise -->
+  <section id="expertise" class="py-32 border-b border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-20">
+        <h2 class="text-3xl font-mono text-foreground mb-4">Expertise</h2>
+        <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          Core capabilities developed through hands-on experience building modern software solutions.
+        </p>
+      </div>
+      
+      <!-- Primary Expertise -->
+      <div class="mb-16">
+        <div class="flex items-baseline gap-6 mb-8">
+          <span class="text-xs text-muted font-mono text-tabular">01 / PRIMARY</span>
+          <span class="text-xs text-muted font-mono uppercase tracking-wider">{expertiseHierarchy.primary.level}</span>
+        </div>
+        <div class="border border-foreground bg-foreground/5 p-8">
+          <div class="flex items-start justify-between">
+            <div class="w-3 h-3 bg-foreground"></div>
+          </div>
+          <h3 class="text-3xl font-mono text-foreground mb-4 leading-tight">
+            {expertiseHierarchy.primary.title}
+          </h3>
+          <p class="text-base text-muted font-mono leading-relaxed max-w-3xl">
+            {expertiseHierarchy.primary.description}
+          </p>
+        </div>
+      </div>
+
+      <!-- Secondary Expertise -->
+      <div class="mb-16">
+        <div class="flex items-baseline gap-6 mb-8">
+          <span class="text-xs text-muted font-mono text-tabular">02 / SECONDARY</span>
+          <span class="text-xs text-muted font-mono uppercase tracking-wider">Core Competencies</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+          {expertiseHierarchy.secondary.map((skill, index) => (
+            <div class="border border-border p-6 hover:border-foreground/20 transition-colors group">
+              <div class="flex items-start justify-between mb-4">
+                <div class="w-2 h-2 bg-border group-hover:bg-foreground/40 transition-colors"></div>
+                <span class="text-xs text-muted font-mono text-tabular">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <h4 class="text-lg font-mono text-foreground mb-3 leading-tight">
+                {skill.title}
+              </h4>
+              <p class="text-sm text-muted font-mono leading-relaxed">
+                {skill.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Tertiary Expertise -->
+      <div>
+        <div class="flex items-baseline gap-6 mb-8">
+          <span class="text-xs text-muted font-mono text-tabular">03 / TERTIARY</span>
+          <span class="text-xs text-muted font-mono uppercase tracking-wider">Supporting Skills</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+          {expertiseHierarchy.tertiary.map((skill, index) => (
+            <div class="border border-border p-6 hover:border-foreground/20 transition-colors group">
+              <div class="flex items-start justify-between mb-4">
+                <div class="w-1 h-1 bg-border group-hover:bg-foreground/40 transition-colors"></div>
+                <span class="text-xs text-muted font-mono text-tabular">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <h4 class="text-base font-mono text-foreground mb-3 leading-tight">
+                {skill.title}
+              </h4>
+              <p class="text-sm text-muted font-mono leading-relaxed">
+                {skill.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="case-studies" class="py-32 border-b border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-20">
+        <h2 class="text-3xl font-mono text-foreground mb-4">Selected Projects</h2>
+        <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          Real-world projects demonstrating technical depth and business impact.
+        </p>
+      </div>
+      
+      <div class="space-y-24">
+        {projects.map((project, index) => (
+          <div class="border-l-2 border-border pl-12 relative">
+            <div class="absolute -left-2 top-0 w-4 h-4 bg-background border-2 border-border"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div>
+                <div class="text-xs text-muted font-mono text-tabular mb-4">
+                  {String(index + 1).padStart(2, '0')} / {project.data.role}
+                </div>
+                <h3 class="text-2xl font-mono text-foreground mb-6 leading-tight">
+                  {project.data.title}
+                </h3>
+                <div class="space-y-4 text-sm text-muted font-mono leading-relaxed">
+                  <div>
+                    <span class="text-foreground">Problem:</span> {project.data.problem}
+                  </div>
+                  <div>
+                    <span class="text-foreground">Approach:</span> {project.data.approach}
+                  </div>
+                  <div>
+                    <span class="text-foreground">Outcome:</span> {project.data.outcome}
+                  </div>
+                </div>
+              </div>
+              
+              <div class="space-y-8">
+                <div>
+                  <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Impact Metrics</h4>
+                  <div class="space-y-2">
+                    {project.data.metrics.map((metric) => (
+                      <div class="flex justify-between py-2 border-b border-border">
+                        <span class="text-sm text-muted font-mono">{metric.label}</span>
+                        <span class="text-sm text-foreground font-mono text-tabular">{metric.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Technology Stack</h4>
+                  <div class="flex flex-wrap gap-2">
+                    {project.data.stack.map((tech) => (
+                      <span class="px-3 py-1 border border-border text-xs text-muted font-mono">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section id="principles" class="py-32 border-b border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-20">
+        <h2 class="text-3xl font-mono text-foreground mb-4">Philosophy</h2>
+        <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          Core beliefs that guide technical decision-making and team leadership.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {principles.map((principle, index) => (
+          <div class="space-y-4">
+            <div class="flex items-baseline gap-4">
+              <span class="text-xs text-muted font-mono text-tabular">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="text-lg font-mono text-foreground">{principle.title}</h3>
+            </div>
+            <p class="text-sm text-muted font-mono leading-relaxed ml-8">
+              {principle.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-32 border-b border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-20">
+        <h2 class="text-3xl font-mono text-foreground mb-4">Experience</h2>
+        <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          Progressive journey through different roles and technical challenges.
+        </p>
+      </div>
+      
+      <div class="space-y-16">
+        {experience.map((exp, index) => (
+          <div class="relative">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              <div>
+                <div class="text-xs text-muted font-mono text-tabular mb-2">{exp.period}</div>
+                <h3 class="text-2xl font-mono text-foreground mb-2">{exp.company}</h3>
+                <p class="text-sm text-muted font-mono">{exp.role}</p>
+              </div>
+              
+              <div class="lg:col-span-2">
+                <div class="space-y-6">
+                  <div>
+                    <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Key Achievements</h4>
+                    <div class="space-y-2">
+                      {exp.impacts.map((impact) => (
+                        <p class="text-sm text-foreground font-mono leading-relaxed">
+                          {impact}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Key Metrics</h4>
+                    <div class="grid grid-cols-3 gap-6">
+                      {exp.metrics.map((metric) => (
+                        <div class="text-center">
+                          <div class="text-lg font-mono text-foreground text-tabular">{metric.value}</div>
+                          <div class="text-xs text-muted font-mono mt-1">{metric.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {index < experience.length - 1 && (
+              <div class="mt-16 h-px bg-border"></div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
 </Base>

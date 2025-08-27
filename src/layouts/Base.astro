@@ -62,30 +62,24 @@ const canonicalUrl = canonical || currentUrl.href;
     </a>
     
     <header class="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm">
-      <div class="grid-container">
-        <nav class="col-span-12 flex items-center justify-between py-4">
+      <div class="max-w-6xl mx-auto px-6">
+        <nav class="flex items-center justify-between py-4">
           <div class="text-sm font-mono tracking-wide">
-            <span class="text-foreground">Pablo Pazos</span>
+            <span class="text-foreground">ppazosp</span>
           </div>
           
           <div class="flex items-center gap-8">
-            <a href="#expertise" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+            <a href="#expertise" class="text-sm text-muted hover:text-foreground transition-colors">
               Expertise
             </a>
-            <a href="#case-studies" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
-              Case Studies
+            <a href="#case-studies" class="text-sm text-muted hover:text-foreground transition-colors">
+              Projects
             </a>
-            <a href="#principles" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
-              Principles
+            <a href="#principles" class="text-sm text-muted hover:text-foreground transition-colors">
+              Philosophy
             </a>
-            <a href="#experience" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+            <a href="#experience" class="text-sm text-muted hover:text-foreground transition-colors">
               Experience
-            </a>
-            <a href="#writing" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
-              Writing
-            </a>
-            <a href="#contact" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
-              Contact
             </a>
           </div>
         </nav>
@@ -96,9 +90,9 @@ const canonicalUrl = canonical || currentUrl.href;
       <slot />
     </main>
 
-    <footer class="border-t border-border">
-      <div class="grid-container">
-        <div class="col-span-12 flex items-center justify-between py-8">
+    <footer class="border-t border-border py-4">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center justify-between">
           <div class="text-sm text-muted font-mono">
             Santiago de Compostela, Spain · UTC+1
           </div>
