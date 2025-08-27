@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-background: 0 0% 0%;
+    --color-foreground: 0 0% 90.2%;
+    --color-muted: 0 0% 60.4%;
+    --color-border: 0 0% 16.5%;
+    --color-accent: 174 100% 48%;
+  }
+
+  * {
+    border-color: hsl(var(--color-border));
+  }
+
+  body {
+    background-color: hsl(var(--color-background));
+    color: hsl(var(--color-foreground));
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .border-subtle {
+    border: 1px solid hsl(var(--color-border));
+  }
+
+  .border-subtle-hover:hover {
+    border-color: hsl(var(--color-border) / 0.8);
+  }
+
+  .text-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .animate-idle {
+    animation: fadeIn 6s ease-in-out infinite;
+  }
+}

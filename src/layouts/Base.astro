@@ -1,0 +1,119 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  canonical?: string;
+}
+
+const {
+  title,
+  description = 'Pablo Pazos - CTO and Software Architect at OSIX Tech, specializing in scalable systems, security, and technical leadership.',
+  image = '/og-image.jpg',
+  type = 'website',
+  canonical,
+} = Astro.props;
+
+const currentUrl = new URL(Astro.request.url);
+const canonicalUrl = canonical || currentUrl.href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, currentUrl).href} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Pablo Pazos Portfolio" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, currentUrl).href} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  </head>
+  <body class="bg-background text-foreground antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded">
+      Skip to main content
+    </a>
+    
+    <header class="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm">
+      <div class="grid-container">
+        <nav class="col-span-12 flex items-center justify-between py-4">
+          <div class="text-sm font-mono tracking-wide">
+            <span class="text-foreground">Pablo Pazos</span>
+          </div>
+          
+          <div class="flex items-center gap-8">
+            <a href="#expertise" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+              Expertise
+            </a>
+            <a href="#case-studies" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+              Case Studies
+            </a>
+            <a href="#principles" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+              Principles
+            </a>
+            <a href="#experience" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+              Experience
+            </a>
+            <a href="#writing" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+              Writing
+            </a>
+            <a href="#contact" class="text-sm text-muted hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1">
+              Contact
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="min-h-screen">
+      <slot />
+    </main>
+
+    <footer class="border-t border-border">
+      <div class="grid-container">
+        <div class="col-span-12 flex items-center justify-between py-8">
+          <div class="text-sm text-muted font-mono">
+            Santiago de Compostela, Spain · UTC+1
+          </div>
+          <div class="text-sm text-muted font-mono">
+            <a 
+              href="https://github.com/ppazosp/portfolio" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-0.5"
+            >
+              View Source
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
