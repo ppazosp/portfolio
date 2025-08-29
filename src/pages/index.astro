@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import TechStackWithRadar from '../islands/TechStackWithRadar.tsx';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
@@ -346,6 +347,22 @@ const experience = [
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Radar -->
+  <section id="skills" class="py-32 border-b border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-20">
+        <h2 class="text-3xl font-mono text-foreground mb-4">Technical Skills</h2>
+        <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          Visual representation of proficiency across key technical domains.
+        </p>
+      </div>
+      
+      <div class="max-w-6xl mx-auto">
+        <TechStackWithRadar client:load />
       </div>
     </div>
   </section>
