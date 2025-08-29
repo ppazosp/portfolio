@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import TechStackWithRadar from '../islands/TechStackWithRadar.tsx';
+import SkillsProgress from '../islands/SkillsProgress.tsx';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
@@ -361,8 +361,8 @@ const experience = [
         </p>
       </div>
       
-      <div class="max-w-6xl mx-auto">
-        <TechStackWithRadar client:load />
+      <div class="max-w-4xl mx-auto">
+        <SkillsProgress client:load />
       </div>
     </div>
   </section>
