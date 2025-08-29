@@ -27,20 +27,20 @@ const expertiseHierarchy = {
     {
       title: "Full-Stack Development", 
       description: "Frontend and backend, high and low level, modern web technologies"
-    },
-    {
-      title: "Team Leadership",
-      description: "CTO role, workflow optimization, technical mentoring, productivity coaching"
     }
   ],
   tertiary: [
     {
-      title: "Modern DevOps",
-      description: "Infrastructure automation, AI-assisted deployments, rapid iteration"
+      title: "Team Leadership",
+      description: "CTO role, workflow optimization, technical mentoring, productivity coaching"
     },
     {
-      title: "Real-World Problem Solving",
-      description: "Practical solutions for real businesses, community-driven development"
+      title: "Entrepreneurial Mindset",
+      description: "Turning ideas into impact, aligning business and technology"
+    },
+    {
+      title: "Continuous Learning",
+      description: "Adaptability, staying ahead of new tools, and evolving with tech"
     }
   ]
 };
@@ -156,7 +156,7 @@ const experience = [
           <div class="space-y-6">
             <div class="space-y-4">
               <p class="text-lg text-foreground font-mono leading-relaxed">
-                4th year Computer Engineering Student at USC
+                Computer Science student at USC
               </p>
               <p class="text-lg text-foreground font-mono leading-relaxed">
                 CTO & Co-founder at OSIX Tech
@@ -165,18 +165,18 @@ const experience = [
             
             <div class="space-y-4">
               <p class="text-sm text-muted font-mono leading-[1.7]">
-                Leading technical architecture and AI adoption strategy while completing studies. 
-                Passionate about building real-world solutions that make a difference.
+                Balancing my role as CTO of a growing startup with my Computer Engineering studies. 
+                This dual path sharpens both my academic foundation and my real-world leadership experience.
               </p>
               <p class="text-sm text-muted font-mono leading-[1.7]">
-                Achieved 200% productivity increase through AI integration across our team of 5 engineers. 
-                Currently in my 4th year of Computer Engineering studies, combining academic knowledge 
-                with real-world startup experience.
+                Passionate about software architecture, I enjoy understanding the full spectrum of technologies 
+                without locking myself into a single specialization. This broad vision allows me to design systems 
+                that are flexible, scalable, and future-proof.
               </p>
               <p class="text-sm text-muted font-mono leading-[1.7]">
-                Focus areas include software architecture, AI-powered development workflows, 
-                full-stack web technologies, and team leadership. Always looking for opportunities 
-                to solve practical problems through innovative technical solutions.
+                Specialized in applying and integrating AI across workflows, I focus on solving real problems 
+                and evaluating solutions with a pragmatic, impact-driven mindset. 
+                My strength lies in turning complex challenges into clear, actionable architectures.
               </p>
             </div>
           </div>
@@ -250,7 +250,7 @@ const experience = [
               <div class="grid grid-cols-2 gap-2">
                 <a 
                   href="mailto:pablopazosp3@gmail.com"
-                  class="py-2 px-4 border border-border text-center font-mono text-xs text-muted hover:border-foreground hover:text-foreground transition-colors duration-200"
+                  class="py-3 px-4 border border-border text-center font-mono text-xs text-muted hover:border-foreground hover:text-foreground transition-colors duration-200"
                 >
                   Email
                 </a>
@@ -258,7 +258,7 @@ const experience = [
                   href="https://linkedin.com/in/pablo-pazos-portela"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="py-2 px-4 border border-border text-center font-mono text-xs text-muted hover:border-foreground hover:text-foreground transition-colors duration-200"
+                  class="py-3 px-4 border border-border text-center font-mono text-xs text-muted hover:border-foreground hover:text-foreground transition-colors duration-200"
                 >
                   LinkedIn
                 </a>
@@ -286,17 +286,18 @@ const experience = [
           <span class="text-xs text-muted font-mono text-tabular">01 / PRIMARY</span>
           <span class="text-xs text-muted font-mono uppercase tracking-wider">{expertiseHierarchy.primary.level}</span>
         </div>
-        <div class="border border-foreground bg-foreground/5 p-8">
-          <div class="flex items-start justify-between">
-            <div class="w-3 h-3 bg-foreground"></div>
+          <div class="border border-foreground bg-foreground/5 p-8">
+            <div class="flex items-start justify-between">
+              <div class="w-3 h-3 bg-foreground"></div>
+              <span class="text-xs text-muted font-mono text-tabular">01</span>
+            </div>
+            <h3 class="text-2xl font-mono text-foreground mb-4 leading-tight">
+              {expertiseHierarchy.primary.title}
+            </h3>
+            <p class="text-base text-muted font-mono leading-relaxed max-w-3xl">
+              {expertiseHierarchy.primary.description}
+            </p>
           </div>
-          <h3 class="text-3xl font-mono text-foreground mb-4 leading-tight">
-            {expertiseHierarchy.primary.title}
-          </h3>
-          <p class="text-base text-muted font-mono leading-relaxed max-w-3xl">
-            {expertiseHierarchy.primary.description}
-          </p>
-        </div>
       </div>
 
       <!-- Secondary Expertise -->
@@ -305,7 +306,7 @@ const experience = [
           <span class="text-xs text-muted font-mono text-tabular">02 / SECONDARY</span>
           <span class="text-xs text-muted font-mono uppercase tracking-wider">Core Competencies</span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
           {expertiseHierarchy.secondary.map((skill, index) => (
             <div class="border border-border p-6 hover:border-foreground/20 transition-colors group">
               <div class="flex items-start justify-between mb-4">
@@ -329,7 +330,7 @@ const experience = [
           <span class="text-xs text-muted font-mono text-tabular">03 / TERTIARY</span>
           <span class="text-xs text-muted font-mono uppercase tracking-wider">Supporting Skills</span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
           {expertiseHierarchy.tertiary.map((skill, index) => (
             <div class="border border-border p-6 hover:border-foreground/20 transition-colors group">
               <div class="flex items-start justify-between mb-4">
