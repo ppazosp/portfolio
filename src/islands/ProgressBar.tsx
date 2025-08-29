@@ -20,8 +20,8 @@ export default function ProgressBar({ label, percentage, className = '' }: Progr
       {/* Progress bar */}
       <div className="relative h-6 flex gap-[2px]">
         {/* Generate vertical lines */}
-        {Array.from({ length: 50 }, (_, i) => {
-          const isActive = (i / 50) * 100 < percentage;
+        {Array.from({ length: 100 }, (_, i) => {
+          const isActive = (i) < percentage;
           return (
             <div
               key={i}
