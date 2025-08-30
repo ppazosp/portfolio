@@ -17,7 +17,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: 'Montserrat', sans-serif;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
     font-variant-numeric: tabular-nums;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -104,8 +104,8 @@
   }
 
   .blog-content h1 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
     font-weight: 400;
     margin-bottom: 1.5rem;
     margin-top: 2rem;
@@ -113,8 +113,8 @@
   }
 
   .blog-content h2 {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
     font-weight: 400;
     margin-bottom: 1rem;
     margin-top: 1.5rem;
@@ -122,8 +122,8 @@
   }
 
   .blog-content h3 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 1.125rem;
+    line-height: 1.625rem;
     font-weight: 400;
     margin-bottom: 0.75rem;
     margin-top: 1.25rem;
@@ -131,6 +131,7 @@
   }
 
   .blog-content p {
+    font-size: 0.875rem;
     margin-bottom: 1rem;
     color: var(--color-foreground);
     line-height: 1.75;
@@ -143,6 +144,7 @@
   }
 
   .blog-content li {
+    font-size: 0.875rem;
     margin-bottom: 0.5rem;
     color: var(--color-foreground);
     line-height: 1.75;
