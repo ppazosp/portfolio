@@ -5,9 +5,8 @@ import Base from '../../../layouts/Base.astro';
 import BlogCard from '../../../components/BlogCard.astro';
 import { portfolioConfig } from '../../../config/portfolio.config';
 
-const postsPerPage = 6;
-
 export const getStaticPaths: GetStaticPaths = async () => {
+  const postsPerPage = 6;
   const posts = (await getCollection('posts')).sort(
     (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
   );
@@ -73,7 +72,7 @@ const { posts, currentPage, totalPages } = Astro.props as Props;
     <main class="max-w-6xl mx-auto px-6 py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post, index) => (
-          <BlogCard post={post} index={(currentPage - 1) * postsPerPage + index} />
+          <BlogCard post={post} index={(currentPage - 1) * 6 + index} />
         ))}
       </div>
 
