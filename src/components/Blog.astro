@@ -11,8 +11,8 @@ const posts = (await getCollection('posts')).sort(
 <section id="blog" class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-20">
-      <h2 class="text-3xl font-mono text-foreground mb-4">Blog</h2>
-      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+      <h2 class="text-3xl text-foreground mb-4">Blog</h2>
+      <p class="text-base text-muted max-w-2xl leading-relaxed">
         Technical notes, architectural insights, and thoughts on the evolving software landscape.
       </p>
     </div>
@@ -26,7 +26,7 @@ const posts = (await getCollection('posts')).sort(
     <div class="text-center">
       <a 
         href="/blog" 
-        class="inline-flex items-center gap-2 text-sm text-muted font-mono"
+        class="inline-flex items-center gap-2 text-sm text-muted"
       >
         View all posts <span>→</span>
       </a>

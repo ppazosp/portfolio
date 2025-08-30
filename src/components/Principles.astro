@@ -8,8 +8,8 @@ const { principles } = portfolioConfig;
 <section id="principles" class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-20">
-      <h2 class="text-3xl font-mono text-foreground mb-4">Principles</h2>
-      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+      <h2 class="text-3xl text-foreground mb-4">Principles</h2>
+      <p class="text-base text-muted max-w-2xl leading-relaxed">
         The mindset behind my approach to problem-solving and leadership.
       </p>
     </div>
@@ -18,10 +18,10 @@ const { principles } = portfolioConfig;
       {principles.map((principle, index) => (
         <div class="space-y-4">
           <div class="flex items-baseline gap-4">
-            <span class="text-xs text-muted font-mono text-tabular">{String(index + 1).padStart(2, '0')}</span>
-            <h3 class="text-lg font-mono text-foreground">{principle.title}</h3>
+            <span class="text-xs text-muted text-tabular">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="text-lg text-foreground">{principle.title}</h3>
           </div>
-          <p class="text-sm text-muted font-mono leading-relaxed ml-8">
+          <p class="text-sm text-muted leading-relaxed ml-8">
             {principle.description}
           </p>
         </div>

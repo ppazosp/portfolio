@@ -53,6 +53,10 @@ const canonicalUrl = canonical || currentUrl.href;
     
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Google Fonts - Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -65,7 +69,7 @@ const canonicalUrl = canonical || currentUrl.href;
     <header class="sticky top-0 z-40 border-b border-border bg-background">
       <div class="max-w-6xl mx-auto px-6">
         <nav class="flex items-center justify-between py-4">
-          <div class="text-sm font-mono tracking-wide">
+          <div class="text-sm tracking-wide">
             <span class="text-foreground">{portfolioConfig.navigation.brand}</span>
           </div>
           
@@ -131,10 +135,10 @@ const canonicalUrl = canonical || currentUrl.href;
     <footer class="border-t border-border py-4">
       <div class="max-w-6xl mx-auto px-6">
         <div class="flex items-center justify-between">
-          <div class="text-sm text-muted font-mono">
+          <div class="text-sm text-muted">
             {portfolioConfig.footer.location}
           </div>
-          <div class="text-sm text-muted font-mono">
+          <div class="text-sm text-muted">
             <a 
               href={portfolioConfig.footer.sourceCode.url} 
               target="_blank" 

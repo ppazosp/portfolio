@@ -11,6 +11,7 @@ export default {
         accent: '#00F5D4',
       },
       fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', 'monospace'],
       },
       fontVariantNumeric: {

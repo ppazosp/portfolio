@@ -20,14 +20,14 @@ const currentPosts = posts.slice(0, postsPerPage);
     <header class="border-b border-border bg-background">
       <div class="max-w-6xl mx-auto px-6 py-8">
         <nav class="mb-8">
-          <a href="/" class="text-sm text-muted font-mono">
+          <a href="/" class="text-sm text-muted">
             ← Back to home
           </a>
         </nav>
         
         <div>
-          <h1 class="text-4xl font-mono text-foreground mb-4">Blog</h1>
-          <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          <h1 class="text-4xl text-foreground mb-4">Blog</h1>
+          <p class="text-base text-muted max-w-2xl leading-relaxed">
             Technical notes, architectural insights, and thoughts on the evolving software landscape.
           </p>
         </div>
@@ -38,7 +38,7 @@ const currentPosts = posts.slice(0, postsPerPage);
     <main class="max-w-6xl mx-auto px-6 py-16">
       {currentPosts.length === 0 ? (
         <div class="text-center py-16">
-          <div class="text-muted font-mono text-sm">
+          <div class="text-muted text-sm">
             No posts yet. Stay tuned for upcoming notes and insights.
           </div>
         </div>
@@ -54,15 +54,15 @@ const currentPosts = posts.slice(0, postsPerPage);
       {totalPages > 1 && (
         <div class="mt-16 flex items-center justify-center gap-8">
           <div class="flex items-center gap-2">
-            <span class="text-sm text-foreground font-mono">{currentPage}</span>
-            <span class="text-sm text-muted font-mono">of</span>
-            <span class="text-sm text-foreground font-mono">{totalPages}</span>
+            <span class="text-sm text-foreground">{currentPage}</span>
+            <span class="text-sm text-muted">of</span>
+            <span class="text-sm text-foreground">{totalPages}</span>
           </div>
           
           {currentPage < totalPages && (
             <a 
               href={`/blog/page/${currentPage + 1}`}
-              class="flex items-center gap-2 text-sm text-muted font-mono"
+              class="flex items-center gap-2 text-sm text-muted"
             >
               Next <span>→</span>
             </a>

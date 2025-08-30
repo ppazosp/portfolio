@@ -47,17 +47,17 @@ const { posts, currentPage, totalPages } = Astro.props as Props;
     <header class="border-b border-border bg-background">
       <div class="max-w-6xl mx-auto px-6 py-8">
         <nav class="mb-8">
-          <a href="/" class="text-sm text-muted font-mono">
+          <a href="/" class="text-sm text-muted">
             ← Back to home
           </a>
         </nav>
         
         <div>
-          <h1 class="text-4xl font-mono text-foreground mb-4">Blog</h1>
-          <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+          <h1 class="text-4xl text-foreground mb-4">Blog</h1>
+          <p class="text-base text-muted max-w-2xl leading-relaxed">
             Technical notes, architectural insights, and thoughts on the evolving software landscape.
           </p>
-          <p class="text-sm text-muted font-mono mt-2">
+          <p class="text-sm text-muted mt-2">
             Page {currentPage} of {totalPages}
           </p>
         </div>
@@ -77,22 +77,22 @@ const { posts, currentPage, totalPages } = Astro.props as Props;
         {currentPage > 1 && (
           <a 
             href={currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`}
-            class="flex items-center gap-2 text-sm text-muted font-mono"
+            class="flex items-center gap-2 text-sm text-muted"
           >
             <span>←</span> Previous
           </a>
         )}
         
         <div class="flex items-center gap-2">
-          <span class="text-sm text-foreground font-mono">{currentPage}</span>
-          <span class="text-sm text-muted font-mono">of</span>
-          <span class="text-sm text-foreground font-mono">{totalPages}</span>
+          <span class="text-sm text-foreground">{currentPage}</span>
+          <span class="text-sm text-muted">of</span>
+          <span class="text-sm text-foreground">{totalPages}</span>
         </div>
         
         {currentPage < totalPages && (
           <a 
             href={`/blog/page/${currentPage + 1}`}
-            class="flex items-center gap-2 text-sm text-muted font-mono"
+            class="flex items-center gap-2 text-sm text-muted"
           >
             Next <span>→</span>
           </a>

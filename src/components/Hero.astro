@@ -5,19 +5,19 @@ const { personal, about } = portfolioConfig;
 ---
 
 <!-- Hero Section -->
-<section class="py-20 border-b border-border">
+<section class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <!-- Header -->
     <div class="border-b border-border pb-8 mb-16">
       <div class="flex items-end justify-between">
         <div class="flex items-end gap-8">
-          <h1 class="text-4xl lg:text-6xl font-mono text-foreground tracking-tight">
+          <h1 class="text-4xl lg:text-6xl text-foreground tracking-tight">
             {personal.name}
           </h1>
         </div>
         <div class="text-right">
-          <div class="text-xs text-muted font-mono text-tabular mb-1">LOCATION</div>
-          <div class="text-sm text-foreground font-mono">{personal.location}</div>
+          <div class="text-xs text-muted text-tabular mb-1">LOCATION</div>
+          <div class="text-sm text-foreground">{personal.location}</div>
         </div>
       </div>
     </div>
@@ -26,20 +26,20 @@ const { personal, about } = portfolioConfig;
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
       <!-- Column 1: About (Expanded) -->
       <div class="lg:col-span-2 space-y-6">
-        <div class="text-xs text-muted font-mono text-tabular">01 / ABOUT</div>
+        <div class="text-xs text-muted text-tabular">01 / ABOUT</div>
         <div class="space-y-6">
           <div class="space-y-4">
-            <p class="text-lg text-foreground font-mono leading-relaxed">
+            <p class="text-lg text-foreground leading-relaxed">
               {about.role1}
             </p>
-            <p class="text-lg text-foreground font-mono leading-relaxed">
+            <p class="text-lg text-foreground leading-relaxed">
               {about.role2}
             </p>
           </div>
           
           <div class="space-y-4">
             {about.paragraphs.map((paragraph) => (
-              <p class="text-sm text-muted font-mono leading-[1.7]">
+              <p class="text-sm text-muted leading-[1.7]">
                 {paragraph}
               </p>
             ))}
@@ -49,52 +49,52 @@ const { personal, about } = portfolioConfig;
       
       <!-- Column 2: Contact & Actions -->
       <div class="lg:col-span-1 space-y-6">
-        <div class="text-xs text-muted font-mono text-tabular">02 / CONTACT</div>
+        <div class="text-xs text-muted text-tabular">02 / CONTACT</div>
         
         <!-- Contact Links -->
         <div class="space-y-4">
           <div class="space-y-3">
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted font-mono">Email</span>
+              <span class="text-sm text-muted">Email</span>
               <a 
                 href={`mailto:${personal.email}`} 
-                class="text-sm text-foreground font-mono transition-colors"
+                class="text-sm text-foreground transition-colors"
               >
                 {personal.email}
               </a>
             </div>
             
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted font-mono">GitHub</span>
+              <span class="text-sm text-muted">GitHub</span>
               <a 
                 href={`https://github.com/${personal.github}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="text-sm text-foreground font-mono  transition-colors"
+                class="text-sm text-foreground  transition-colors"
               >
                 {personal.github}
               </a>
             </div>
             
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted font-mono">LinkedIn</span>
+              <span class="text-sm text-muted">LinkedIn</span>
               <a 
                 href={`https://linkedin.com/in/${personal.linkedin}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="text-sm text-foreground font-mono  transition-colors"
+                class="text-sm text-foreground  transition-colors"
               >
                 {personal.linkedin}
               </a>
             </div>
             
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted font-mono">Company</span>
+              <span class="text-sm text-muted">Company</span>
               <a 
                 href={personal.company.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="text-sm text-foreground font-mono  transition-colors"
+                class="text-sm text-foreground  transition-colors"
               >
                 {personal.company.displayUrl}
               </a>
@@ -105,7 +105,7 @@ const { personal, about } = portfolioConfig;
           <div class="pt-4 space-y-3">
             <a 
               href="/pablo-pazos-cv.pdf" 
-              class="block w-full py-3 px-6 border border-border text-center font-mono text-sm text-foreground transition-colors duration-200"
+              class="block w-full py-3 px-6 border border-border text-center text-sm text-foreground transition-colors duration-200"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -115,7 +115,7 @@ const { personal, about } = portfolioConfig;
             <div class="grid grid-cols-2 gap-2">
               <a 
                 href={`mailto:${personal.email}`}
-                class="py-3 px-4 border border-border text-center font-mono text-xs text-muted transition-colors duration-200"
+                class="py-3 px-4 border border-border text-center text-xs text-muted transition-colors duration-200"
               >
                 Email
               </a>
@@ -123,7 +123,7 @@ const { personal, about } = portfolioConfig;
                 href={`https://linkedin.com/in/${personal.linkedin}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="py-3 px-4 border border-border text-center font-mono text-xs text-muted transition-colors duration-200"
+                class="py-3 px-4 border border-border text-center text-xs text-muted transition-colors duration-200"
               >
                 LinkedIn
               </a>

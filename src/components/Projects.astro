@@ -10,8 +10,8 @@ const projects = (await getCollection('projects')).sort(
 <section id="projects" class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-20">
-      <h2 class="text-3xl font-mono text-foreground mb-4">Projects</h2>
-      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+      <h2 class="text-3xl text-foreground mb-4">Projects</h2>
+      <p class="text-base text-muted max-w-2xl leading-relaxed">
         Real-world projects demonstrating technical depth and business impact.
       </p>
     </div>
@@ -23,13 +23,13 @@ const projects = (await getCollection('projects')).sort(
           
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <div class="text-xs text-muted font-mono text-tabular mb-4">
+              <div class="text-xs text-muted text-tabular mb-4">
                 {String(index + 1).padStart(2, '0')} / {project.data.role}
               </div>
-              <h3 class="text-2xl font-mono text-foreground mb-6 leading-tight">
+              <h3 class="text-2xl text-foreground mb-6 leading-tight">
                 {project.data.title}
               </h3>
-              <div class="space-y-4 text-sm text-muted font-mono leading-relaxed">
+              <div class="space-y-4 text-sm text-muted leading-relaxed">
                 <div>
                   <span class="text-foreground">Problem:</span> {project.data.problem}
                 </div>
@@ -44,22 +44,22 @@ const projects = (await getCollection('projects')).sort(
             
             <div class="flex flex-col space-y-8 justify-end">
               <div>
-                <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Impact Metrics</h4>
+                <h4 class="text-xs text-muted uppercase tracking-wider mb-4">Impact Metrics</h4>
                 <div class="space-y-2">
                   {project.data.metrics.map((metric) => (
                     <div class="flex justify-between py-2 border-b border-border">
-                      <span class="text-sm text-muted font-mono">{metric.label}</span>
-                      <span class="text-sm text-foreground font-mono text-tabular">{metric.value}</span>
+                      <span class="text-sm text-muted">{metric.label}</span>
+                      <span class="text-sm text-foreground text-tabular">{metric.value}</span>
                     </div>
                   ))}
                 </div>
               </div>
               
               <div>
-                <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Technology Stack</h4>
+                <h4 class="text-xs text-muted uppercase tracking-wider mb-4">Technology Stack</h4>
                 <div class="flex flex-wrap gap-2">
                   {project.data.stack.map((tech) => (
-                    <span class="px-3 py-1 border border-border text-xs text-foreground font-mono">
+                    <span class="px-3 py-1 border border-border text-xs text-foreground">
                       {tech}
                     </span>
                   ))}
