@@ -18,14 +18,3 @@ links: []
 featured: true
 publishedAt: 2025-02-14
 ---
-
-## Building a Winning Team
-
-These hackathon experiences were crucial in discovering that our group of 5 university colleagues worked exceptionally well together. The combination of different skills and shared work ethic proved to be the foundation for OSIX Tech.
-
-### Team Dynamics
-
-- **Rapid Prototyping**: Quick iteration and testing of ideas under time pressure
-- **Skill Complementarity**: Each member brought different technical strengths
-- **Modern Stack Focus**: Used cutting-edge tools instead of outdated university curriculum
-- **Collaborative Spirit**: Excellent communication and shared decision-making

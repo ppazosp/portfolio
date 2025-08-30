@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { portfolioConfig } from '../config/portfolio.config';
 
 export interface Props {
   title: string;
@@ -11,8 +12,8 @@ export interface Props {
 
 const {
   title,
-  description = 'Pablo Pazos - Computer Science Student at USC & CTO at OSIX Tech. Passionate about software architecture, AI adoption, and building real-world solutions.',
-  image = '/og-image.jpg',
+  description = portfolioConfig.seo.description,
+  image = portfolioConfig.seo.ogImage,
   type = 'website',
   canonical,
 } = Astro.props;
@@ -39,7 +40,7 @@ const canonicalUrl = canonical || currentUrl.href;
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, currentUrl).href} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="Pablo Pazos Portfolio" />
+    <meta property="og:site_name" content={portfolioConfig.seo.siteName} />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -65,23 +66,16 @@ const canonicalUrl = canonical || currentUrl.href;
       <div class="max-w-6xl mx-auto px-6">
         <nav class="flex items-center justify-between py-4">
           <div class="text-sm font-mono tracking-wide">
-            <span class="text-foreground">ppazosp</span>
+            <span class="text-foreground">{portfolioConfig.navigation.brand}</span>
           </div>
           
           <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center gap-8">
-            <a href="#expertise" class="text-sm text-muted hover:text-foreground transition-colors">
-              Expertise
-            </a>
-            <a href="#case-studies" class="text-sm text-muted hover:text-foreground transition-colors">
-              Projects
-            </a>
-            <a href="#principles" class="text-sm text-muted hover:text-foreground transition-colors">
-              Philosophy
-            </a>
-            <a href="#experience" class="text-sm text-muted hover:text-foreground transition-colors">
-              Experience
-            </a>
+            {portfolioConfig.navigation.links.map((link) => (
+              <a href={link.href} class="text-sm text-muted hover:text-foreground transition-colors">
+                {link.label}
+              </a>
+            ))}
           </div>
 
           <!-- Mobile Menu Button -->
@@ -99,18 +93,11 @@ const canonicalUrl = canonical || currentUrl.href;
         <!-- Mobile Navigation -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-border">
           <div class="py-4 space-y-3">
-            <a href="#expertise" class="block text-sm text-muted hover:text-foreground transition-colors">
-              Expertise
-            </a>
-            <a href="#case-studies" class="block text-sm text-muted hover:text-foreground transition-colors">
-              Projects
-            </a>
-            <a href="#principles" class="block text-sm text-muted hover:text-foreground transition-colors">
-              Philosophy
-            </a>
-            <a href="#experience" class="block text-sm text-muted hover:text-foreground transition-colors">
-              Experience
-            </a>
+            {portfolioConfig.navigation.links.map((link) => (
+              <a href={link.href} class="block text-sm text-muted hover:text-foreground transition-colors">
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -143,16 +130,16 @@ const canonicalUrl = canonical || currentUrl.href;
       <div class="max-w-6xl mx-auto px-6">
         <div class="flex items-center justify-between">
           <div class="text-sm text-muted font-mono">
-            Santiago de Compostela, Spain · UTC+1
+            {portfolioConfig.footer.location}
           </div>
           <div class="text-sm text-muted font-mono">
             <a 
-              href="https://github.com/ppazosp/portfolio" 
+              href={portfolioConfig.footer.sourceCode.url} 
               target="_blank" 
               rel="noopener noreferrer"
               class="hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-0.5"
             >
-              View Source
+              {portfolioConfig.footer.sourceCode.text}
             </a>
           </div>
         </div>

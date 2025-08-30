@@ -1,134 +1,91 @@
-# Pablo Pazos - Portfolio
+# Modern Portfolio Template
 
-A high-performance personal portfolio built with Astro, featuring a pitch-black minimal design with subtle animations and interactive React islands.
+A clean, high-performance personal portfolio built with Astro, featuring a pitch-black minimal design with subtle animations and interactive React components. Easily customizable for anyone to use.
 
 ## ✨ Features
 
-- **Zero JavaScript by default** - Static sections ship no JS, React islands hydrate only where needed
+- **Zero JavaScript by default** - Static sections ship no JS, React components hydrate only where needed
 - **Performance optimized** - Lighthouse 95+ scores, tabular numbers, accessible design
 - **Monochrome aesthetic** - Pitch-black UI with thin white lines and subtle accent colors
-- **Interactive islands** - Sparkline charts, ring meters, hover previews, contact form
+- **Interactive components** - Skills progress bars, hover effects
 - **Content collections** - MDX-powered case studies and blog posts
 - **SEO ready** - Open Graph, meta tags, sitemap, robots.txt
 - **Mobile responsive** - Consistent design and density across all screen sizes
+- **Easy customization** - Single configuration file for all personal data
 
-## 🏗️ Project Structure
+## 🚀 Quick Start
 
-```text
-/
-├── public/
-│   ├── favicon.svg
-│   ├── og-image.jpg
-│   └── robots.txt
-├── src/
-│   ├── components/          # Shared Astro components
-│   │   ├── Card.astro
-│   │   ├── KpiRow.astro
-│   │   ├── SectionTitle.astro
-│   │   └── Divider.astro
-│   ├── content/            # Content collections
-│   │   ├── config.ts
-│   │   ├── projects/       # Case study MDX files
-│   │   └── posts/          # Writing/blog MDX files
-│   ├── islands/            # Interactive React components
-│   │   ├── SparkBars.tsx
-│   │   ├── RingMeter.tsx
-│   │   ├── ProjectPreview.tsx
-│   └── └── ContactForm.tsx
-│   ├── layouts/
-│   │   └── Base.astro      # HTML head, nav, footer
-│   ├── pages/
-│   │   └── index.astro     # Landing page
-│   └── styles/
-│       └── global.css      # Design system & Tailwind
-├── astro.config.mjs
-├── tailwind.config.js
-└── package.json
+### 1. **Install dependencies**
+```bash
+npm install
 ```
 
-## 🚀 Getting Started
+### 2. **Customize your portfolio**
+Edit `src/config/portfolio.config.ts` with your information:
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```typescript
+export const portfolioConfig = {
+  // Personal Information
+  personal: {
+    name: "Your Name",
+    location: "Your City, Country",
+    email: "your.email@example.com",
+    github: "yourusername",
+    linkedin: "your-linkedin-username",
+    company: {
+      name: "Your Company",
+      url: "https://yourcompany.com",
+      displayUrl: "yourcompany.com"
+    }
+  },
+  // ... (see full config file for all options)
+}
+```
 
-2. **Start development server**
-   ```bash
-   npm run dev
-   ```
+### 3. **Add your projects**
+Create MDX files in `src/content/projects/`:
 
-3. **Open in browser**
-   Navigate to `http://localhost:4321`
+```yaml
+---
+title: "Your Project Name"
+role: "Your Role"
+problem: "Problem you solved"
+approach: "How you solved it"
+outcome: "Results achieved"
+stack: ["Tech", "Stack", "Used"]
+metrics:
+  - label: "Performance Increase"
+    value: "300%"
+publishedAt: 2024-12-01
+featured: true
+---
 
-## 📝 Content Management
+## Additional Details
+Extended project description...
+```
 
-### Adding New Projects
+### 4. **Start development server**
+```bash
+npm run dev
+```
 
-1. Create a new MDX file in `src/content/projects/`:
-   ```bash
-   touch src/content/projects/my-project.md
-   ```
+### 5. **Open in browser**
+Navigate to `http://localhost:4321`
 
-2. Add frontmatter and content:
-   ```yaml
-   ---
-   title: "Project Name"
-   role: "Your Role"
-   problem: "Problem statement"
-   approach: "How you solved it"
-   outcome: "Quantified results"
-   stack: ["Tech", "Stack", "Used"]
-   metrics:
-     - label: "Metric Name"
-       value: "Quantified Value"
-   links:
-     - label: "GitHub"
-       url: "https://github.com/..."
-   featured: true
-   publishedAt: 2024-12-01
-   ---
-   
-   ## Additional Details
-   Extended project description...
-   ```
+## 🎨 Customization
 
-### Adding Blog Posts
+### Personal Data
+All personal information is centralized in `src/config/portfolio.config.ts`. Update this single file to customize:
 
-1. Create MDX file in `src/content/posts/`:
-   ```yaml
-   ---
-   title: "Post Title"
-   description: "Brief description"
-   publishedAt: 2024-12-01
-   tags: ["tag1", "tag2"]
-   url: "https://external-link.com"
-   stars: 42
-   featured: true
-   ---
-   ```
+- **Personal details** (name, location, contact info)
+- **About section** (roles, description paragraphs)
+- **Skills** (with progress percentages)
+- **Expertise hierarchy** (primary, secondary, tertiary skills)
+- **Philosophy/principles**
+- **Experience timeline**
+- **SEO metadata**
 
-### Customizing Data
-
-Replace mock data in `src/pages/index.astro`:
-
-- **Hero metrics**: Update `heroMetrics` object
-- **Capabilities**: Modify `capabilities` array
-- **Experience**: Edit `experience` timeline
-- **Principles**: Update `principles` array
-- **Sparkline data**: Change `deploymentData` array
-
-## 🎨 Design System
-
-The portfolio uses a strict design system:
-
-- **Colors**: Black background (#000000), light text (#E6E6E6), muted text (#9A9A9A), borders (#2A2A2A), accent (#00F5D4)
-- **Typography**: System monospace with tabular numbers
-- **Layout**: 12-column grid, 1px borders, 8px radius
-- **Animations**: Subtle 6s idle animations, respects `prefers-reduced-motion`
-
-### Customizing Colors
-
+### Colors and Design
 Edit `src/styles/global.css` CSS variables:
 
 ```css
@@ -141,33 +98,76 @@ Edit `src/styles/global.css` CSS variables:
 }
 ```
 
-## 🚢 Deployment
+### Content Collections
 
-### Build for Production
+#### Projects
+Add new projects in `src/content/projects/project-name.md`:
 
-```bash
-npm run build
+```yaml
+---
+title: "Project Name"
+role: "Your Role"
+problem: "Problem statement"
+approach: "Solution approach"
+outcome: "Quantified results"
+stack: ["React", "Node.js", "PostgreSQL"]
+metrics:
+  - label: "Users"
+    value: "10,000+"
+  - label: "Performance"
+    value: "2x faster"
+links:
+  - label: "GitHub"
+    url: "https://github.com/..."
+  - label: "Live Demo" 
+    url: "https://demo.example.com"
+featured: true
+publishedAt: 2024-12-01
+---
 ```
 
-### Preview Build
+#### Blog Posts
+Add posts in `src/content/posts/post-name.md`:
 
-```bash
-npm run preview
+```yaml
+---
+title: "Post Title"
+description: "Brief description"
+publishedAt: 2024-12-01
+tags: ["tag1", "tag2"]
+url: "https://external-link.com"
+featured: true
+---
 ```
 
-### Deploy Options
+## 🏗️ Project Structure
 
-The built site (`dist/` folder) can be deployed to:
-
-- **Netlify**: Drag and drop or connect repository
-- **Vercel**: Import project from Git
-- **GitHub Pages**: Use GitHub Actions
-- **Cloudflare Pages**: Connect repository
-- **Any static hosting**: Upload `dist/` contents
-
-### Environment Variables
-
-No environment variables required for basic functionality. The contact form uses `mailto:` links.
+```text
+/
+├── public/
+│   ├── favicon.svg
+│   ├── og-image.jpg
+│   └── robots.txt
+├── src/
+│   ├── components/          # React components
+│   │   ├── SkillsProgress.tsx
+│   │   └── ProgressBar.tsx
+│   ├── config/             # Configuration
+│   │   └── portfolio.config.ts
+│   ├── content/            # Content collections
+│   │   ├── config.ts
+│   │   ├── projects/       # Case study MDX files
+│   │   └── posts/          # Blog post MDX files
+│   ├── layouts/
+│   │   └── Base.astro      # HTML head, nav, footer
+│   ├── pages/
+│   │   └── index.astro     # Landing page
+│   └── styles/
+│       └── global.css      # Design system & Tailwind
+├── astro.config.mjs
+├── tailwind.config.js
+└── package.json
+```
 
 ## 🛠️ Development Commands
 
@@ -178,6 +178,28 @@ No environment variables required for basic functionality. The contact form uses
 | `npm run preview` | Preview production build locally |
 | `npm run lint` | Run Astro type checking |
 
+## 🚢 Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Deploy Options
+
+The built site (`dist/` folder) can be deployed to:
+
+- **Netlify**: Drag and drop or connect repository
+- **Vercel**: Import project from Git
+- **GitHub Pages**: Use GitHub Actions workflow
+- **Cloudflare Pages**: Connect repository
+- **Any static hosting**: Upload `dist/` contents
+
+### Environment Variables
+
+No environment variables required for basic functionality. The contact form uses `mailto:` links.
+
 ## 📊 Performance
 
 - **Lighthouse Score**: 95+ across all metrics
@@ -185,13 +207,6 @@ No environment variables required for basic functionality. The contact form uses
 - **Images**: Optimized SVG icons and graphics
 - **Fonts**: System fonts with fallbacks
 - **Critical CSS**: Inlined automatically
-
-## 🔒 Security
-
-- **Content Security Policy**: Configured for inline styles
-- **External links**: `rel="noopener noreferrer"`
-- **XSS protection**: Astro's built-in sanitization
-- **HTTPS ready**: Works with any SSL certificate
 
 ## 🎯 Browser Support
 
@@ -202,12 +217,12 @@ No environment variables required for basic functionality. The contact form uses
 
 ## 🤝 Contributing
 
-This is a personal portfolio template. Feel free to:
+This portfolio template is open source. Feel free to:
 
 1. Fork the repository
-2. Customize for your own use
+2. Customize for your own use  
 3. Share improvements via issues/PRs
-4. Credit original design inspiration
+4. Credit the original template
 
 ## 📄 License
 
@@ -219,3 +234,24 @@ MIT License - feel free to use this code for your own portfolio.
 - **Tailwind CSS**: For utility-first styling
 - **Framer Motion**: For smooth animations
 - **Lucide**: For clean iconography
+
+---
+
+## 🆕 What's New in This Version
+
+### Clean Architecture
+- Removed over-modularized components
+- Simplified file structure
+- Single configuration file for all data
+- Easy to understand and customize
+
+### Performance Optimizations
+- Removed unused dependencies (`recharts`, `react-icons`)
+- Consolidated React components
+- Streamlined bundle size
+
+### Better Developer Experience
+- Clear separation of content and code
+- Intuitive configuration structure
+- Comprehensive documentation
+- Ready-to-deploy template

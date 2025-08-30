@@ -18,14 +18,3 @@ links: []
 featured: true
 publishedAt: 2024-07-15
 ---
-
-## Real-World Problem Solving
-
-This project was born from a real community need during my summer work at the padel organization. Seeing the daily frustration of players and staff dealing with manual booking processes sparked my interest in building practical software solutions.
-
-### Key Features
-
-- **Real-time Availability**: Live updates prevent double bookings
-- **User Management**: Authentication and profile system for regular players  
-- **Payment Integration**: Secure online payments with Stripe
-- **Admin Dashboard**: Court management and booking oversight for staff

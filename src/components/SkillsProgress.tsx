@@ -1,4 +1,5 @@
 import ProgressBar from './ProgressBar';
+import { portfolioConfig } from '../config/portfolio.config';
 
 interface Skill {
   name: string;
@@ -9,14 +10,7 @@ interface SkillsProgressProps {
   className?: string;
 }
 
-const skills: Skill[] = [
-  { name: 'Backend', percentage: 72 },
-  { name: 'Frontend', percentage: 75 },
-  { name: 'UI/UX Design', percentage: 61 },
-  { name: 'AI', percentage: 84 },
-  { name: 'DevOps', percentage: 53 },
-  { name: 'Security', percentage: 67 },
-];
+const skills: Skill[] = portfolioConfig.skills;
 
 export default function SkillsProgress({ className = '' }: SkillsProgressProps) {
   return (

@@ -14,9 +14,7 @@ metrics:
     value: "3 companies confirmed"
   - label: "Scalability Goal"
     value: "Millions of documents indexed"
-links:
-  - label: "Architecture Overview"
-    url: ""
+links: []
 featured: true
 publishedAt: 2025-07-01
 ---
