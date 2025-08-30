@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+).slice(0, 3); // Show only latest 3 posts as preview
+---
+
+<!-- Blog -->
+<section id="blog" class="py-32 border-b border-border">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-20">
+      <h2 class="text-3xl font-mono text-foreground mb-4">Blog</h2>
+      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+        Technical notes, architectural insights, and thoughts on the evolving software landscape.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      {posts.map((post, index) => (
+        <BlogCard post={post} index={index} maxTags={2} />
+      ))}
+    </div>
+    
+    <div class="text-center">
+      <a 
+        href="/blog" 
+        class="inline-flex items-center gap-2 text-sm text-muted font-mono"
+      >
+        View all posts <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>

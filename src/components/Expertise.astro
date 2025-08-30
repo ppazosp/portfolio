@@ -1,0 +1,82 @@
+---
+import { portfolioConfig } from '../config/portfolio.config';
+
+const { expertise } = portfolioConfig;
+---
+
+<!-- Expertise -->
+<section id="expertise" class="py-32 border-b border-border">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-20">
+      <h2 class="text-3xl font-mono text-foreground mb-4">Expertise</h2>
+      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+        Core capabilities developed through hands-on experience building modern software solutions.
+      </p>
+    </div>
+    
+    <!-- Primary Expertise -->
+    <div class="mb-16">
+      <div class="flex items-baseline gap-6 mb-8">
+        <span class="text-xs text-muted font-mono text-tabular">01 / PRIMARY</span>
+        <span class="text-xs text-muted font-mono uppercase tracking-wider">{expertise.primary.level}</span>
+      </div>
+        <div class="border border-border bg-foreground/5 p-8">
+          <div class="flex items-start justify-between">
+            <span class="text-xs text-muted font-mono text-tabular">01</span>
+          </div>
+          <h3 class="text-2xl font-mono text-foreground mb-4 leading-tight">
+            {expertise.primary.title}
+          </h3>
+          <p class="text-base text-muted font-mono leading-relaxed max-w-3xl">
+            {expertise.primary.description}
+          </p>
+        </div>
+    </div>
+
+    <!-- Secondary Expertise -->
+    <div class="mb-16">
+      <div class="flex items-baseline gap-6 mb-8">
+        <span class="text-xs text-muted font-mono text-tabular">02 / SECONDARY</span>
+        <span class="text-xs text-muted font-mono uppercase tracking-wider">Core Competencies</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+        {expertise.secondary.map((skill, index) => (
+          <div class="border border-border p-6 transition-colors group">
+            <div class="flex items-start justify-between mb-4">
+              <span class="text-xs text-muted font-mono text-tabular">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <h4 class="text-lg font-mono text-foreground mb-3 leading-tight">
+              {skill.title}
+            </h4>
+            <p class="text-sm text-muted font-mono leading-relaxed">
+              {skill.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Tertiary Expertise -->
+    <div>
+      <div class="flex items-baseline gap-6 mb-8">
+        <span class="text-xs text-muted font-mono text-tabular">03 / TERTIARY</span>
+        <span class="text-xs text-muted font-mono uppercase tracking-wider">Supporting Skills</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+        {expertise.tertiary.map((skill, index) => (
+          <div class="border border-border p-6 transition-colors group">
+            <div class="flex items-start justify-between mb-4">
+              <span class="text-xs text-muted font-mono text-tabular">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <h4 class="text-base font-mono text-foreground mb-3 leading-tight">
+              {skill.title}
+            </h4>
+            <p class="text-sm text-muted font-mono leading-relaxed">
+              {skill.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

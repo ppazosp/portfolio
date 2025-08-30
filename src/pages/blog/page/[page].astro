@@ -1,0 +1,103 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Base from '../../../layouts/Base.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import { portfolioConfig } from '../../../config/portfolio.config';
+
+const postsPerPage = 6;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = (await getCollection('posts')).sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+  );
+  
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNumber = i + 1;
+    const startIndex = i * postsPerPage;
+    const endIndex = Math.min(startIndex + postsPerPage, posts.length);
+    
+    return {
+      params: { page: pageNumber.toString() },
+      props: {
+        posts: posts.slice(startIndex, endIndex),
+        currentPage: pageNumber,
+        totalPages,
+        totalPosts: posts.length
+      }
+    };
+  }).slice(1); // Skip page 1 since it's handled by /blog/index.astro
+};
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+  currentPage: number;
+  totalPages: number;
+  totalPosts: number;
+}
+
+const { posts, currentPage, totalPages } = Astro.props as Props;
+---
+
+<Base title={`Blog - Page ${currentPage} - ${portfolioConfig.seo.title}`}>
+  <div class="min-h-screen" style="background-color: hsl(var(--color-background))">
+    <!-- Header -->
+    <header class="border-b border-border bg-background">
+      <div class="max-w-6xl mx-auto px-6 py-8">
+        <nav class="mb-8">
+          <a href="/" class="text-sm text-muted font-mono">
+            ← Back to home
+          </a>
+        </nav>
+        
+        <div>
+          <h1 class="text-4xl font-mono text-foreground mb-4">Blog</h1>
+          <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+            Technical notes, architectural insights, and thoughts on the evolving software landscape.
+          </p>
+          <p class="text-sm text-muted font-mono mt-2">
+            Page {currentPage} of {totalPages}
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Posts Grid -->
+    <main class="max-w-6xl mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map((post, index) => (
+          <BlogCard post={post} index={(currentPage - 1) * postsPerPage + index} />
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-16 flex items-center justify-center gap-8">
+        {currentPage > 1 && (
+          <a 
+            href={currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`}
+            class="flex items-center gap-2 text-sm text-muted font-mono"
+          >
+            <span>←</span> Previous
+          </a>
+        )}
+        
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-foreground font-mono">{currentPage}</span>
+          <span class="text-sm text-muted font-mono">of</span>
+          <span class="text-sm text-foreground font-mono">{totalPages}</span>
+        </div>
+        
+        {currentPage < totalPages && (
+          <a 
+            href={`/blog/page/${currentPage + 1}`}
+            class="flex items-center gap-2 text-sm text-muted font-mono"
+          >
+            Next <span>→</span>
+          </a>
+        )}
+      </div>
+    </main>
+  </div>
+</Base>

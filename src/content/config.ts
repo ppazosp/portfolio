@@ -33,6 +33,7 @@ const posts = defineCollection({
     description: z.string(),
     publishedAt: z.date(),
     tags: z.array(z.string()).optional().default([]),
+    image: z.string().optional(),
     url: z.string().url().optional(),
     stars: z.number().optional(),
     featured: z.boolean().optional().default(false),

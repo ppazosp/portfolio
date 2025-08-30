@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+---
+
+<!-- Projects -->
+<section id="projects" class="py-32 border-b border-border">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-20">
+      <h2 class="text-3xl font-mono text-foreground mb-4">Projects</h2>
+      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+        Real-world projects demonstrating technical depth and business impact.
+      </p>
+    </div>
+    
+    <div class="space-y-24">
+      {projects.map((project, index) => (
+        <div class="border-l-2 border-border pl-12 relative">
+          <div class="absolute -left-2 top-0 w-4 h-4 bg-background border-2 border-border"></div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <div class="text-xs text-muted font-mono text-tabular mb-4">
+                {String(index + 1).padStart(2, '0')} / {project.data.role}
+              </div>
+              <h3 class="text-2xl font-mono text-foreground mb-6 leading-tight">
+                {project.data.title}
+              </h3>
+              <div class="space-y-4 text-sm text-muted font-mono leading-relaxed">
+                <div>
+                  <span class="text-foreground">Problem:</span> {project.data.problem}
+                </div>
+                <div>
+                  <span class="text-foreground">Approach:</span> {project.data.approach}
+                </div>
+                <div>
+                  <span class="text-foreground">Outcome:</span> {project.data.outcome}
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex flex-col space-y-8 justify-end">
+              <div>
+                <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Impact Metrics</h4>
+                <div class="space-y-2">
+                  {project.data.metrics.map((metric) => (
+                    <div class="flex justify-between py-2 border-b border-border">
+                      <span class="text-sm text-muted font-mono">{metric.label}</span>
+                      <span class="text-sm text-foreground font-mono text-tabular">{metric.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Technology Stack</h4>
+                <div class="flex flex-wrap gap-2">
+                  {project.data.stack.map((tech) => (
+                    <span class="px-3 py-1 border border-border text-xs text-foreground font-mono">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

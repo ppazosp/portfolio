@@ -1,0 +1,61 @@
+---
+import { portfolioConfig } from '../config/portfolio.config';
+
+const { experience } = portfolioConfig;
+---
+
+<!-- Experience -->
+<section id="experience" class="py-32 border-b border-border">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-20">
+      <h2 class="text-3xl font-mono text-foreground mb-4">Experience</h2>
+      <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+        Progressive journey through different roles and technical challenges.
+      </p>
+    </div>
+    
+    <div class="space-y-16">
+      {experience.map((exp, index) => (
+        <div class="relative">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div>
+              <div class="text-xs text-muted font-mono text-tabular mb-2">{exp.period}</div>
+              <h3 class="text-2xl font-mono text-foreground mb-2">{exp.company}</h3>
+              <p class="text-sm text-muted font-mono">{exp.role}</p>
+            </div>
+            
+            <div class="lg:col-span-2">
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Key Achievements</h4>
+                  <div class="space-y-2">
+                    {exp.impacts.map((impact) => (
+                      <p class="text-sm text-foreground font-mono leading-relaxed">
+                        {impact}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Skills Gained</h4>
+                  <div class="flex flex-wrap gap-2">
+                    {exp.skills.map((skill) => (
+                      <span class="px-3 py-1 border border-border text-xs text-muted font-mono">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {index < experience.length - 1 && (
+            <div class="mt-16 h-px bg-border"></div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

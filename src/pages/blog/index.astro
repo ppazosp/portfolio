@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { portfolioConfig } from '../../config/portfolio.config';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+
+const postsPerPage = 6;
+const currentPage = 1;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+const currentPosts = posts.slice(0, postsPerPage);
+---
+
+<Base title={`Blog - ${portfolioConfig.seo.title}`}>
+  <div class="min-h-screen bg-background">
+    <!-- Header -->
+    <header class="border-b border-border bg-background">
+      <div class="max-w-6xl mx-auto px-6 py-8">
+        <nav class="mb-8">
+          <a href="/" class="text-sm text-muted font-mono">
+            ← Back to home
+          </a>
+        </nav>
+        
+        <div>
+          <h1 class="text-4xl font-mono text-foreground mb-4">Blog</h1>
+          <p class="text-base text-muted font-mono max-w-2xl leading-relaxed">
+            Technical notes, architectural insights, and thoughts on the evolving software landscape.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Posts Grid -->
+    <main class="max-w-6xl mx-auto px-6 py-16">
+      {currentPosts.length === 0 ? (
+        <div class="text-center py-16">
+          <div class="text-muted font-mono text-sm">
+            No posts yet. Stay tuned for upcoming notes and insights.
+          </div>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {currentPosts.map((post, index) => (
+            <BlogCard post={post} index={index} />
+          ))}
+        </div>
+      )}
+
+      <!-- Pagination -->
+      {totalPages > 1 && (
+        <div class="mt-16 flex items-center justify-center gap-8">
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-foreground font-mono">{currentPage}</span>
+            <span class="text-sm text-muted font-mono">of</span>
+            <span class="text-sm text-foreground font-mono">{totalPages}</span>
+          </div>
+          
+          {currentPage < totalPages && (
+            <a 
+              href={`/blog/page/${currentPage + 1}`}
+              class="flex items-center gap-2 text-sm text-muted font-mono"
+            >
+              Next <span>→</span>
+            </a>
+          )}
+        </div>
+      )}
+    </main>
+  </div>
+</Base>

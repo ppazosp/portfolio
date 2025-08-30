@@ -9,10 +9,10 @@ export default function ProgressBar({ label, percentage, className = '' }: Progr
     <div className={`space-y-3 ${className}`}>
       {/* Skill name and percentage */}
       <div className="flex justify-between items-baseline">
-        <span className="text-sm font-mono text-foreground">
+        <span className="text-sm font-mono text-muted">
           {label}
         </span>
-        <span className="text-sm font-mono text-muted text-tabular">
+        <span className="text-sm font-mono text-foreground text-tabular">
           {percentage}%
         </span>
       </div>

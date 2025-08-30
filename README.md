@@ -7,7 +7,6 @@ A clean, high-performance personal portfolio built with Astro, featuring a pitch
 - **Zero JavaScript by default** - Static sections ship no JS, React components hydrate only where needed
 - **Performance optimized** - Lighthouse 95+ scores, tabular numbers, accessible design
 - **Monochrome aesthetic** - Pitch-black UI with thin white lines and subtle accent colors
-- **Interactive components** - Skills progress bars, hover effects
 - **Content collections** - MDX-powered case studies and blog posts
 - **SEO ready** - Open Graph, meta tags, sitemap, robots.txt
 - **Mobile responsive** - Consistent design and density across all screen sizes

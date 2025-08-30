@@ -41,11 +41,12 @@ export const portfolioConfig = {
   navigation: {
     brand: "ppazosp",
     links: [
-      { href: "#expertise", label: "Expertise" },
-      { href: "#versatility", label: "Versatility" },
-      { href: "#principles", label: "Principles" },
-      { href: "#projects", label: "Projects" },
-      { href: "#experience", label: "Experience" }
+      { href: "/#blog", label: "Blog" },
+      { href: "/#expertise", label: "Expertise" },
+      { href: "/#versatility", label: "Versatility" },
+      { href: "/#principles", label: "Principles" },
+      { href: "/#projects", label: "Projects" },
+      { href: "/#experience", label: "Experience" }
     ]
   },
 
