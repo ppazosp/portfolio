@@ -15,13 +15,6 @@ const projects = defineCollection({
         value: z.string(),
       })
     ),
-    links: z.array(
-      z.object({
-        label: z.string(),
-        url: z.string(),
-      })
-    ).optional().default([]),
-    featured: z.boolean().optional().default(false),
     publishedAt: z.date(),
   }),
 });
@@ -34,9 +27,6 @@ const posts = defineCollection({
     publishedAt: z.date(),
     tags: z.array(z.string()).optional().default([]),
     image: z.string().optional(),
-    url: z.string().url().optional(),
-    stars: z.number().optional(),
-    featured: z.boolean().optional().default(false),
   }),
 });
 

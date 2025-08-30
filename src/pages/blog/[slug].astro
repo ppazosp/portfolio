@@ -80,7 +80,7 @@ const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-start">
         <!-- Left Column: Image -->
         <div class="lg:sticky lg:top-30">
-          <div class="aspect-[9/16] bg-border border border-border overflow-hidden">
+          <div class="aspect-[2/3] bg-border border border-border overflow-hidden">
             {post.data.image ? (
               <img 
                 src={post.data.image} 

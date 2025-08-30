@@ -10,7 +10,7 @@ export const portfolioConfig = {
     timezone: "UTC+1",
     email: "pablopazosp3@gmail.com",
     github: "ppazosp",
-    linkedin: "pablo-pazos-portela",
+    linkedin: "pablo-pazos-parada",
     company: {
       name: "OSIX Tech",
       url: "https://osixtech.com",
