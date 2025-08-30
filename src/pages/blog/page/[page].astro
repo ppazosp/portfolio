@@ -14,9 +14,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   
   const totalPages = Math.ceil(posts.length / postsPerPage);
   
-  return Array.from({ length: totalPages }, (_, i) => {
-    const pageNumber = i + 1;
-    const startIndex = i * postsPerPage;
+  // If there's only one page or no posts, return empty array
+  if (totalPages <= 1) {
+    return [];
+  }
+  
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const pageNumber = i + 2; // Start from page 2
+    const startIndex = (pageNumber - 1) * postsPerPage;
     const endIndex = Math.min(startIndex + postsPerPage, posts.length);
     
     return {
@@ -28,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         totalPosts: posts.length
       }
     };
-  }).slice(1); // Skip page 1 since it's handled by /blog/index.astro
+  });
 };
 
 interface Props {
