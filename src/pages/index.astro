@@ -71,31 +71,31 @@ const experience = [
   {
     company: "OSIX Tech",
     role: "CTO & Co-founder",
-    period: "2024 - Present",
+    period: "July 2025 - Present",
     impacts: [
       "Led technical architecture and AI adoption strategy",
-      "Achieved 200% productivity increase through AI integration", 
-      "Built team of 5 engineers from university colleagues"
+      "Achieved an immeasurable productivity boost  through AI integration", 
+      "Built team of 6 engineers from university colleagues"
     ],
-    metrics: [
-      { label: "Team Size", value: "5" },
-      { label: "AI Productivity", value: "200%" },
-      { label: "Projects Completed", value: "8" }
+    skills: [
+      "Technical Leadership",
+      "AI Strategy & Integration", 
+      "Team Building & Scaling"
     ]
   },
   {
-    company: "Padel Organization",
-    role: "Software Developer & Vigilante", 
+    company: "Residential Community",
+    role: "Security Guard", 
     period: "Summer 2023 & 2024",
     impacts: [
       "Developed court reservation system for the community",
       "Discovered passion for solving real-world problems",
       "Transitioned from academic to modern software practices"
     ],
-    metrics: [
-      { label: "Users Served", value: "150+" },
-      { label: "Bookings/Month", value: "400+" },
-      { label: "System Uptime", value: "99.5%" }
+    skills: [
+      "Full-Stack Development",
+      "Academic to Real-World Transition",
+      "Opportunity Spotting"
     ]
   },
   {
@@ -107,10 +107,10 @@ const experience = [
       "Participated in multiple hackathons with team",
       "Self-taught modern software architecture principles"
     ],
-    metrics: [
-      { label: "Year of Study", value: "4th" },
-      { label: "Hackathons", value: "4" },
-      { label: "GPA Focus", value: "Architecture" }
+    skills: [
+      "Computer Science Fundamentals",
+      "Software Engineering Principles",
+      "Work Ethic",
     ]
   }
 ];
@@ -515,13 +515,12 @@ const experience = [
                   </div>
                   
                   <div>
-                    <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Key Metrics</h4>
-                    <div class="grid grid-cols-3 gap-6">
-                      {exp.metrics.map((metric) => (
-                        <div class="text-center">
-                          <div class="text-lg font-mono text-foreground text-tabular">{metric.value}</div>
-                          <div class="text-xs text-muted font-mono mt-1">{metric.label}</div>
-                        </div>
+                    <h4 class="text-xs text-muted font-mono uppercase tracking-wider mb-4">Skills Gained</h4>
+                    <div class="flex flex-wrap gap-2">
+                      {exp.skills.map((skill) => (
+                        <span class="px-3 py-1 border border-border text-xs text-muted font-mono">
+                          {skill}
+                        </span>
                       ))}
                     </div>
                   </div>
