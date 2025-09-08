@@ -15,7 +15,7 @@ const skills: Skill[] = portfolioConfig.skills;
 export default function SkillsProgress({ className = '' }: SkillsProgressProps) {
   return (
     <div className={`bg-background ${className}`}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {skills.map((skill) => (
           <ProgressBar 
             key={skill.name}

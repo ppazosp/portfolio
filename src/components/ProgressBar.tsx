@@ -18,7 +18,7 @@ export default function ProgressBar({ label, percentage, className = '' }: Progr
       </div>
       
       {/* Progress bar */}
-      <div className="relative h-6 flex gap-[2px]">
+      <div className="relative h-6 flex gap-[1px] sm:gap-[2px]">
         {/* Generate vertical lines */}
         {Array.from({ length: 100 }, (_, i) => {
           const isActive = (i) < percentage;
@@ -28,7 +28,7 @@ export default function ProgressBar({ label, percentage, className = '' }: Progr
               className="flex-1"
               style={{
                 backgroundColor: isActive ? 'hsl(0 0% 90%)' : 'hsl(0 0% 20%)',
-                minWidth: '2px'
+                minWidth: '1px'
               }}
             />
           );
