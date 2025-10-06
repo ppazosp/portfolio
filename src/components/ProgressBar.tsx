@@ -27,7 +27,7 @@ export default function ProgressBar({ label, percentage, className = '' }: Progr
               key={i}
               className="flex-1"
               style={{
-                backgroundColor: isActive ? 'hsl(0 0% 90%)' : 'hsl(0 0% 20%)',
+                backgroundColor: isActive ? 'var(--color-foreground)' : 'var(--color-border)',
                 minWidth: '1px'
               }}
             />

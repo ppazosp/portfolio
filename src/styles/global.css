@@ -1,11 +1,28 @@
 @import "tailwindcss";
 
 @theme {
+  --color-green: #28CC2D;
+  --color-blue: #3581D8;
+  --color-red: #D82E3F;
+  --color-yellow: #FFE135;
+}
+
+:root {
+  /* Dark mode colors (default) */
   --color-background: #000000;
   --color-foreground: #E6E6E6;
   --color-muted: #9A9A9A;
   --color-border: #2A2A2A;
   --color-accent: #00F5D4;
+}
+
+:root.light {
+  /* Light mode colors */
+  --color-background: #FFFFFF;
+  --color-foreground: #1A1A1A;
+  --color-muted: #666666;
+  --color-border: #E5E5E5;
+  --color-accent: #00D4B8;
 }
 
 @layer base {

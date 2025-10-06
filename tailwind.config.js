@@ -4,11 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#000000',
-        foreground: '#E6E6E6',
-        muted: '#9A9A9A',
-        border: '#2A2A2A',
-        accent: '#00F5D4',
+        background: 'var(--color-background)',
+        foreground: 'var(--color-foreground)',
+        muted: 'var(--color-muted)',
+        border: 'var(--color-border)',
+        accent: 'var(--color-accent)',
+        green: 'var(--color-green)',
+        blue: 'var(--color-blue)',
+        red: 'var(--color-red)',
+        yellow: 'var(--color-yellow)',
       },
       fontFamily: {
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', 'monospace'],
