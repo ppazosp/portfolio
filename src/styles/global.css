@@ -32,6 +32,33 @@
   --color-blue: var(--color-blue);
   --color-red: var(--color-red);
   --color-yellow: var(--color-yellow);
+
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.75rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.875rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 2.25rem;
+  --text-3xl: 2.125rem;
+  --text-3xl--line-height: 2.5rem;
+  --text-4xl: 2.625rem;
+  --text-4xl--line-height: 3rem;
+  --text-5xl: 3.5rem;
+  --text-5xl--line-height: 3.75rem;
+  --text-6xl: 4.25rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 5.25rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 7rem;
+  --text-8xl--line-height: 1;
+  --text-9xl: 9.5rem;
+  --text-9xl--line-height: 1;
 }
 
 @layer base {
@@ -43,7 +70,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    font-family: 'Jura', sans-serif;
     font-variant-numeric: tabular-nums;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -157,7 +184,7 @@
   }
 
   .blog-content p {
-    font-size: 0.875rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
     color: var(--color-foreground);
     line-height: 1.75;
@@ -170,7 +197,7 @@
   }
 
   .blog-content li {
-    font-size: 0.875rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
     color: var(--color-foreground);
     line-height: 1.75;
@@ -190,7 +217,7 @@
     background-color: var(--color-border);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--color-foreground);
   }
 
@@ -205,7 +232,7 @@
   .blog-content pre code {
     background: none;
     padding: 0;
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .blog-content blockquote {

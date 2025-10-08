@@ -113,10 +113,10 @@ const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
                 href={`/blog/${previousPost.slug}`}
                 class="block p-4 border border-border"
               >
-                <h3 class="text-sm text-foreground leading-tight">
+                <h3 class="text-base text-foreground leading-tight">
                   {previousPost.data.title}
                 </h3>
-                <p class="text-xs text-muted mt-2 leading-relaxed">
+                <p class="text-sm text-muted mt-2 leading-relaxed">
                   {previousPost.data.description}
                 </p>
               </a>
@@ -130,10 +130,10 @@ const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
                 href={`/blog/${nextPost.slug}`}
                 class="block p-4 border border-border"
               >
-                <h3 class="text-sm text-foreground leading-tight">
+                <h3 class="text-base text-foreground leading-tight">
                   {nextPost.data.title}
                 </h3>
-                <p class="text-xs text-muted mt-2 leading-relaxed">
+                <p class="text-sm text-muted mt-2 leading-relaxed">
                   {nextPost.data.description}
                 </p>
               </a>
