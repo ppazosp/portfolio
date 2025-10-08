@@ -1,0 +1,69 @@
+---
+import { portfolioConfig } from '../config/portfolio.config';
+import ThemeToggle from './ThemeToggle';
+---
+
+<header class="sticky top-0 z-40 border-b border-border bg-background">
+  <div class="max-w-6xl mx-auto px-6">
+    <nav class="flex items-center justify-between py-4">
+      <div class="text-sm tracking-wide">
+        <a href="/" class="text-foreground">{portfolioConfig.navigation.brand}</a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-6">
+        {portfolioConfig.navigation.links.map((link) => (
+          <a href={link.href} class="text-sm text-muted hover:text-foreground transition-colors">
+            {link.label}
+          </a>
+        ))}
+        <ThemeToggle client:load />
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden flex items-center justify-center w-8 h-8 text-muted transition-colors"
+        aria-label="Toggle mobile menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border">
+      <div class="py-4 space-y-3">
+        {portfolioConfig.navigation.links.map((link) => (
+          <a href={link.href} class="block text-sm text-muted hover:text-foreground transition-colors">
+            {link.label}
+          </a>
+        ))}
+        <div class="pt-2 flex items-center gap-2">
+          <span class="text-sm text-muted">Theme:</span>
+          <ThemeToggle client:load />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  });
+
+  // Close mobile menu when clicking on a link
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) {
+        menu.classList.add('hidden');
+      }
+    });
+  });
+</script>
