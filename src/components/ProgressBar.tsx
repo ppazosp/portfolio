@@ -13,7 +13,7 @@ export default function ProgressBar({ label, percentage, className = '' }: Progr
           {label}
         </span>
         <span className="text-sm font-mono text-foreground text-tabular">
-          {percentage}%
+          {/* {percentage} */}
         </span>
       </div>
       

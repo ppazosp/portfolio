@@ -87,10 +87,10 @@ export const portfolioConfig = {
   skills: [
     { name: 'Backend', percentage: 72 },
     { name: 'Frontend', percentage: 75 },
-    { name: 'UI/UX Design', percentage: 61 },
+    { name: 'UI/UX Design', percentage: 65 },
     { name: 'AI', percentage: 84 },
     { name: 'DevOps', percentage: 53 },
-    { name: 'Security', percentage: 67 },
+    { name: 'Security', percentage: 57 },
   ],
 
   // Philosophy/Principles
