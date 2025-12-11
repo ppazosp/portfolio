@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "pnpm run build:i18n && astro check && astro build",
+    "build:i18n": "npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
     "preview": "astro preview",
     "lint": "astro check",
     "astro": "astro"
