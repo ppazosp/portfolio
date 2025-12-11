@@ -1,13 +1,15 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getLocalizedCollection } from '../../lib/getLocalizedCollection';
+import type { CollectionEntry } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
-import { portfolioConfig } from '../../config/portfolio.config';
+import { getPortfolioConfig } from '../../lib/i18n';
+import * as m from '../../paraglide/messages';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getCollection('posts');
+  const posts = await getLocalizedCollection('posts', 'en');
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.slug.replace('en/', '') },
     props: { post }
   }));
 };
@@ -16,27 +18,27 @@ interface Props {
   post: CollectionEntry<'posts'>;
 }
 
+const locale = 'en';
 const { post } = Astro.props as Props;
 const { Content } = await post.render();
+const portfolioConfig = getPortfolioConfig(locale);
 
-// Get all posts for navigation
-const allPosts = (await getCollection('posts')).sort(
-  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
-);
+// Get all English posts for navigation
+const allPosts = await getLocalizedCollection('posts', locale);
 
 const currentIndex = allPosts.findIndex(p => p.slug === post.slug);
 const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 ---
 
-<Base title={`${post.data.title} - ${portfolioConfig.seo.title}`}>
+<Base title={`${post.data.title} - ${portfolioConfig.seo.title}`} locale={locale}>
   <div class="min-h-screen bg-background">
     <!-- Header -->
     <header class="border-b border-border bg-background">
       <div class="max-w-4xl mx-auto px-6 py-8">
         <nav class="mb-8">
           <a href="/blog" class="text-sm text-muted">
-            ← Back to blog
+            ← {m.blog_backToBlog()}
           </a>
         </nav>
         
@@ -108,9 +110,9 @@ const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           {previousPost && (
             <div>
-              <p class="text-xs text-muted mb-2">Previous Post</p>
-              <a 
-                href={`/blog/${previousPost.slug}`}
+              <p class="text-xs text-muted mb-2">{m.blog_previousPost()}</p>
+              <a
+                href={`/blog/${previousPost.slug.replace('en/', '')}`}
                 class="block p-4 border border-border"
               >
                 <h3 class="text-base text-foreground leading-tight">
@@ -122,12 +124,12 @@ const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
               </a>
             </div>
           )}
-          
+
           {nextPost && (
             <div class="md:text-right">
-              <p class="text-xs text-muted mb-2 md:text-right">Next Post</p>
-              <a 
-                href={`/blog/${nextPost.slug}`}
+              <p class="text-xs text-muted mb-2 md:text-right">{m.blog_nextPost()}</p>
+              <a
+                href={`/blog/${nextPost.slug.replace('en/', '')}`}
                 class="block p-4 border border-border"
               >
                 <h3 class="text-base text-foreground leading-tight">

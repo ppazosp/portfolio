@@ -16,6 +16,7 @@ const projects = defineCollection({
       })
     ),
     publishedAt: z.date(),
+    locale: z.enum(['en', 'es']),
   }),
 });
 
@@ -27,6 +28,7 @@ const posts = defineCollection({
     publishedAt: z.date(),
     tags: z.array(z.string()).optional().default([]),
     image: z.string().optional(),
+    locale: z.enum(['en', 'es']),
   }),
 });
 

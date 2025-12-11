@@ -1,6 +1,13 @@
 ---
-import { portfolioConfig } from '../config/portfolio.config';
+import { getPortfolioConfig, type Locale } from '../lib/i18n';
+import * as m from '../paraglide/messages';
 
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const portfolioConfig = getPortfolioConfig(locale);
 const { expertise } = portfolioConfig;
 ---
 
@@ -8,10 +15,7 @@ const { expertise } = portfolioConfig;
 <section id="expertise" class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-20">
-      <h2 class="text-3xl text-foreground mb-4">Expertise</h2>
-      <p class="text-base text-muted max-w-2xl leading-relaxed">
-        Core capabilities developed through hands-on experience building modern software solutions.
-      </p>
+      <h2 class="text-3xl text-foreground mb-4">{m.expertise_title()}</h2>
     </div>
     
     <!-- Primary Expertise -->

@@ -17,4 +17,5 @@ metrics:
 links: []
 featured: true
 publishedAt: 2025-02-14
+locale: en
 ---

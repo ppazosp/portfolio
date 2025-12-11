@@ -1,0 +1,121 @@
+---
+import { getLocalizedCollection } from '../../../lib/getLocalizedCollection';
+import type { CollectionEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Base from '../../../layouts/Base.astro';
+import { getPortfolioConfig } from '../../../lib/i18n';
+import * as m from '../../../paraglide/messages';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getLocalizedCollection('posts', 'es');
+  return posts.map((post) => ({
+    params: { slug: post.slug.replace('es/', '') },
+    props: { post }
+  }));
+};
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const locale = 'es';
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+const portfolioConfig = getPortfolioConfig(locale);
+
+// Get all Spanish posts for navigation
+const allPosts = await getLocalizedCollection('posts', locale);
+
+const currentIndex = allPosts.findIndex(p => p.slug === post.slug);
+const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+---
+
+<Base title={`${post.data.title} - ${portfolioConfig.seo.title}`} locale={locale}>
+  <div class="min-h-screen bg-background">
+    <!-- Header -->
+    <header class="border-b border-border bg-background">
+      <div class="max-w-4xl mx-auto px-6 py-8">
+        <nav class="mb-8">
+          <a href="/es/blog" class="text-sm text-muted">
+            ← {m.blog_backToBlog()}
+          </a>
+        </nav>
+
+        <div class="space-y-4">
+          <div class="flex items-baseline gap-4">
+            <span class="text-xs text-muted text-tabular">
+              {String(currentIndex + 1).padStart(2, '0')}
+            </span>
+            <div class="text-xs text-muted text-tabular">
+              {post.data.publishedAt.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </div>
+          </div>
+
+          <h1 class="text-4xl text-foreground leading-tight">
+            {post.data.title}
+          </h1>
+
+          <p class="text-lg text-muted leading-relaxed max-w-2xl">
+            {post.data.description}
+          </p>
+
+          {post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 pt-2">
+              {post.data.tags.map((tag) => (
+                <span class="px-3 py-1 border border-border text-xs text-muted">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-start">
+        <!-- Spacer for desktop layout -->
+        <div class="hidden lg:block"></div>
+
+        <!-- Article Content -->
+        <article class="prose prose-invert prose-lg max-w-none">
+          <Content />
+        </article>
+      </div>
+
+      <!-- Navigation -->
+      <div class="max-w-4xl mx-auto mt-20 pt-12 border-t border-border">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {previousPost && (
+            <a
+              href={`/es/blog/${previousPost.slug.replace('es/', '')}`}
+              class="group space-y-2"
+            >
+              <div class="text-xs text-muted">{m.blog_previousPost()}</div>
+              <div class="text-lg text-foreground group-hover:text-muted transition-colors">
+                {previousPost.data.title}
+              </div>
+            </a>
+          )}
+          {nextPost && (
+            <a
+              href={`/es/blog/${nextPost.slug.replace('es/', '')}`}
+              class="group space-y-2 md:text-right"
+            >
+              <div class="text-xs text-muted">{m.blog_nextPost()}</div>
+              <div class="text-lg text-foreground group-hover:text-muted transition-colors">
+                {nextPost.data.title}
+              </div>
+            </a>
+          )}
+        </div>
+      </div>
+    </main>
+  </div>
+</Base>

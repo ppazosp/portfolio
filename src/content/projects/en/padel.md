@@ -8,7 +8,7 @@ stack: ["Kotlin", "Jetpack Compose", "Android Studio", "Supabase", "JWT"]
 metrics:
   - label: "Registered Players"
     value: "200+"
-  - label: "Reservations Processed" 
+  - label: "Reservations Processed"
     value: "1200+ per month"
   - label: "Manual Booking Work"
     value: "Eliminated"
@@ -17,4 +17,5 @@ metrics:
 links: []
 featured: true
 publishedAt: 2024-07-15
+locale: en
 ---

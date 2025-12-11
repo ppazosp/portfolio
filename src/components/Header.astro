@@ -1,13 +1,22 @@
 ---
-import { portfolioConfig } from '../config/portfolio.config';
+import { getPortfolioConfig, type Locale } from '../lib/i18n';
 import ThemeToggle from './ThemeToggle';
+import LanguageSwitcher from './LanguageSwitcher';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const portfolioConfig = getPortfolioConfig(locale);
+const currentPath = new URL(Astro.request.url).pathname;
 ---
 
 <header class="sticky top-0 z-40 border-b border-border bg-background">
   <div class="max-w-6xl mx-auto px-6">
     <nav class="flex items-center justify-between py-4">
       <div class="text-sm tracking-wide">
-        <a href="/" class="text-foreground">{portfolioConfig.navigation.brand}</a>
+        <a href={locale === 'es' ? '/es' : '/'} class="text-foreground">{portfolioConfig.navigation.brand}</a>
       </div>
 
       <!-- Desktop Navigation -->
@@ -17,7 +26,10 @@ import ThemeToggle from './ThemeToggle';
             {link.label}
           </a>
         ))}
-        <ThemeToggle client:load />
+        <div class="flex items-center gap-2 border-l border-border pl-4">
+          <LanguageSwitcher client:load currentLocale={locale} currentPath={currentPath} />
+          <ThemeToggle client:load />
+        </div>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -40,8 +52,8 @@ import ThemeToggle from './ThemeToggle';
             {link.label}
           </a>
         ))}
-        <div class="pt-2 flex items-center gap-2">
-          <span class="text-sm text-muted">Theme:</span>
+        <div class="pt-2 flex items-center gap-3">
+          <LanguageSwitcher client:load currentLocale={locale} currentPath={currentPath} />
           <ThemeToggle client:load />
         </div>
       </div>

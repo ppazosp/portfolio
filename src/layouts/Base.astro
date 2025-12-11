@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { portfolioConfig } from '../config/portfolio.config';
+import { getPortfolioConfig, getLocaleFromUrl, type Locale } from '../lib/i18n';
 import Header from '../components/Header.astro';
 
 export interface Props {
@@ -9,7 +9,12 @@ export interface Props {
   image?: string;
   type?: 'website' | 'article';
   canonical?: string;
+  locale?: Locale;
 }
+
+const currentUrl = new URL(Astro.request.url);
+const locale = Astro.props.locale || getLocaleFromUrl(currentUrl);
+const portfolioConfig = getPortfolioConfig(locale);
 
 const {
   title,
@@ -19,12 +24,18 @@ const {
   canonical,
 } = Astro.props;
 
-const currentUrl = new URL(Astro.request.url);
 const canonicalUrl = canonical || currentUrl.href;
+
+// Generate alternate URLs for hreflang
+const basePathname = currentUrl.pathname.replace(/^\/es/, '') || '/';
+const alternateUrls = {
+  en: `${Astro.site}${basePathname}`,
+  es: `${Astro.site}/es${basePathname === '/' ? '' : basePathname}`
+};
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,7 +45,12 @@ const canonicalUrl = canonical || currentUrl.href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    
+
+    <!-- Hreflang Tags for SEO -->
+    <link rel="alternate" hreflang="en" href={alternateUrls.en} />
+    <link rel="alternate" hreflang="es" href={alternateUrls.es} />
+    <link rel="alternate" hreflang="x-default" href={alternateUrls.en} />
+
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
@@ -42,6 +58,8 @@ const canonicalUrl = canonical || currentUrl.href;
     <meta property="og:image" content={new URL(image, currentUrl).href} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={portfolioConfig.seo.siteName} />
+    <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:locale:alternate" content={locale === 'es' ? 'en_US' : 'es_ES'} />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -74,8 +92,8 @@ const canonicalUrl = canonical || currentUrl.href;
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded">
       Skip to main content
     </a>
-    
-    <Header />
+
+    <Header locale={locale} />
 
     <main id="main" class="min-h-screen">
       <slot />

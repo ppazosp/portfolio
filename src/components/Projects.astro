@@ -1,18 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
+import { getLocalizedCollection } from '../lib/getLocalizedCollection';
+import type { Locale } from '../lib/i18n';
+import * as m from '../paraglide/messages';
 
-const projects = (await getCollection('projects')).sort(
-  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
-);
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const projects = await getLocalizedCollection('projects', locale);
 ---
 
 <!-- Projects -->
 <section id="projects" class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-20">
-      <h2 class="text-3xl text-foreground mb-4">Projects</h2>
+      <h2 class="text-3xl text-foreground mb-4">{m.projects_title()}</h2>
       <p class="text-base text-muted max-w-2xl leading-relaxed">
-        Real-world projects demonstrating technical depth and business impact.
+        {m.projects_subtitle()}
       </p>
     </div>
     

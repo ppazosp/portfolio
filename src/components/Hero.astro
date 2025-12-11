@@ -1,6 +1,13 @@
 ---
-import { portfolioConfig } from '../config/portfolio.config';
+import { getPortfolioConfig, type Locale } from '../lib/i18n';
+import * as m from '../paraglide/messages';
 
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const portfolioConfig = getPortfolioConfig(locale);
 const { personal, about } = portfolioConfig;
 ---
 
@@ -16,7 +23,7 @@ const { personal, about } = portfolioConfig;
           </h1>
         </div>
         <div class="text-right">
-          <div class="text-xs text-muted text-tabular mb-1">LOCATION</div>
+          <div class="text-xs text-muted text-tabular mb-1">{m.hero_location()}</div>
           <div class="text-sm text-foreground">{personal.location}</div>
         </div>
       </div>
@@ -26,7 +33,7 @@ const { personal, about } = portfolioConfig;
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
       <!-- Column 1: About (Expanded) -->
       <div class="lg:col-span-2 space-y-6">
-        <div class="text-xs text-muted text-tabular">01 / ABOUT</div>
+        <div class="text-xs text-muted text-tabular">01 / {m.hero_about()}</div>
         <div class="space-y-6">
           <div class="space-y-4">
             <p class="text-lg text-foreground leading-relaxed">
@@ -49,50 +56,50 @@ const { personal, about } = portfolioConfig;
       
       <!-- Column 2: Contact & Actions -->
       <div class="lg:col-span-1 space-y-6">
-        <div class="text-xs text-muted text-tabular">02 / CONTACT</div>
+        <div class="text-xs text-muted text-tabular">02 / {m.hero_contact()}</div>
         
         <!-- Contact Links -->
         <div class="space-y-4">
           <div class="space-y-3">
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted">Email</span>
-              <a 
-                href={`mailto:${personal.email}`} 
+              <span class="text-sm text-muted">{m.hero_email()}</span>
+              <a
+                href={`mailto:${personal.email}`}
                 class="text-sm text-foreground transition-colors"
               >
                 {personal.email}
               </a>
             </div>
-            
+
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted">GitHub</span>
-              <a 
-                href={`https://github.com/${personal.github}`} 
-                target="_blank" 
+              <span class="text-sm text-muted">{m.hero_github()}</span>
+              <a
+                href={`https://github.com/${personal.github}`}
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-sm text-foreground  transition-colors"
               >
                 {personal.github}
               </a>
             </div>
-            
+
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted">LinkedIn</span>
-              <a 
-                href={`https://linkedin.com/in/${personal.linkedin}`} 
-                target="_blank" 
+              <span class="text-sm text-muted">{m.hero_linkedin()}</span>
+              <a
+                href={`https://linkedin.com/in/${personal.linkedin}`}
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-sm text-foreground  transition-colors"
               >
                 {personal.linkedin}
               </a>
             </div>
-            
+
             <div class="flex justify-between items-center py-2 border-b border-border">
-              <span class="text-sm text-muted">Company</span>
-              <a 
-                href={personal.company.url} 
-                target="_blank" 
+              <span class="text-sm text-muted">{m.hero_company()}</span>
+              <a
+                href={personal.company.url}
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-sm text-foreground  transition-colors"
               >
@@ -109,23 +116,23 @@ const { personal, about } = portfolioConfig;
               target="_blank"
               rel="noopener noreferrer"
             >
-              View Resume
+              {m.hero_viewResume()}
             </a>
-            
+
             <div class="grid grid-cols-2 gap-2">
-              <a 
+              <a
                 href={`mailto:${personal.email}`}
                 class="py-3 px-4 border border-border text-center text-xs text-muted transition-colors duration-200"
               >
-                Email
+                {m.hero_email()}
               </a>
-              <a 
+              <a
                 href={`https://linkedin.com/in/${personal.linkedin}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="py-3 px-4 border border-border text-center text-xs text-muted transition-colors duration-200"
               >
-                LinkedIn
+                {m.hero_linkedin()}
               </a>
             </div>
           </div>

@@ -1,14 +1,24 @@
 ---
+import type { Locale } from '../lib/i18n';
+import { getPortfolioConfig } from '../lib/i18n';
+import * as m from '../paraglide/messages';
 import SkillsProgress from './SkillsProgress.tsx';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const portfolioConfig = getPortfolioConfig(locale);
 ---
 
 <!-- Versatility -->
 <section id="versatility" class="py-32 border-b border-border">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-20">
-      <h2 class="text-3xl text-foreground mb-4">Versatility</h2>
+      <h2 class="text-3xl text-foreground mb-4">{m.versatility_title()}</h2>
       <p class="text-base text-muted max-w-2xl leading-relaxed">
-        The ability to adapt across technologies and choose the right tool for each problem.
+        {m.versatility_subtitle()}
       </p>
     </div>
     

@@ -7,15 +7,20 @@ import Versatility from '../components/Versatility.astro';
 import Principles from '../components/Principles.astro';
 import Projects from '../components/Projects.astro';
 import Experience from '../components/Experience.astro';
-import { portfolioConfig } from '../config/portfolio.config';
+import LanguageDetector from '../components/LanguageDetector.astro';
+import { getPortfolioConfig } from '../lib/i18n';
+
+const locale = 'en';
+const portfolioConfig = getPortfolioConfig(locale);
 ---
 
-<Base title={portfolioConfig.seo.title}>
-  <Hero />
-  <Blog />
-  <Expertise />
-  <Versatility />
-  <Principles />
-  <Projects />
-  <Experience />
+<LanguageDetector />
+<Base title={portfolioConfig.seo.title} locale={locale}>
+  <Hero locale={locale} />
+  <Blog locale={locale} />
+  <Expertise locale={locale} />
+  <Versatility locale={locale} />
+  <Principles locale={locale} />
+  <Projects locale={locale} />
+  <Experience locale={locale} />
 </Base>

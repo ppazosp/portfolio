@@ -1,11 +1,11 @@
 ---
-import { getLocalizedCollection } from '../../lib/getLocalizedCollection';
-import Base from '../../layouts/Base.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import { getPortfolioConfig } from '../../lib/i18n';
-import * as m from '../../paraglide/messages';
+import { getLocalizedCollection } from '../../../lib/getLocalizedCollection';
+import Base from '../../../layouts/Base.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import { getPortfolioConfig } from '../../../lib/i18n';
+import * as m from '../../../paraglide/messages';
 
-const locale = 'en';
+const locale = 'es';
 const portfolioConfig = getPortfolioConfig(locale);
 const posts = await getLocalizedCollection('posts', locale);
 
@@ -21,11 +21,11 @@ const currentPosts = posts.slice(0, postsPerPage);
     <header class="border-b border-border bg-background">
       <div class="max-w-6xl mx-auto px-6 py-8">
         <nav class="mb-8">
-          <a href="/" class="text-sm text-muted">
-            ← Back to home
+          <a href="/es" class="text-sm text-muted">
+            ← Volver al inicio
           </a>
         </nav>
-        
+
         <div>
           <h1 class="text-4xl text-foreground mb-4">{m.blog_title()}</h1>
           <p class="text-base text-muted max-w-2xl leading-relaxed">
@@ -40,7 +40,7 @@ const currentPosts = posts.slice(0, postsPerPage);
       {currentPosts.length === 0 ? (
         <div class="text-center py-16">
           <div class="text-muted text-sm">
-            No posts yet. Stay tuned for upcoming notes and insights.
+            Aún no hay artículos. Mantente atento a las próximas notas y reflexiones.
           </div>
         </div>
       ) : (
@@ -56,16 +56,16 @@ const currentPosts = posts.slice(0, postsPerPage);
         <div class="mt-16 flex items-center justify-center gap-8">
           <div class="flex items-center gap-2">
             <span class="text-sm text-foreground">{currentPage}</span>
-            <span class="text-sm text-muted">of</span>
+            <span class="text-sm text-muted">de</span>
             <span class="text-sm text-foreground">{totalPages}</span>
           </div>
-          
+
           {currentPage < totalPages && (
-            <a 
-              href={`/blog/page/${currentPage + 1}`}
+            <a
+              href={`/es/blog/page/${currentPage + 1}`}
               class="flex items-center gap-2 text-sm text-muted"
             >
-              Next <span>→</span>
+              Siguiente <span>→</span>
             </a>
           )}
         </div>
