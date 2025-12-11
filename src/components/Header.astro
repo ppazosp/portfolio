@@ -1,5 +1,6 @@
 ---
 import { getPortfolioConfig, type Locale } from '../lib/i18n';
+import { getLocalizedCollection } from '../lib/getLocalizedCollection';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -10,6 +11,18 @@ interface Props {
 const { locale } = Astro.props;
 const portfolioConfig = getPortfolioConfig(locale);
 const currentPath = new URL(Astro.request.url).pathname;
+
+// Check if there are any blog posts
+const posts = await getLocalizedCollection('posts', locale);
+const hasPosts = posts.length > 0;
+
+// Filter out blog link if there are no posts
+const navigationLinks = portfolioConfig.navigation.links.filter(link => {
+  if (link.href.includes('blog') && !hasPosts) {
+    return false;
+  }
+  return true;
+});
 ---
 
 <header class="sticky top-0 z-40 border-b border-border bg-background">
@@ -21,7 +34,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center gap-6">
-        {portfolioConfig.navigation.links.map((link) => (
+        {navigationLinks.map((link) => (
           <a href={link.href} class="text-sm text-muted hover:text-foreground transition-colors">
             {link.label}
           </a>
@@ -47,7 +60,7 @@ const currentPath = new URL(Astro.request.url).pathname;
     <!-- Mobile Navigation -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-border">
       <div class="py-4 space-y-3">
-        {portfolioConfig.navigation.links.map((link) => (
+        {navigationLinks.map((link) => (
           <a href={link.href} class="block text-sm text-muted hover:text-foreground transition-colors">
             {link.label}
           </a>
