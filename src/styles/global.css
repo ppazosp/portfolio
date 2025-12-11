@@ -247,4 +247,25 @@
     color: var(--color-accent);
     text-decoration: underline;
   }
+
+  /* Arcade scanline overlay for CRT effect */
+  .scanline-overlay {
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.05) 2px,
+      rgba(0, 0, 0, 0.05) 4px
+    );
+  }
+
+  :root.light .scanline-overlay {
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 4px
+    );
+  }
 }

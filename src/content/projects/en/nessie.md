@@ -1,8 +1,8 @@
 ---
 title: "Nessie – AI-Powered Document Intelligence"
-role: "Software Architect & AI Engineer"
+role: "Technical Lead & AI Engineer"
 problem: "Enterprises struggle with retrieving knowledge from large volumes of unstructured documents. Existing tools are slow, lack context, and fail to integrate AI effectively into daily workflows."
-approach: "As project architect and AI engineer, I am designing and leading the development of Nessie, an agentic RAG system. I am building the core architecture, orchestrating AI agents, and integrating advanced search (semantic, keyword, hybrid) with a secure lakehouse."
+approach: "As technical lead and AI engineer, I am designing and leading the development of Nessie, an agentic RAG system. I am building the core architecture, orchestrating AI agents, and integrating advanced search (semantic, keyword, hybrid) with a secure lakehouse."
 outcome: "Nessie is currently under development, with three companies already interested in pilot deployments. The system is designed to enable instant knowledge retrieval with contextual answers, citations, and automated document workflows — positioning it as OSIX Tech’s flagship B2B product."
 stack: ["React", "Vite", "TailwindCSS", "TypeScript", "FastAPI", "uv", "Supabase (PostgreSQL + pgvector + realtime)", "oAuth 2.0", "JWT",  "Google Drive API", "Multiple LLM Models", "PDF Generation Tools", "Document Processing Tools"]
 metrics:

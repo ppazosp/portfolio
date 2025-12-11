@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import Blog from '../../components/Blog.astro';
+import Arcade from '../../components/Arcade.astro';
 import Expertise from '../../components/Expertise.astro';
 import Versatility from '../../components/Versatility.astro';
 import Principles from '../../components/Principles.astro';
@@ -16,6 +17,7 @@ const portfolioConfig = getPortfolioConfig(locale);
 <Base title={portfolioConfig.seo.title} locale={locale}>
   <Hero locale={locale} />
   <Blog locale={locale} />
+  <Arcade locale={locale} />
   <Expertise locale={locale} />
   <Versatility locale={locale} />
   <Principles locale={locale} />

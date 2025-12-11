@@ -36,20 +36,20 @@ const projects = await getLocalizedCollection('projects', locale);
               </h3>
               <div class="space-y-4 text-sm text-muted leading-relaxed">
                 <div>
-                  <span class="text-foreground">Problem:</span> {project.data.problem}
+                  <span class="text-foreground">{m.projects_problem()}:</span> {project.data.problem}
                 </div>
                 <div>
-                  <span class="text-foreground">Approach:</span> {project.data.approach}
+                  <span class="text-foreground">{m.projects_approach()}:</span> {project.data.approach}
                 </div>
                 <div>
-                  <span class="text-foreground">Outcome:</span> {project.data.outcome}
+                  <span class="text-foreground">{m.projects_outcome()}:</span> {project.data.outcome}
                 </div>
               </div>
             </div>
             
             <div class="flex flex-col space-y-8 justify-end">
               <div>
-                <h4 class="text-xs text-muted uppercase tracking-wider mb-4">Impact Metrics</h4>
+                <h4 class="text-xs text-muted uppercase tracking-wider mb-4">{m.projects_impactMetrics()}</h4>
                 <div class="space-y-2">
                   {project.data.metrics.map((metric) => (
                     <div class="flex justify-between py-2 border-b border-border">
@@ -61,7 +61,7 @@ const projects = await getLocalizedCollection('projects', locale);
               </div>
               
               <div>
-                <h4 class="text-xs text-muted uppercase tracking-wider mb-4">Technology Stack</h4>
+                <h4 class="text-xs text-muted uppercase tracking-wider mb-4">{m.projects_technologyStack()}</h4>
                 <div class="flex flex-wrap gap-2">
                   {project.data.stack.map((tech) => (
                     <span class="px-3 py-1 border border-border text-xs text-foreground">

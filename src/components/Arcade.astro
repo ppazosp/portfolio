@@ -1,0 +1,23 @@
+---
+import { type Locale } from '../lib/i18n';
+import * as m from '../paraglide/messages';
+import RetroArcade from './RetroArcade';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<!-- Arcade -->
+<section id="arcade" class="py-32 border-b border-border">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-20">
+      <h2 class="text-3xl text-foreground mb-4">{m.arcade_title()}</h2>
+      <p class="text-base text-muted max-w-3xl">{m.arcade_subtitle()}</p>
+    </div>
+
+    <RetroArcade locale={locale} client:load />
+  </div>
+</section>

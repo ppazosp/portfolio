@@ -2,7 +2,7 @@
   "name": "pablo-pazos-portfolio",
   "type": "module",
   "version": "1.0.0",
-  "description": "Pablo Pazos - CTO & Software Architect Portfolio",
+  "description": "Pablo Pazos - CTO & Problem Solver Portfolio",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

@@ -21,7 +21,7 @@ export const portfolioConfig = {
   // SEO and Meta
   seo: {
     title: "Pablo Pazos - Student & CTO at OSIX Tech",
-    description: "Pablo Pazos - Computer Science Student at USC & CTO at OSIX Tech. Passionate about software architecture, AI adoption, and building real-world solutions.",
+    description: "Pablo Pazos - Computer Science Student at USC & CTO at OSIX Tech. Passionate about problem-solving, AI adoption, and building real-world solutions.",
     siteName: "Pablo Pazos Portfolio",
     ogImage: "/og-image.jpg"
   },
@@ -32,7 +32,7 @@ export const portfolioConfig = {
     role2: "CTO & Co-founder at OSIX Tech",
     paragraphs: [
       "Balancing my role as CTO of a growing startup with my Computer Engineering studies. This dual path sharpens both my academic foundation and my real-world leadership experience.",
-      "Passionate about software architecture, I enjoy understanding the full spectrum of technologies without locking myself into a single specialization. This broad vision allows me to design systems that are flexible, scalable, and future-proof.",
+      "Passionate about problem-solving, I enjoy understanding the full spectrum of technologies without locking myself into a single specialization. This broad technical foundation helps me approach challenges from multiple angles.",
       "Specialized in applying and integrating AI across workflows, I focus on solving real problems and evaluating solutions with a pragmatic, impact-driven mindset. My strength lies in turning complex challenges into clear, actionable architectures."
     ]
   },
@@ -53,8 +53,8 @@ export const portfolioConfig = {
   // Expertise Hierarchy
   expertise: {
     primary: {
-      title: "Software Architecture",
-      description: "System design, problem-solving, finding optimal solutions for any scenario",
+      title: "Problem-Solving Approach",
+      description: "Breaking down complexity, finding optimal solutions, turning challenges into opportunities",
       level: "Primary Expertise"
     },
     secondary: [
@@ -160,7 +160,7 @@ export const portfolioConfig = {
       impacts: [
         "Explored all areas of computer science fundamentals",
         "Participated in multiple hackathons with team",
-        "Self-taught modern software architecture principles"
+        "Self-taught modern software design and problem-solving approaches"
       ],
       skills: [
         "Computer Science Fundamentals",

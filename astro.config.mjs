@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
+import paraglide from '@inlang/paraglide-astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +19,13 @@ export default defineConfig({
     // @ts-ignore
     plugins: [...tailwindcss()]
   },
-  integrations: [react()],
+  integrations: [
+    react(),
+    paraglide({
+      project: './project.inlang',
+      outdir: './src/paraglide'
+    })
+  ],
   build: {
     inlineStylesheets: 'auto',
   }

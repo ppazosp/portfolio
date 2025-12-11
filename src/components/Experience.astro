@@ -34,7 +34,7 @@ const { experience } = portfolioConfig;
             <div class="lg:col-span-2">
               <div class="space-y-6">
                 <div>
-                  <h4 class="text-xs text-muted uppercase tracking-wider mb-4">Key Achievements</h4>
+                  <h4 class="text-xs text-muted uppercase tracking-wider mb-4">{m.experience_keyAchievements()}</h4>
                   <div class="space-y-2">
                     {exp.impacts.map((impact) => (
                       <p class="text-sm text-foreground leading-relaxed">
@@ -45,7 +45,7 @@ const { experience } = portfolioConfig;
                 </div>
                 
                 <div>
-                  <h4 class="text-xs text-muted uppercase tracking-wider mb-4">Skills Gained</h4>
+                  <h4 class="text-xs text-muted uppercase tracking-wider mb-4">{m.experience_skillsGained()}</h4>
                   <div class="flex flex-wrap gap-2">
                     {exp.skills.map((skill) => (
                       <span class="px-3 py-1 border border-border text-xs text-muted">

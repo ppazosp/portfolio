@@ -21,7 +21,7 @@ const { expertise } = portfolioConfig;
     <!-- Primary Expertise -->
     <div class="mb-16">
       <div class="flex items-baseline gap-6 mb-8">
-        <span class="text-xs text-muted text-tabular">01 / PRIMARY</span>
+        <span class="text-xs text-muted text-tabular">01 / {m.expertise_primary()}</span>
         <span class="text-xs text-muted uppercase tracking-wider">{expertise.primary.level}</span>
       </div>
         <div class="border border-border p-8">
@@ -40,8 +40,8 @@ const { expertise } = portfolioConfig;
     <!-- Secondary Expertise -->
     <div class="mb-16">
       <div class="flex items-baseline gap-6 mb-8">
-        <span class="text-xs text-muted text-tabular">02 / SECONDARY</span>
-        <span class="text-xs text-muted uppercase tracking-wider">Core Competencies</span>
+        <span class="text-xs text-muted text-tabular">02 / {m.expertise_secondary()}</span>
+        <span class="text-xs text-muted uppercase tracking-wider">{m.expertise_coreCompetencies()}</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
         {expertise.secondary.map((skill, index) => (
@@ -63,8 +63,8 @@ const { expertise } = portfolioConfig;
     <!-- Tertiary Expertise -->
     <div>
       <div class="flex items-baseline gap-6 mb-8">
-        <span class="text-xs text-muted text-tabular">03 / TERTIARY</span>
-        <span class="text-xs text-muted uppercase tracking-wider">Supporting Skills</span>
+        <span class="text-xs text-muted text-tabular">03 / {m.expertise_tertiary()}</span>
+        <span class="text-xs text-muted uppercase tracking-wider">{m.expertise_supportingSkills()}</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
         {expertise.tertiary.map((skill, index) => (
