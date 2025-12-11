@@ -20,7 +20,7 @@ export const portfolioConfig = {
   // SEO and Meta
   seo: {
     title: "Pablo Pazos - Student & CTO at OSIX Tech",
-    description: "Pablo Pazos - Computer Science Student at USC & CTO at OSIX Tech. Passionate about software architecture, AI adoption, and building real-world solutions.",
+    description: "Pablo Pazos - Computer Science Student at USC & CTO at OSIX Tech. Passionate about problem-solving, AI adoption, and building real-world solutions.",
     siteName: "Pablo Pazos Portfolio",
     ogImage: "/og-image.jpg"
   },
@@ -31,8 +31,8 @@ export const portfolioConfig = {
     role2: "CTO & Co-founder at OSIX Tech",
     paragraphs: [
       "Balancing my role as CTO of a growing startup with my Computer Engineering studies. This dual path sharpens both my academic foundation and my real-world leadership experience.",
-      "Passionate about software architecture, I enjoy understanding the full spectrum of technologies without locking myself into a single specialization. This broad vision allows me to design systems that are flexible, scalable, and future-proof.",
-      "Specialized in applying and integrating AI across workflows, I focus on solving real problems and evaluating solutions with a pragmatic, impact-driven mindset. My strength lies in turning complex challenges into clear, actionable architectures."
+      "Passionate about problem-solving, I enjoy understanding the full spectrum of technologies without locking myself into a single specialization. This broad technical foundation helps me tackle challenges from multiple angles.",
+      "Specialized in applying and integrating AI across workflows, I focus on solving real problems and evaluating solutions with a pragmatic, impact-driven mindset. My strength lies in turning complex challenges into clear, actionable solutions."
     ]
   },
 
@@ -52,8 +52,8 @@ export const portfolioConfig = {
   // Expertise Hierarchy
   expertise: {
     primary: {
-      title: "Software Architecture",
-      description: "System design, problem-solving, finding optimal solutions for any scenario",
+      title: "Technical Problem Solving",
+      description: "Breaking down complexity, finding optimal solutions, turning challenges into opportunities",
       level: "Primary Expertise"
     },
     secondary: [
@@ -100,11 +100,11 @@ export const portfolioConfig = {
     },
     {
       title: "Jack of All Trades",
-      description: "Breadth over depth enables better architecture decisions. Understanding the full stack prevents siloed thinking."
+      description: "Breadth over depth enables better problem-solving and design decisions. Understanding the full stack prevents siloed thinking."
     },
     {
       title: "Systems Over Syntax",
-      description: "Prioritize architectural patterns and problem-solving approaches over language-specific knowledge. Design the blueprint, not the bricks."
+      description: "Prioritize design patterns and problem-solving approaches over language-specific knowledge. Design the blueprint, not the bricks."
     },
     {
       title: "Rapid Iteration",
@@ -127,7 +127,7 @@ export const portfolioConfig = {
       role: "CTO & Co-founder",
       period: "July 2025 - Present",
       impacts: [
-        "Led technical architecture and AI adoption strategy",
+        "Led technical strategy and AI adoption across the team",
         "Achieved an immeasurable productivity boost  through AI integration",
         "Built team of 6 engineers from university colleagues"
       ],
@@ -159,7 +159,7 @@ export const portfolioConfig = {
       impacts: [
         "Explored all areas of computer science fundamentals",
         "Participated in multiple hackathons with team",
-        "Self-taught modern software architecture principles"
+        "Self-taught modern software design and best practices"
       ],
       skills: [
         "Computer Science Fundamentals",

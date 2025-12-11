@@ -20,7 +20,7 @@ export const portfolioConfig = {
   // SEO y Meta
   seo: {
     title: "Pablo Pazos - Estudiante y CTO en OSIX Tech",
-    description: "Pablo Pazos - Estudiante de Ingeniería Informática en USC y CTO en OSIX Tech. Apasionado por la arquitectura de software, adopción de IA y construcción de soluciones reales.",
+    description: "Pablo Pazos - Estudiante de Ingeniería Informática en USC y CTO en OSIX Tech. Apasionado por la resolución de problemas, adopción de IA y construcción de soluciones reales.",
     siteName: "Portafolio de Pablo Pazos",
     ogImage: "/og-image.jpg"
   },
@@ -31,8 +31,8 @@ export const portfolioConfig = {
     role2: "CTO y Co-fundador en OSIX Tech",
     paragraphs: [
       "Equilibrando mi rol como CTO de una startup en crecimiento con mis estudios de Ingeniería Informática. Este doble camino fortalece tanto mi base académica como mi experiencia de liderazgo en el mundo real.",
-      "Apasionado por la arquitectura de software, disfruto comprendiendo todo el espectro de tecnologías sin limitarme a una sola especialización. Esta visión amplia me permite diseñar sistemas flexibles, escalables y preparados para el futuro.",
-      "Especializado en aplicar e integrar IA en los flujos de trabajo, me enfoco en resolver problemas reales y evaluar soluciones con una mentalidad pragmática orientada al impacto. Mi fortaleza radica en convertir desafíos complejos en arquitecturas claras y accionables."
+      "Apasionado por la resolución de problemas, disfruto comprendiendo todo el espectro de tecnologías sin limitarme a una sola especialización. Esta amplia base técnica me ayuda a abordar desafíos desde múltiples ángulos.",
+      "Especializado en aplicar e integrar IA en los flujos de trabajo, me enfoco en resolver problemas reales y evaluar soluciones con una mentalidad pragmática orientada al impacto. Mi fortaleza radica en convertir desafíos complejos en soluciones claras y accionables."
     ]
   },
 
@@ -52,8 +52,8 @@ export const portfolioConfig = {
   // Jerarquía de Experiencia
   expertise: {
     primary: {
-      title: "Arquitectura de Software",
-      description: "Diseño de sistemas, resolución de problemas, encontrar soluciones óptimas para cualquier escenario",
+      title: "Resolución Técnica de Problemas",
+      description: "Descomponiendo la complejidad, encontrando soluciones óptimas, convirtiendo desafíos en oportunidades",
       level: "Experiencia Principal"
     },
     secondary: [
@@ -100,11 +100,11 @@ export const portfolioConfig = {
     },
     {
       title: "Multidisciplinar",
-      description: "La amplitud sobre la profundidad permite mejores decisiones arquitectónicas. Comprender todo el stack previene el pensamiento aislado."
+      description: "La amplitud sobre la profundidad permite mejores decisiones de resolución de problemas y diseño. Comprender todo el stack previene el pensamiento aislado."
     },
     {
       title: "Sistemas sobre Sintaxis",
-      description: "Priorizar patrones arquitectónicos y enfoques de resolución de problemas sobre conocimiento específico de lenguajes. Diseñar el plano, no los ladrillos."
+      description: "Priorizar patrones de diseño y enfoques de resolución de problemas sobre conocimiento específico de lenguajes. Diseñar el plano, no los ladrillos."
     },
     {
       title: "Iteración Rápida",
@@ -127,7 +127,7 @@ export const portfolioConfig = {
       role: "CTO y Co-fundador",
       period: "Julio 2025 - Presente",
       impacts: [
-        "Lideré la arquitectura técnica y estrategia de adopción de IA",
+        "Lideré la estrategia técnica y adopción de IA en todo el equipo",
         "Logré un impulso de productividad inconmensurable mediante la integración de IA",
         "Construí un equipo de 6 ingenieros a partir de colegas universitarios"
       ],
@@ -159,7 +159,7 @@ export const portfolioConfig = {
       impacts: [
         "Exploré todas las áreas de los fundamentos de ciencias de la computación",
         "Participé en múltiples hackathons con mi equipo",
-        "Auto-aprendí principios de arquitectura de software moderna"
+        "Auto-aprendí diseño de software moderno y mejores prácticas"
       ],
       skills: [
         "Fundamentos de Ciencias de la Computación",
