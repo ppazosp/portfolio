@@ -11,13 +11,9 @@ interface Brick {
 
 type GameState = 'ready' | 'playing' | 'paused' | 'gameover' | 'won';
 
-const CANVAS_WIDTH = 900;
-const CANVAS_HEIGHT = 600;
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 15;
 const BALL_RADIUS = 8;
-const BRICK_ROWS = 5;
-const BRICK_COLS = 11;
 const BRICK_WIDTH = 70;
 const BRICK_HEIGHT = 20;
 const BRICK_PADDING = 5;
@@ -26,6 +22,16 @@ const BRICK_OFFSET_TOP = 80; // Increased to avoid score display overlap
 export default function BreakoutGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Dynamic canvas dimensions based on viewport
+  // Mobile: 9:16 portrait (540x960), Desktop: 16:9 widescreen (1280x720)
+  const CANVAS_WIDTH = isMobile ? 540 : 1280;
+  const CANVAS_HEIGHT = isMobile ? 960 : 720;
+  const BRICK_COLS = isMobile ? 6 : 12; // Fewer columns on mobile
+  const BRICK_ROWS = isMobile ? 12 : 6; // More rows on mobile to compensate
+  // Scale speed for mobile - 1.5x faster to account for taller canvas
+  const SPEED_SCALE = isMobile ? 1.5 : 1;
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [lives, setLives] = useState(3);
@@ -33,6 +39,7 @@ export default function BreakoutGame() {
   const [gameState, setGameState] = useState<GameState>('ready');
 
   const gameLoopRef = useRef<number>();
+  const lastFrameTimeRef = useRef<number>(0);
 
   // Game state
   const gameRef = useRef({
@@ -43,19 +50,27 @@ export default function BreakoutGame() {
     touchX: null as number | null
   });
 
-  // Load high score on mount
+  // Detect mobile and load high score on mount
   useEffect(() => {
     setMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const savedHighScore = localStorage.getItem('breakout-highscore');
     if (savedHighScore) {
       setHighScore(parseInt(savedHighScore, 10));
     }
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Initialize bricks based on level
   const createBricks = (currentLevel: number) => {
     const bricks: Brick[] = [];
-    const rows = Math.min(5 + currentLevel - 1, 8); // Increase rows each level, max 8
+    const rows = Math.min(BRICK_ROWS + currentLevel - 1, BRICK_ROWS + 3); // Increase rows each level
     const cols = BRICK_COLS;
 
     // Calculate left offset to center bricks horizontally
@@ -84,13 +99,16 @@ export default function BreakoutGame() {
 
   // Initialize level
   const initLevel = useCallback((currentLevel: number) => {
-    const ballSpeed = 4 + (currentLevel - 1) * 0.5; // Increase speed each level
+    const baseBallSpeed = 4 + (currentLevel - 1) * 0.5; // Increase speed each level
+    const ballSpeed = baseBallSpeed * SPEED_SCALE; // Scale for mobile
+    const paddleSpeed = 8 * SPEED_SCALE; // Scale paddle speed too
+
     gameRef.current.paddle = {
       x: CANVAS_WIDTH / 2 - PADDLE_WIDTH / 2,
       y: CANVAS_HEIGHT - 40,
       width: PADDLE_WIDTH,
       height: PADDLE_HEIGHT,
-      speed: 8
+      speed: paddleSpeed
     };
     gameRef.current.ball = {
       x: CANVAS_WIDTH / 2,
@@ -101,7 +119,7 @@ export default function BreakoutGame() {
       speed: ballSpeed
     };
     gameRef.current.bricks = createBricks(currentLevel);
-  }, []);
+  }, [CANVAS_WIDTH, CANVAS_HEIGHT, SPEED_SCALE]);
 
   // Initialize game (start from level 1)
   const initGame = useCallback(() => {
@@ -112,25 +130,28 @@ export default function BreakoutGame() {
   }, [initLevel]);
 
   // Update game state
-  const updateGame = () => {
+  const updateGame = (deltaTime: number) => {
     const { paddle, ball, bricks, keys, touchX } = gameRef.current;
+
+    // Delta time in seconds (capped to prevent huge jumps)
+    const dt = Math.min(deltaTime / 1000, 0.1);
 
     // Move paddle
     if (keys.left && paddle.x > 0) {
-      paddle.x -= paddle.speed;
+      paddle.x -= paddle.speed * dt * 60; // Multiply by 60 to maintain same feel as 60 FPS
     }
     if (keys.right && paddle.x < CANVAS_WIDTH - paddle.width) {
-      paddle.x += paddle.speed;
+      paddle.x += paddle.speed * dt * 60;
     }
 
-    // Touch control
+    // Touch control (instant positioning, no deltaTime needed)
     if (touchX !== null) {
       paddle.x = Math.max(0, Math.min(touchX - paddle.width / 2, CANVAS_WIDTH - paddle.width));
     }
 
     // Move ball
-    ball.x += ball.dx;
-    ball.y += ball.dy;
+    ball.x += ball.dx * dt * 60; // Multiply by 60 for 60 FPS baseline
+    ball.y += ball.dy * dt * 60;
 
     // Wall collision (left and right)
     if (ball.x + ball.radius > CANVAS_WIDTH || ball.x - ball.radius < 0) {
@@ -169,7 +190,8 @@ export default function BreakoutGame() {
       }
 
       // Reset ball and paddle with current level's speed
-      const ballSpeed = 4 + (level - 1) * 0.5;
+      const baseBallSpeed = 4 + (level - 1) * 0.5;
+      const ballSpeed = baseBallSpeed * SPEED_SCALE;
       ball.x = CANVAS_WIDTH / 2;
       ball.y = CANVAS_HEIGHT - 60;
       ball.dx = ballSpeed;
@@ -226,11 +248,10 @@ export default function BreakoutGame() {
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
 
-    // Get CSS variables
+    // Get CSS variables with fallbacks for mobile
     const computedStyle = getComputedStyle(document.documentElement);
-    const bgColor = computedStyle.getPropertyValue('--color-background').trim();
-    const fgColor = computedStyle.getPropertyValue('--color-foreground').trim();
-    const borderColor = computedStyle.getPropertyValue('--color-border').trim();
+    const bgColor = computedStyle.getPropertyValue('--color-background').trim() || '#000000';
+    const fgColor = computedStyle.getPropertyValue('--color-foreground').trim() || '#ffffff';
 
     // Clear canvas
     ctx.fillStyle = bgColor;
@@ -270,8 +291,15 @@ export default function BreakoutGame() {
   }, []);
 
   // Game loop
-  const gameLoop = useCallback(() => {
-    updateGame();
+  const gameLoop = useCallback((timestamp: number) => {
+    // Calculate delta time
+    if (lastFrameTimeRef.current === 0) {
+      lastFrameTimeRef.current = timestamp;
+    }
+    const deltaTime = timestamp - lastFrameTimeRef.current;
+    lastFrameTimeRef.current = timestamp;
+
+    updateGame(deltaTime);
     draw();
 
     if (gameState === 'playing') {
@@ -416,6 +444,7 @@ export default function BreakoutGame() {
   // Start/stop game loop
   useEffect(() => {
     if (gameState === 'playing') {
+      lastFrameTimeRef.current = 0; // Reset frame time when starting
       gameLoopRef.current = requestAnimationFrame(gameLoop);
     } else if (gameLoopRef.current) {
       cancelAnimationFrame(gameLoopRef.current);
@@ -432,9 +461,22 @@ export default function BreakoutGame() {
   useEffect(() => {
     if (mounted) {
       initGame();
-      draw();
+      // Use requestAnimationFrame to ensure canvas is ready
+      requestAnimationFrame(() => {
+        draw();
+      });
     }
   }, [mounted, initGame, draw]);
+
+  // Reinitialize game when viewport changes
+  useEffect(() => {
+    if (mounted) {
+      initGame();
+      requestAnimationFrame(() => {
+        draw();
+      });
+    }
+  }, [isMobile, mounted, initGame, draw]);
 
   // Handle theme changes
   useEffect(() => {
@@ -466,14 +508,20 @@ export default function BreakoutGame() {
   if (!mounted) return null;
 
   return (
-    <div className="w-full h-full">
-      <div className="relative w-full h-full">
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full max-w-full max-h-full">
         <canvas
           ref={canvasRef}
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
-          className="w-full h-full"
-          style={{ imageRendering: 'pixelated', objectFit: 'contain', touchAction: 'none' }}
+          className="block w-full h-full"
+          style={{
+            imageRendering: 'pixelated',
+            objectFit: 'contain',
+            touchAction: 'none',
+            maxWidth: '100%',
+            maxHeight: '100%'
+          }}
           aria-label="Breakout game canvas"
         />
 
@@ -512,17 +560,6 @@ export default function BreakoutGame() {
             </div>
           </div>
         )}
-      </div>
-
-      {/* Mobile instructions */}
-      <div className="md:hidden mt-4 text-center">
-        <p className="text-xs text-muted font-mono">Drag on canvas to move paddle</p>
-        <button
-          onClick={startGame}
-          className="mt-2 px-6 py-3 border border-foreground text-foreground font-mono active:bg-foreground active:text-background"
-        >
-          START
-        </button>
       </div>
     </div>
   );

@@ -3,9 +3,19 @@ import BreakoutGame from './games/BreakoutGame';
 export default function RetroArcade() {
   return (
     <div className="flex justify-center">
-      <div className="w-full max-w-5xl px-4">
-        {/* Landscape aspect ratio (3:2) */}
-        <div className="relative border border-border bg-background overflow-hidden" style={{ aspectRatio: '3/2' }}>
+      <div className="w-full px-4 max-w-3xl md:max-w-6xl">
+        {/* Portrait on mobile (9:16), Widescreen on desktop (16:9) */}
+        <div
+          className="relative border border-border bg-background overflow-hidden"
+          style={{ aspectRatio: 'var(--arcade-aspect, 9/16)' }}
+        >
+          <style>{`
+            @media (min-width: 768px) {
+              [style*="--arcade-aspect"] {
+                aspect-ratio: 16/9 !important;
+              }
+            }
+          `}</style>
           <BreakoutGame />
 
           {/* Scanline overlay */}
