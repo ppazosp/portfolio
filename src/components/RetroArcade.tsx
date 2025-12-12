@@ -4,7 +4,8 @@ export default function RetroArcade() {
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-4xl">
-        <div className="relative border border-border bg-background overflow-hidden" style={{ height: '600px' }}>
+        {/* Mobile: portrait (taller), Desktop: landscape (wider) */}
+        <div className="relative border border-border bg-background overflow-hidden h-[600px] md:h-[600px]">
           <BreakoutGame />
 
           {/* Scanline overlay */}

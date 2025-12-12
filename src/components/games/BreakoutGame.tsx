@@ -343,6 +343,7 @@ export default function BreakoutGame() {
     if (!canvas) return;
 
     const handleTouch = (e: TouchEvent) => {
+      e.preventDefault(); // Prevent scrolling while dragging
       const rect = canvas.getBoundingClientRect();
       const touch = e.touches[0];
       if (touch) {
@@ -355,10 +356,12 @@ export default function BreakoutGame() {
       gameRef.current.touchX = null;
     };
 
-    canvas.addEventListener('touchmove', handleTouch);
+    canvas.addEventListener('touchstart', handleTouch, { passive: false });
+    canvas.addEventListener('touchmove', handleTouch, { passive: false });
     canvas.addEventListener('touchend', handleTouchEnd);
 
     return () => {
+      canvas.removeEventListener('touchstart', handleTouch);
       canvas.removeEventListener('touchmove', handleTouch);
       canvas.removeEventListener('touchend', handleTouchEnd);
     };
