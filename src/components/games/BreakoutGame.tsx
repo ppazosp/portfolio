@@ -11,8 +11,8 @@ interface Brick {
 
 type GameState = 'ready' | 'playing' | 'paused' | 'gameover' | 'won';
 
-const CANVAS_WIDTH = 1000;
-const CANVAS_HEIGHT = 600;
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 800;
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 15;
 const BALL_RADIUS = 8;
@@ -427,7 +427,7 @@ export default function BreakoutGame() {
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
           className="w-full h-full"
-          style={{ imageRendering: 'pixelated', objectFit: 'contain' }}
+          style={{ imageRendering: 'pixelated', objectFit: 'contain', touchAction: 'none' }}
           aria-label="Breakout game canvas"
         />
 

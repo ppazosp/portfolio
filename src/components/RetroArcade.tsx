@@ -3,9 +3,9 @@ import BreakoutGame from './games/BreakoutGame';
 export default function RetroArcade() {
   return (
     <div className="flex justify-center">
-      <div className="w-full max-w-4xl">
-        {/* Mobile: portrait (taller), Desktop: landscape (wider) */}
-        <div className="relative border border-border bg-background overflow-hidden h-[600px] md:h-[600px]">
+      <div className="w-full max-w-2xl">
+        {/* Portrait orientation for mobile and desktop */}
+        <div className="relative border border-border bg-background overflow-hidden h-[700px] md:h-[800px]">
           <BreakoutGame />
 
           {/* Scanline overlay */}
