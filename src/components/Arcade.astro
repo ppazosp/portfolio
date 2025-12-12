@@ -18,6 +18,6 @@ const { locale } = Astro.props;
       <p class="text-base text-muted max-w-3xl">{m.arcade_subtitle()}</p>
     </div>
 
-    <RetroArcade locale={locale} client:load />
+    <RetroArcade client:load />
   </div>
 </section>

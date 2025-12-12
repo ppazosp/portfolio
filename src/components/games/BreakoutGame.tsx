@@ -11,18 +11,17 @@ interface Brick {
 
 type GameState = 'ready' | 'playing' | 'paused' | 'gameover' | 'won';
 
-const CANVAS_WIDTH = 800;
+const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 600;
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 15;
 const BALL_RADIUS = 8;
 const BRICK_ROWS = 5;
-const BRICK_COLS = 10;
+const BRICK_COLS = 11;
 const BRICK_WIDTH = 70;
 const BRICK_HEIGHT = 20;
 const BRICK_PADDING = 5;
 const BRICK_OFFSET_TOP = 60;
-const BRICK_OFFSET_LEFT = 35;
 
 export default function BreakoutGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,6 +29,7 @@ export default function BreakoutGame() {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [lives, setLives] = useState(3);
+  const [level, setLevel] = useState(1);
   const [gameState, setGameState] = useState<GameState>('ready');
 
   const gameLoopRef = useRef<number>();
@@ -52,13 +52,26 @@ export default function BreakoutGame() {
     }
   }, []);
 
-  // Initialize bricks
-  const createBricks = () => {
+  // Initialize bricks based on level
+  const createBricks = (currentLevel: number) => {
     const bricks: Brick[] = [];
-    for (let row = 0; row < BRICK_ROWS; row++) {
-      for (let col = 0; col < BRICK_COLS; col++) {
+    const rows = Math.min(5 + currentLevel - 1, 8); // Increase rows each level, max 8
+    const cols = BRICK_COLS;
+
+    // Calculate left offset to center bricks horizontally
+    const totalBricksWidth = cols * BRICK_WIDTH + (cols - 1) * BRICK_PADDING;
+    const brickOffsetLeft = (CANVAS_WIDTH - totalBricksWidth) / 2;
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        // Level-specific patterns - skip some bricks for variety
+        if (currentLevel === 2 && row === 2 && col % 2 === 0) continue;
+        if (currentLevel === 3 && (row + col) % 3 === 0) continue;
+        if (currentLevel === 4 && row === 3 && col >= 3 && col <= 6) continue;
+        if (currentLevel === 5 && ((row % 2 === 0 && col % 2 === 0) || (row % 2 === 1 && col % 2 === 1))) continue;
+
         bricks.push({
-          x: col * (BRICK_WIDTH + BRICK_PADDING) + BRICK_OFFSET_LEFT,
+          x: col * (BRICK_WIDTH + BRICK_PADDING) + brickOffsetLeft,
           y: row * (BRICK_HEIGHT + BRICK_PADDING) + BRICK_OFFSET_TOP,
           width: BRICK_WIDTH,
           height: BRICK_HEIGHT,
@@ -69,8 +82,9 @@ export default function BreakoutGame() {
     return bricks;
   };
 
-  // Initialize game
-  const initGame = useCallback(() => {
+  // Initialize level
+  const initLevel = useCallback((currentLevel: number) => {
+    const ballSpeed = 4 + (currentLevel - 1) * 0.5; // Increase speed each level
     gameRef.current.paddle = {
       x: CANVAS_WIDTH / 2 - PADDLE_WIDTH / 2,
       y: CANVAS_HEIGHT - 40,
@@ -81,15 +95,21 @@ export default function BreakoutGame() {
     gameRef.current.ball = {
       x: CANVAS_WIDTH / 2,
       y: CANVAS_HEIGHT - 60,
-      dx: 4,
-      dy: -4,
+      dx: ballSpeed,
+      dy: -ballSpeed,
       radius: BALL_RADIUS,
-      speed: 4
+      speed: ballSpeed
     };
-    gameRef.current.bricks = createBricks();
+    gameRef.current.bricks = createBricks(currentLevel);
+  }, []);
+
+  // Initialize game (start from level 1)
+  const initGame = useCallback(() => {
+    setLevel(1);
     setScore(0);
     setLives(3);
-  }, []);
+    initLevel(1);
+  }, [initLevel]);
 
   // Update game state
   const updateGame = () => {
@@ -148,11 +168,12 @@ export default function BreakoutGame() {
         return;
       }
 
-      // Reset ball and paddle
+      // Reset ball and paddle with current level's speed
+      const ballSpeed = 4 + (level - 1) * 0.5;
       ball.x = CANVAS_WIDTH / 2;
       ball.y = CANVAS_HEIGHT - 60;
-      ball.dx = 4;
-      ball.dy = -4;
+      ball.dx = ballSpeed;
+      ball.dy = -ballSpeed;
       paddle.x = CANVAS_WIDTH / 2 - PADDLE_WIDTH / 2;
       setGameState('ready');
       return;
@@ -184,9 +205,18 @@ export default function BreakoutGame() {
       }
     }
 
-    // Check win condition
+    // Check level complete condition
     if (bricks.every(brick => !brick.visible)) {
-      setGameState('won');
+      if (level < 5) {
+        // Advance to next level
+        const nextLevel = level + 1;
+        setLevel(nextLevel);
+        initLevel(nextLevel);
+        setGameState('ready');
+      } else {
+        // Won the game (completed all 5 levels)
+        setGameState('won');
+      }
     }
   };
 
@@ -247,15 +277,17 @@ export default function BreakoutGame() {
     if (gameState === 'playing') {
       gameLoopRef.current = requestAnimationFrame(gameLoop);
     }
-  }, [gameState, draw, score, lives, highScore]);
+  }, [gameState, draw, score, lives, highScore, level]);
 
   // Keyboard input
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === ' ') {
         e.preventDefault();
-        if (gameState === 'ready' || gameState === 'gameover' || gameState === 'won') {
+        if (gameState === 'gameover' || gameState === 'won') {
           initGame();
+          setGameState('playing');
+        } else if (gameState === 'ready') {
           setGameState('playing');
         }
         return;
@@ -372,8 +404,12 @@ export default function BreakoutGame() {
   }, [mounted, draw]);
 
   const startGame = () => {
-    if (gameState === 'ready' || gameState === 'gameover' || gameState === 'won') {
+    if (gameState === 'gameover' || gameState === 'won') {
+      // Start a new game from scratch
       initGame();
+      setGameState('playing');
+    } else if (gameState === 'ready') {
+      // Continue playing (after losing a life or starting a new level)
       setGameState('playing');
     }
   };
@@ -381,35 +417,39 @@ export default function BreakoutGame() {
   if (!mounted) return null;
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="relative">
+    <div className="w-full h-full">
+      <div className="relative w-full h-full">
         <canvas
           ref={canvasRef}
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
-          className="max-w-full"
-          style={{ imageRendering: 'pixelated' }}
+          className="w-full h-full"
+          style={{ imageRendering: 'pixelated', objectFit: 'contain' }}
           aria-label="Breakout game canvas"
         />
 
         {/* Score display - inside canvas at top */}
         <div className="absolute top-2 left-0 right-0 flex justify-between px-4 text-xs font-mono pointer-events-none">
-          <div className="flex gap-4 bg-background/80 px-1 py-3">
+          <div className="flex gap-4 bg-background/80 px-2 py-1">
+            <span className="text-foreground">Level: {level}/5</span>
             <span className="text-foreground">{m.arcade_score()}: {score}</span>
             <span className="text-foreground">{m.arcade_lives()}: {lives}</span>
           </div>
-          <span className="text-muted bg-background/80 px-1 py-3">{m.arcade_highscore()}: {highScore}</span>
+          <span className="text-muted bg-background/80 px-2 py-1">{m.arcade_highscore()}: {highScore}</span>
         </div>
 
         {/* Overlay messages */}
         {(gameState === 'ready' || gameState === 'gameover' || gameState === 'paused' || gameState === 'won') && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/80">
             <div className="text-center">
+              {gameState === 'ready' && (
+                <p className="text-foreground text-2xl font-mono mb-4">LEVEL {level}</p>
+              )}
               {gameState === 'gameover' && (
                 <p className="text-foreground text-2xl font-mono mb-4">{m.arcade_gameover()}</p>
               )}
               {gameState === 'won' && (
-                <p className="text-foreground text-2xl font-mono mb-4">YOU WON!</p>
+                <p className="text-foreground text-2xl font-mono mb-4">YOU WON ALL 5 LEVELS!</p>
               )}
               {gameState === 'paused' && (
                 <p className="text-foreground text-2xl font-mono mb-4">PAUSED</p>
@@ -418,7 +458,7 @@ export default function BreakoutGame() {
                 onClick={startGame}
                 className="text-muted text-sm font-mono hover:text-foreground transition-colors border border-border px-4 py-2"
               >
-                {m.arcade_presskey()}
+                {gameState === 'ready' ? 'Press SPACE to continue' : m.arcade_presskey()}
               </button>
             </div>
           </div>
