@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import * as m from '../../paraglide/messages';
+import { Gamepad2, Target, Heart, Crown } from 'lucide-react';
 
 interface Brick {
   x: number;
@@ -29,7 +30,7 @@ export default function BreakoutGame() {
   const CANVAS_WIDTH = isMobile ? 540 : 1280;
   const CANVAS_HEIGHT = isMobile ? 960 : 720;
   const BRICK_COLS = isMobile ? 6 : 12; // Fewer columns on mobile
-  const BRICK_ROWS = isMobile ? 12 : 6; // More rows on mobile to compensate
+  const BRICK_ROWS = isMobile ? 6 : 6; // Same rows for both mobile and desktop
   // Scale speed for mobile - 1.5x faster to account for taller canvas
   const SPEED_SCALE = isMobile ? 1.5 : 1;
   const [score, setScore] = useState(0);
@@ -528,11 +529,19 @@ export default function BreakoutGame() {
         {/* Score display - inside canvas at top */}
         <div className="absolute top-2 left-0 right-0 flex justify-between px-4 text-xs font-mono pointer-events-none">
           <div className="flex gap-4 bg-background/80 px-2 py-1">
-            <span className="text-foreground">Level: {level}/5</span>
-            <span className="text-foreground">{m.arcade_score()}: {score}</span>
-            <span className="text-foreground">{m.arcade_lives()}: {lives}</span>
+            <span className="text-foreground flex items-center gap-1">
+              <Gamepad2 size={14} /> {level}/5
+            </span>
+            <span className="text-foreground flex items-center gap-1">
+              <Target size={14} /> {score}
+            </span>
+            <span className="text-foreground flex items-center gap-1">
+              <Heart size={14} /> {lives}
+            </span>
           </div>
-          <span className="text-muted bg-background/80 px-2 py-1">{m.arcade_highscore()}: {highScore}</span>
+          <span className="text-muted bg-background/80 px-2 py-1 flex items-center gap-1">
+            <Crown size={14} /> {highScore}
+          </span>
         </div>
 
         {/* Overlay messages */}
