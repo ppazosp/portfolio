@@ -21,7 +21,7 @@ const BRICK_COLS = 11;
 const BRICK_WIDTH = 70;
 const BRICK_HEIGHT = 20;
 const BRICK_PADDING = 5;
-const BRICK_OFFSET_TOP = 60;
+const BRICK_OFFSET_TOP = 80; // Increased to avoid score display overlap
 
 export default function BreakoutGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -340,10 +340,11 @@ export default function BreakoutGame() {
   // Touch/mouse controls for mobile
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !mounted) return;
 
-    const handleTouch = (e: TouchEvent) => {
-      e.preventDefault(); // Prevent scrolling while dragging
+    const handleTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
       const rect = canvas.getBoundingClientRect();
       const touch = e.touches[0];
       if (touch) {
@@ -352,20 +353,65 @@ export default function BreakoutGame() {
       }
     };
 
-    const handleTouchEnd = () => {
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      if (touch) {
+        const x = ((touch.clientX - rect.left) / rect.width) * CANVAS_WIDTH;
+        gameRef.current.touchX = x;
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
       gameRef.current.touchX = null;
     };
 
-    canvas.addEventListener('touchstart', handleTouch, { passive: false });
-    canvas.addEventListener('touchmove', handleTouch, { passive: false });
-    canvas.addEventListener('touchend', handleTouchEnd);
+    // Also handle mouse for desktop
+    const handleMouseDown = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * CANVAS_WIDTH;
+      gameRef.current.touchX = x;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.buttons === 1) { // Left mouse button is pressed
+        const rect = canvas.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * CANVAS_WIDTH;
+        gameRef.current.touchX = x;
+      }
+    };
+
+    const handleMouseUp = () => {
+      gameRef.current.touchX = null;
+    };
+
+    // Touch events
+    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+    canvas.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+
+    // Mouse events
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mouseleave', handleMouseUp);
 
     return () => {
-      canvas.removeEventListener('touchstart', handleTouch);
-      canvas.removeEventListener('touchmove', handleTouch);
+      canvas.removeEventListener('touchstart', handleTouchStart);
+      canvas.removeEventListener('touchmove', handleTouchMove);
       canvas.removeEventListener('touchend', handleTouchEnd);
+      canvas.removeEventListener('touchcancel', handleTouchEnd);
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mouseleave', handleMouseUp);
     };
-  }, []);
+  }, [mounted]);
 
   // Start/stop game loop
   useEffect(() => {
