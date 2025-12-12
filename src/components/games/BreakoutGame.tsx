@@ -11,8 +11,8 @@ interface Brick {
 
 type GameState = 'ready' | 'playing' | 'paused' | 'gameover' | 'won';
 
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 800;
+const CANVAS_WIDTH = 900;
+const CANVAS_HEIGHT = 600;
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 15;
 const BALL_RADIUS = 8;
