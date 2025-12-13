@@ -498,7 +498,11 @@ export default function BreakoutGame() {
   const startGame = () => {
     if (gameState === 'gameover' || gameState === 'won') {
       // Start a new game from scratch
-      initGame();
+      // Explicitly reset all state to ensure clean start
+      setLevel(1);
+      setScore(0);
+      setLives(3);
+      initLevel(1);
       setGameState('playing');
     } else if (gameState === 'ready') {
       // Continue playing (after losing a life or starting a new level)
@@ -564,7 +568,10 @@ export default function BreakoutGame() {
                 onClick={startGame}
                 className="text-muted text-sm font-mono hover:text-foreground transition-colors border border-border px-4 py-2"
               >
-                {gameState === 'ready' ? 'Press SPACE to continue' : m.arcade_presskey()}
+                {gameState === 'ready'
+                  ? (isMobile ? 'Tap to continue' : 'Press SPACE to continue')
+                  : (isMobile ? 'Tap to start' : m.arcade_presskey())
+                }
               </button>
             </div>
           </div>
