@@ -16,7 +16,7 @@ const { projects } = portfolioConfig;
       <div class="panel-bg">
         <div class="panel-content flex flex-col justify-center relative">
 
-          <!-- All project slides stacked -->
+          <!-- Stacked full-screen project slides -->
           <div class="relative flex-1 flex items-center">
             {projects.map((project, i) => (
               <div
@@ -25,43 +25,67 @@ const { projects } = portfolioConfig;
                 data-color={project.color}
                 style={i > 0 ? 'visibility: hidden;' : ''}
               >
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 w-full items-center">
-                  <!-- Visual -->
-                  <div class="slide-img relative h-56 md:h-[28rem] overflow-hidden border border-border"
-                       style={`background: linear-gradient(160deg, ${project.color}12 0%, ${project.color}04 40%, transparent 100%);`}>
-                    <!-- Giant letter -->
-                    <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-extrabold select-none pointer-events-none"
-                          style={`font-size: clamp(10rem, 25vw, 22rem); color: ${project.color}; opacity: 0.06; line-height: 1;`}>
-                      {project.name.charAt(0)}
+                <div class="w-full">
+                  <!-- Top bar: label + counter -->
+                  <div class="flex items-center justify-between mb-6 md:mb-8">
+                    <span class="slide-tagline font-mono text-[10px] md:text-xs uppercase tracking-[0.2em]" style={`color: ${project.color};`}>
+                      {project.tagline}
                     </span>
-                    <!-- Dot pattern -->
-                    <div class="absolute inset-0 opacity-20"
-                         style={`background-image: radial-gradient(circle, ${project.color}18 1px, transparent 1px); background-size: 20px 20px;`}></div>
-                    <!-- Top accent -->
-                    <div class="absolute top-0 left-0 right-0 h-1" style={`background: ${project.color};`}></div>
-                    <!-- Number -->
-                    <div class="absolute bottom-4 left-5 font-display text-5xl md:text-7xl font-extrabold" style={`color: ${project.color}; opacity: 0.12;`}>
-                      {String(i + 1).padStart(2, '0')}
-                    </div>
+                    <span class="slide-tagline font-mono text-xs text-muted/30">
+                      {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                    </span>
                   </div>
 
-                  <!-- Info -->
-                  <div class="flex flex-col justify-center">
-                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-3" style={`color: ${project.color};`}>
-                      {project.tagline}
+                  <!-- Main grid -->
+                  <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-0 items-start">
+                    <!-- Color block visual (5 cols) -->
+                    <div class="md:col-span-5 relative">
+                      <div class="slide-img relative h-52 md:h-[26rem] overflow-hidden" style={`background: ${project.color};`}>
+                        <!-- Giant number -->
+                        <span class="absolute top-4 left-5 md:top-6 md:left-7 font-display font-extrabold text-7xl md:text-9xl leading-none select-none"
+                              style="color: rgba(0,0,0,0.2);">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <!-- Giant letter -->
+                        <span class="absolute bottom-0 right-0 font-display font-extrabold select-none pointer-events-none translate-x-[10%] translate-y-[5%]"
+                              style={`font-size: clamp(12rem, 30vw, 24rem); color: rgba(0,0,0,0.12); line-height: 0.75;`}>
+                          {project.name.charAt(0)}
+                        </span>
+                        <!-- Placeholder text -->
+                        <span class="absolute bottom-5 left-5 md:bottom-7 md:left-7 font-mono text-[9px] uppercase tracking-[0.2em]"
+                              style="color: rgba(0,0,0,0.35);">
+                          {locale === 'es' ? 'Imagen proximamente' : 'Image coming soon'}
+                        </span>
+                      </div>
                     </div>
-                    <h3 class="slide-name font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-[0.95]">
-                      <span class="block overflow-hidden">
-                        <span class="slide-name-inner block">{project.name}</span>
-                      </span>
-                    </h3>
-                    <p class="slide-desc text-sm md:text-base text-muted leading-relaxed mb-6 max-w-md">
-                      {project.description}
-                    </p>
-                    <div class="slide-tags flex flex-wrap gap-2">
-                      {project.tech.map((t) => (
-                        <span class="font-mono text-[10px] px-3 py-1 border border-border text-muted/60">{t}</span>
-                      ))}
+
+                    <!-- Info (7 cols, offset) -->
+                    <div class="md:col-span-6 md:col-start-7 flex flex-col justify-center">
+                      <!-- Project name -->
+                      <h3 class="slide-name overflow-hidden mb-4">
+                        <span class="slide-name-inner block font-display font-extrabold tracking-[-0.03em] leading-[0.9]"
+                              style="font-size: clamp(2.5rem, 6vw, 5rem);">
+                          {project.name}
+                        </span>
+                      </h3>
+
+                      <!-- Colored divider -->
+                      <div class="slide-divider h-0.5 w-16 mb-5" style={`background: ${project.color};`}></div>
+
+                      <!-- Description -->
+                      <p class="slide-desc text-sm md:text-base text-muted leading-relaxed mb-6 max-w-lg">
+                        {project.description}
+                      </p>
+
+                      <!-- Tech tags -->
+                      <div class="slide-tags flex flex-wrap gap-2">
+                        {project.tech.map((t) => (
+                          <span class="font-mono text-[10px] px-3 py-1.5 border text-muted/70 transition-colors"
+                                style={`border-color: ${project.color}30;`}>
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -69,20 +93,18 @@ const { projects } = portfolioConfig;
             ))}
           </div>
 
-          <!-- Bottom bar: dots + counter -->
-          <div class="flex items-center justify-between mt-4">
+          <!-- Bottom: progress dots -->
+          <div class="flex items-center justify-between mt-2">
             <div class="flex gap-2" id="project-dots">
               {projects.map((project, i) => (
                 <button
-                  class="project-dot h-1 cursor-pointer transition-all duration-300"
+                  class="project-dot h-1 cursor-pointer transition-all duration-500"
                   data-slide={i}
-                  style={`width: ${i === 0 ? '2.5rem' : '1.5rem'}; background: ${i === 0 ? project.color : 'var(--color-border)'};`}
+                  style={`width: ${i === 0 ? '3rem' : '1.5rem'}; background: ${i === 0 ? project.color : 'var(--color-border)'};`}
                 ></button>
               ))}
             </div>
-            <div class="font-mono text-xs text-muted/40">
-              <span id="project-counter">01</span> / {String(projects.length).padStart(2, '0')}
-            </div>
+            <span class="font-mono text-[10px] text-muted/20">scroll to navigate</span>
           </div>
         </div>
       </div>
@@ -95,43 +117,43 @@ const { projects } = portfolioConfig;
 
   const allSlides = document.querySelectorAll<HTMLElement>('.project-slide');
   const dots = document.querySelectorAll<HTMLElement>('.project-dot');
-  const counter = document.getElementById('project-counter');
 
   if (allSlides.length > 0) {
     let current = 0;
     let carouselAnimating = false;
     const total = allSlides.length;
 
-    function getSlideElements(index: number) {
-      const slide = allSlides[index];
+    function getEls(i: number) {
+      const s = allSlides[i];
       return {
-        slide,
-        img: slide.querySelector('.slide-img') as HTMLElement,
-        nameInner: slide.querySelector('.slide-name-inner') as HTMLElement,
-        tagline: slide.querySelector('.slide-tagline') as HTMLElement,
-        desc: slide.querySelector('.slide-desc') as HTMLElement,
-        tags: slide.querySelectorAll('.slide-tags span'),
+        slide: s,
+        img: s.querySelector('.slide-img') as HTMLElement,
+        nameInner: s.querySelector('.slide-name-inner') as HTMLElement,
+        taglines: s.querySelectorAll('.slide-tagline'),
+        divider: s.querySelector('.slide-divider') as HTMLElement,
+        desc: s.querySelector('.slide-desc') as HTMLElement,
+        tags: s.querySelectorAll('.slide-tags span'),
       };
     }
 
     function updateDots() {
       dots.forEach((dot, i) => {
         const color = allSlides[i].dataset.color || '#FF4D00';
-        dot.style.width = i === current ? '2.5rem' : '1.5rem';
+        dot.style.width = i === current ? '3rem' : '1.5rem';
         dot.style.background = i === current ? color : 'var(--color-border)';
       });
-      if (counter) counter.textContent = String(current + 1).padStart(2, '0');
     }
 
     function goToSlide(index: number) {
       if (carouselAnimating || index === current || index < 0 || index >= total) return;
       carouselAnimating = true;
 
-      const direction = index > current ? 1 : -1;
-      const cur = getSlideElements(current);
-      const next = getSlideElements(index);
+      const dir = index > current ? 1 : -1;
+      const cur = getEls(current);
+      const nxt = getEls(index);
 
       const tl = gsap.timeline({
+        defaults: { ease: "power3.inOut" },
         onComplete: () => {
           cur.slide.style.visibility = 'hidden';
           current = index;
@@ -140,36 +162,43 @@ const { projects } = portfolioConfig;
         }
       });
 
-      // ── Current slide OUT ──
-      tl.to(cur.img, {
-        clipPath: direction > 0 ? 'inset(0 0 100% 0)' : 'inset(100% 0 0 0)',
-        duration: 0.5,
-        ease: "power3.in"
-      }, 0);
-      tl.to(cur.nameInner, { yPercent: -110 * direction, duration: 0.4, ease: "power3.in" }, 0);
-      tl.to(cur.tagline, { y: -20 * direction, autoAlpha: 0, duration: 0.3 }, 0);
-      tl.to(cur.desc, { y: -20 * direction, autoAlpha: 0, duration: 0.3 }, 0.05);
-      tl.to(cur.tags, { y: -15 * direction, autoAlpha: 0, stagger: 0.02, duration: 0.2 }, 0.05);
+      // ── OUT: current slide ──
+      // Image slides away with scale
+      tl.to(cur.img, { xPercent: -15 * dir, scale: 0.92, autoAlpha: 0, duration: 0.55 }, 0);
+      // Name clips out
+      tl.to(cur.nameInner, { yPercent: -120 * dir, duration: 0.4 }, 0);
+      // Other elements fade
+      tl.to(cur.taglines, { y: -15 * dir, autoAlpha: 0, duration: 0.3 }, 0);
+      tl.to(cur.divider, { scaleX: 0, transformOrigin: 'left', duration: 0.3 }, 0);
+      tl.to(cur.desc, { y: -20 * dir, autoAlpha: 0, duration: 0.3 }, 0.05);
+      tl.to(cur.tags, { y: -10 * dir, autoAlpha: 0, stagger: 0.015, duration: 0.2 }, 0.05);
 
-      // ── New slide IN ──
-      gsap.set(next.slide, { visibility: 'visible' });
-      gsap.set(next.img, { clipPath: direction > 0 ? 'inset(100% 0 0 0)' : 'inset(0 0 100% 0)' });
-      gsap.set(next.nameInner, { yPercent: 110 * direction });
-      gsap.set([next.tagline, next.desc], { y: 30 * direction, autoAlpha: 0 });
-      gsap.set(next.tags, { y: 20 * direction, autoAlpha: 0 });
+      // ── IN: new slide ──
+      gsap.set(nxt.slide, { visibility: 'visible' });
+      gsap.set(nxt.img, { xPercent: 20 * dir, scale: 1.08, autoAlpha: 0 });
+      gsap.set(nxt.nameInner, { yPercent: 120 * dir });
+      gsap.set(nxt.taglines, { y: 25 * dir, autoAlpha: 0 });
+      gsap.set(nxt.divider, { scaleX: 0, transformOrigin: 'left' });
+      gsap.set(nxt.desc, { y: 30 * dir, autoAlpha: 0 });
+      gsap.set(nxt.tags, { y: 15 * dir, autoAlpha: 0 });
 
-      tl.to(next.img, { clipPath: 'inset(0 0 0 0)', duration: 0.6, ease: "power3.out" }, 0.3);
-      tl.to(next.nameInner, { yPercent: 0, duration: 0.6, ease: "power3.out" }, 0.35);
-      tl.to(next.tagline, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.45);
-      tl.to(next.desc, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.5);
-      tl.to(next.tags, { y: 0, autoAlpha: 1, stagger: 0.03, duration: 0.3, ease: "power2.out" }, 0.55);
+      // Image enters
+      tl.to(nxt.img, { xPercent: 0, scale: 1, autoAlpha: 1, duration: 0.65 }, 0.3);
+      // Name reveals
+      tl.to(nxt.nameInner, { yPercent: 0, duration: 0.55, ease: "power4.out" }, 0.4);
+      // Divider draws
+      tl.to(nxt.divider, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.5);
+      // Taglines
+      tl.to(nxt.taglines, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.45);
+      // Description
+      tl.to(nxt.desc, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out" }, 0.55);
+      // Tags stagger
+      tl.to(nxt.tags, { y: 0, autoAlpha: 1, stagger: 0.03, duration: 0.3, ease: "power2.out" }, 0.6);
     }
 
-    // Init dots
     updateDots();
     dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
 
-    // Expose carousel API for the panel Observer
     (window as any).__carousel = {
       next: () => goToSlide(current + 1),
       prev: () => goToSlide(current - 1),
