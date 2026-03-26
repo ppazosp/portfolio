@@ -12,27 +12,31 @@ const { techStack } = portfolioConfig;
 
 <section id="stack" class="py-32 md:py-40">
   <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-    <!-- Section label -->
     <div class="section-label">
       <span>Stack</span>
     </div>
 
-    <h2 class="stack-title font-display text-3xl md:text-5xl font-bold tracking-tight mb-16 md:mb-24">
-      {locale === 'es' ? 'Tecnologias' : 'Technologies'}
+    <!-- Split-text heading -->
+    <h2 class="stack-heading font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-16 md:mb-24">
+      {(locale === 'es' ? 'Tecnologias' : 'Technologies').split('').map((char, i) => (
+        <span class="split-char inline-block" style={`--ci: ${i}`}>
+          {char}
+        </span>
+      ))}
     </h2>
 
     <!-- Tech grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-      {techStack.map((group) => (
-        <div class="tech-group">
+      {techStack.map((group, gi) => (
+        <div class="tech-group" style={`--gi: ${gi}`}>
           <h3 class="font-mono text-xs text-accent uppercase tracking-[0.2em] mb-6 pb-3 border-b border-border">
             {group.category}
           </h3>
           <div class="space-y-0">
-            {group.items.map((item) => (
-              <div class="tech-item flex items-center gap-3 py-3 border-b border-border/50 group cursor-default">
-                <div class="w-1.5 h-1.5 rounded-full bg-muted/30 group-hover:bg-accent transition-colors duration-300 flex-shrink-0"></div>
-                <span class="text-base text-foreground/80 group-hover:text-foreground transition-colors duration-300">
+            {group.items.map((item, ii) => (
+              <div class="tech-item flex items-center gap-3 py-3 border-b border-border/50 group cursor-default" style={`--ii: ${ii}`}>
+                <div class="w-1.5 h-1.5 rounded-full bg-muted/30 group-hover:bg-accent group-hover:scale-150 transition-all duration-300 flex-shrink-0"></div>
+                <span class="text-base text-foreground/80 group-hover:text-foreground group-hover:translate-x-1 transition-all duration-300">
                   {item}
                 </span>
               </div>
@@ -50,24 +54,27 @@ const { techStack } = portfolioConfig;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Title reveal
-  gsap.from('.stack-title', {
-    y: 40,
+  // Character-by-character heading reveal
+  gsap.from('#stack .split-char', {
+    y: 80,
+    rotationX: -60,
     autoAlpha: 0,
-    duration: 1,
-    ease: "power3.out",
+    duration: 0.8,
+    stagger: 0.03,
+    ease: "back.out(1.7)",
     scrollTrigger: {
-      trigger: '#stack',
-      start: "top 75%"
+      trigger: '.stack-heading',
+      start: "top 80%"
     }
   });
 
-  // Category groups stagger in
+  // Category groups with 3D rotation
   gsap.from('.tech-group', {
-    y: 50,
+    y: 60,
+    rotationY: -5,
     autoAlpha: 0,
-    duration: 0.8,
-    stagger: 0.1,
+    duration: 0.9,
+    stagger: 0.12,
     ease: "power3.out",
     scrollTrigger: {
       trigger: '#stack .grid',
@@ -79,7 +86,7 @@ const { techStack } = portfolioConfig;
   ScrollTrigger.batch('.tech-item', {
     onEnter: (elements) => {
       gsap.from(elements, {
-        x: -20,
+        x: -30,
         autoAlpha: 0,
         stagger: 0.03,
         duration: 0.5,

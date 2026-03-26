@@ -1,0 +1,48 @@
+---
+interface Props {
+  items: string[];
+  speed?: number;
+  direction?: 'left' | 'right';
+  class?: string;
+}
+
+const { items, speed = 25, direction = 'left', class: className = '' } = Astro.props;
+const text = items.join(' — ') + ' — ';
+---
+
+<div class={`marquee-wrapper py-6 md:py-8 border-y border-border/50 ${className}`} data-speed={speed} data-direction={direction}>
+  <div class="marquee-track">
+    {Array.from({ length: 4 }).map(() => (
+      <span class="marquee-item font-display text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground/[0.04] uppercase tracking-tight select-none">
+        {text}
+      </span>
+    ))}
+  </div>
+</div>
+
+<script>
+  import gsap from 'gsap';
+
+  document.querySelectorAll('.marquee-wrapper').forEach((wrapper) => {
+    const el = wrapper as HTMLElement;
+    const track = el.querySelector('.marquee-track') as HTMLElement;
+    const speed = parseInt(el.dataset.speed || '25');
+    const direction = el.dataset.direction || 'left';
+
+    if (track) {
+      gsap.to(track, {
+        xPercent: direction === 'left' ? -25 : 25,
+        duration: speed,
+        repeat: -1,
+        ease: "none"
+      });
+
+      // Speed up on scroll
+      let scrollVelocity = 0;
+      window.addEventListener('scroll', () => {
+        scrollVelocity = 2;
+        setTimeout(() => { scrollVelocity = 0; }, 150);
+      });
+    }
+  });
+</script>

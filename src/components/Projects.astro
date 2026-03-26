@@ -11,12 +11,12 @@ const { projects } = portfolioConfig;
 ---
 
 <section id="projects" class="relative">
-  <!-- Section header (scrolls normally) -->
+  <!-- Section header -->
   <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-12">
     <div class="section-label">
       <span>{locale === 'es' ? 'Proyectos' : 'Projects'}</span>
     </div>
-    <h2 class="projects-title font-display text-3xl md:text-5xl font-bold tracking-tight">
+    <h2 class="projects-title font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
       {locale === 'es' ? 'Lo que he construido' : 'What I\'ve built'}
     </h2>
   </div>
@@ -26,24 +26,37 @@ const { projects } = portfolioConfig;
     <div class="projects-track flex flex-col md:flex-row gap-6 md:gap-8 px-6 md:px-12 pb-32 md:pb-40 items-stretch">
       {projects.map((project, index) => (
         <div
-          class="project-card w-full md:w-[50vw] md:flex-shrink-0 lg:w-[40vw] border border-border bg-surface/30 flex flex-col justify-between relative overflow-hidden group"
+          class="project-card w-full md:w-[55vw] md:flex-shrink-0 lg:w-[45vw] border border-border bg-surface/30 flex flex-col relative overflow-hidden group"
           style={`--project-color: ${project.color};`}
         >
-          <!-- Colored top accent -->
-          <div class="h-1 w-full" style={`background: ${project.color};`}></div>
+          <!-- Visual placeholder header -->
+          <div class="project-visual h-48 md:h-56 relative" style={`background: linear-gradient(135deg, ${project.color}15 0%, ${project.color}05 50%, transparent 100%);`}>
+            <!-- Large initial letter -->
+            <span
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-extrabold select-none"
+              style={`font-size: 12rem; color: ${project.color}; opacity: 0.06; line-height: 1;`}
+            >
+              {project.name.charAt(0)}
+            </span>
+            <!-- Floating number -->
+            <span class="absolute top-6 right-6 font-mono text-xs text-muted/30">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <!-- Grid decoration -->
+            <div class="absolute inset-0 opacity-20"
+                 style={`background-image: radial-gradient(circle, ${project.color}15 1px, transparent 1px); background-size: 20px 20px;`}>
+            </div>
+            <!-- Colored top accent -->
+            <div class="absolute top-0 left-0 right-0 h-1" style={`background: ${project.color};`}></div>
+          </div>
 
           <!-- Glow on hover -->
           <div
-            class="absolute -top-20 -right-20 w-60 h-60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-[80px]"
-            style={`background: ${project.color}; opacity: 0;`}
+            class="absolute top-0 left-0 w-full h-56 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            style={`background: radial-gradient(ellipse at 50% 30%, ${project.color}12 0%, transparent 70%);`}
           ></div>
 
           <div class="relative z-10 p-8 md:p-10 flex flex-col flex-1">
-            <!-- Number -->
-            <span class="font-mono text-xs text-muted/50 mb-6">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-
             <!-- Name -->
             <h3 class="font-display text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight">
               {project.name}
@@ -62,7 +75,7 @@ const { projects } = portfolioConfig;
             <!-- Tech tags -->
             <div class="mt-8 flex flex-wrap gap-2">
               {project.tech.map((t) => (
-                <span class="font-mono text-[11px] px-3 py-1.5 border border-border text-muted/70">
+                <span class="font-mono text-[11px] px-3 py-1.5 border border-border text-muted/70 hover:border-muted/30 transition-colors">
                   {t}
                 </span>
               ))}
@@ -76,22 +89,18 @@ const { projects } = portfolioConfig;
   <!-- Scroll progress indicator (desktop only) -->
   <div class="hidden md:block absolute bottom-12 left-12 right-12 pointer-events-none">
     <div class="h-px bg-border relative">
-      <div class="projects-progress h-px bg-accent absolute top-0 left-0 w-0"></div>
+      <div class="projects-progress h-px bg-accent absolute top-0 left-0 w-0 transition-none"></div>
     </div>
   </div>
 </section>
 
 <style>
   .project-card {
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .project-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .project-card:hover .absolute.rounded-full {
-    opacity: 0.06 !important;
+    transform: translateY(-6px);
   }
 </style>
 
@@ -102,22 +111,33 @@ const { projects } = portfolioConfig;
   gsap.registerPlugin(ScrollTrigger);
 
   const track = document.querySelector('.projects-track') as HTMLElement;
-  const viewport = document.querySelector('.projects-viewport') as HTMLElement;
   const section = document.querySelector('#projects') as HTMLElement;
   const progress = document.querySelector('.projects-progress') as HTMLElement;
 
   if (track && section) {
     const mm = gsap.matchMedia();
 
-    // Title reveal
+    // Title reveal with clip-path
     gsap.from('.projects-title', {
-      y: 40,
+      y: 60,
       autoAlpha: 0,
-      duration: 1,
+      duration: 1.2,
       ease: "power3.out",
       scrollTrigger: {
         trigger: '#projects',
         start: "top 75%"
+      }
+    });
+
+    // Project visual clip-path reveals
+    gsap.from('.project-visual', {
+      clipPath: 'inset(0 100% 0 0)',
+      duration: 1.2,
+      stagger: 0.15,
+      ease: "power3.inOut",
+      scrollTrigger: {
+        trigger: '.projects-track',
+        start: "top 80%"
       }
     });
 
@@ -149,9 +169,9 @@ const { projects } = portfolioConfig;
     // Mobile: staggered card reveal
     mm.add("(max-width: 767px)", () => {
       gsap.from('.project-card', {
-        y: 80,
+        y: 100,
         autoAlpha: 0,
-        duration: 0.8,
+        duration: 0.9,
         stagger: 0.15,
         ease: "power3.out",
         scrollTrigger: {

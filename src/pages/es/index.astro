@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
+import Marquee from '../../components/Marquee.astro';
 import About from '../../components/About.astro';
 import Projects from '../../components/Projects.astro';
 import TechStack from '../../components/TechStack.astro';
@@ -14,7 +15,9 @@ const portfolioConfig = getPortfolioConfig(locale);
 
 <Base title={portfolioConfig.seo.title} locale={locale}>
   <Hero locale={locale} />
+  <Marquee items={["SISTEMAS DE AGENTES IA", "PLATAFORMAS RAG", "FLUJOS MULTI-AGENTE", "IA EMPRESARIAL", "SISTEMAS EN PRODUCCION", "FULL-STACK"]} speed={30} direction="left" />
   <About locale={locale} />
+  <Marquee items={["NESSIE", "APEC", "IRIS", "ACTA", "OSIX TECH"]} speed={20} direction="right" class="border-t-0" />
   <Projects locale={locale} />
   <TechStack locale={locale} />
   <Experience locale={locale} />
