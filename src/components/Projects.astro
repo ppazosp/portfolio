@@ -16,6 +16,11 @@ const { projects } = portfolioConfig;
       <div class="panel-bg">
         <div class="panel-content flex flex-col justify-center relative">
 
+          <!-- Section header -->
+          <div class="section-label">
+            <span>{locale === 'es' ? 'Proyectos' : 'Projects'}</span>
+          </div>
+
           <!-- Stacked full-screen project slides -->
           <div class="relative flex-1 flex items-center">
             {projects.map((project, i) => (
@@ -94,7 +99,7 @@ const { projects } = portfolioConfig;
           </div>
 
           <!-- Bottom: progress dots -->
-          <div class="flex items-center justify-between mt-2">
+          <div class="flex items-center justify-between mt-2 relative z-20">
             <div class="flex gap-2" id="project-dots">
               {projects.map((project, i) => (
                 <button
@@ -163,15 +168,12 @@ const { projects } = portfolioConfig;
       });
 
       // ── OUT: current slide ──
-      // Image slides away with scale
-      tl.to(cur.img, { xPercent: -15 * dir, scale: 0.92, autoAlpha: 0, duration: 0.55 }, 0);
-      // Name clips out
-      tl.to(cur.nameInner, { yPercent: -120 * dir, duration: 0.4 }, 0);
-      // Other elements fade
-      tl.to(cur.taglines, { y: -15 * dir, autoAlpha: 0, duration: 0.3 }, 0);
-      tl.to(cur.divider, { scaleX: 0, transformOrigin: 'left', duration: 0.3 }, 0);
-      tl.to(cur.desc, { y: -20 * dir, autoAlpha: 0, duration: 0.3 }, 0.05);
-      tl.to(cur.tags, { y: -10 * dir, autoAlpha: 0, stagger: 0.015, duration: 0.2 }, 0.05);
+      tl.to(cur.img, { xPercent: -15 * dir, scale: 0.92, autoAlpha: 0, duration: 0.9 }, 0);
+      tl.to(cur.nameInner, { yPercent: -120 * dir, duration: 0.7 }, 0);
+      tl.to(cur.taglines, { y: -15 * dir, autoAlpha: 0, duration: 0.5 }, 0);
+      tl.to(cur.divider, { scaleX: 0, transformOrigin: 'left', duration: 0.5 }, 0);
+      tl.to(cur.desc, { y: -20 * dir, autoAlpha: 0, duration: 0.5 }, 0.1);
+      tl.to(cur.tags, { y: -10 * dir, autoAlpha: 0, stagger: 0.02, duration: 0.4 }, 0.1);
 
       // ── IN: new slide ──
       gsap.set(nxt.slide, { visibility: 'visible' });
@@ -182,18 +184,12 @@ const { projects } = portfolioConfig;
       gsap.set(nxt.desc, { y: 30 * dir, autoAlpha: 0 });
       gsap.set(nxt.tags, { y: 15 * dir, autoAlpha: 0 });
 
-      // Image enters
-      tl.to(nxt.img, { xPercent: 0, scale: 1, autoAlpha: 1, duration: 0.65 }, 0.3);
-      // Name reveals
-      tl.to(nxt.nameInner, { yPercent: 0, duration: 0.55, ease: "power4.out" }, 0.4);
-      // Divider draws
-      tl.to(nxt.divider, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.5);
-      // Taglines
-      tl.to(nxt.taglines, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.45);
-      // Description
-      tl.to(nxt.desc, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out" }, 0.55);
-      // Tags stagger
-      tl.to(nxt.tags, { y: 0, autoAlpha: 1, stagger: 0.03, duration: 0.3, ease: "power2.out" }, 0.6);
+      tl.to(nxt.img, { xPercent: 0, scale: 1, autoAlpha: 1, duration: 1, ease: "power2.out" }, 0.5);
+      tl.to(nxt.nameInner, { yPercent: 0, duration: 0.9, ease: "power4.out" }, 0.6);
+      tl.to(nxt.divider, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.8);
+      tl.to(nxt.taglines, { y: 0, autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 0.7);
+      tl.to(nxt.desc, { y: 0, autoAlpha: 1, duration: 0.7, ease: "power2.out" }, 0.85);
+      tl.to(nxt.tags, { y: 0, autoAlpha: 1, stagger: 0.04, duration: 0.5, ease: "power2.out" }, 0.95);
     }
 
     updateDots();
