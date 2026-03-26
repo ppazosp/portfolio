@@ -7,7 +7,33 @@ interface Props {
 
 const { locale } = Astro.props;
 const portfolioConfig = getPortfolioConfig(locale);
-const { techStack } = portfolioConfig;
+
+// Tech items with devicon slugs
+const techItems = [
+  { name: "Python", icon: "python/python-original.svg" },
+  { name: "TypeScript", icon: "typescript/typescript-original.svg" },
+  { name: "JavaScript", icon: "javascript/javascript-original.svg" },
+  { name: "React", icon: "react/react-original.svg" },
+  { name: "Next.js", icon: "nextjs/nextjs-original.svg", invert: true },
+  { name: "Astro", icon: "astro/astro-original.svg", invert: true },
+  { name: "Tailwind CSS", icon: "tailwindcss/tailwindcss-original.svg" },
+  { name: "Node.js", icon: "nodejs/nodejs-original.svg" },
+  { name: "FastAPI", icon: "fastapi/fastapi-original.svg" },
+  { name: "PostgreSQL", icon: "postgresql/postgresql-original.svg" },
+  { name: "Docker", icon: "docker/docker-original.svg" },
+  { name: "Git", icon: "git/git-original.svg" },
+];
+
+const aiItems = [
+  { name: "LLM APIs", label: "LLM" },
+  { name: "RAG Pipelines", label: "RAG" },
+  { name: "Multi-Agent", label: "MAS" },
+  { name: "Prompt Eng.", label: "PE" },
+  { name: "Whisper", label: "W" },
+  { name: "Pyannote", label: "Py" },
+];
+
+const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
 ---
 
 <section class="panel" id="stack">
@@ -19,26 +45,55 @@ const { techStack } = portfolioConfig;
             <span>Stack</span>
           </div>
 
-          <h2 class="panel-heading font-display text-2xl md:text-4xl font-bold tracking-tight mb-8 md:mb-12">
+          <h2 class="panel-heading font-display text-2xl md:text-4xl font-bold tracking-tight mb-8 md:mb-10">
             {locale === 'es' ? 'Tecnologias' : 'Technologies'}
           </h2>
 
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
-            {techStack.map((group) => (
-              <div>
-                <h3 class="font-mono text-[10px] md:text-xs text-accent uppercase tracking-[0.2em] mb-4 pb-2 border-b border-border">
-                  {group.category}
-                </h3>
-                <div class="space-y-0">
-                  {group.items.map((item) => (
-                    <div class="flex items-center gap-2 py-2 border-b border-border/30 group cursor-default">
-                      <div class="w-1 h-1 rounded-full bg-muted/30 group-hover:bg-accent transition-colors flex-shrink-0"></div>
-                      <span class="text-sm text-foreground/70 group-hover:text-foreground transition-colors">{item}</span>
-                    </div>
-                  ))}
-                </div>
+          <!-- Main tech grid with icons -->
+          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4 mb-8">
+            {techItems.map((item, i) => (
+              <div
+                class="tech-card group relative border border-border bg-surface/30 p-4 md:p-5 flex flex-col items-center gap-3 cursor-default hover:border-accent/40 transition-all duration-300"
+                style={`--delay: ${i * 0.05}s`}
+              >
+                <img
+                  src={`${DEVICON_BASE}/${item.icon}`}
+                  alt={item.name}
+                  width="36"
+                  height="36"
+                  class={`transition-transform duration-300 group-hover:scale-110 ${item.invert ? 'invert' : ''}`}
+                  loading="lazy"
+                />
+                <span class="font-mono text-[10px] text-muted group-hover:text-foreground transition-colors text-center leading-tight">
+                  {item.name}
+                </span>
+                <!-- Hover glow -->
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                     style="background: radial-gradient(circle at 50% 30%, rgba(255,77,0,0.08) 0%, transparent 70%);"></div>
               </div>
             ))}
+          </div>
+
+          <!-- AI / Specialization row -->
+          <div>
+            <h3 class="font-mono text-[10px] text-accent uppercase tracking-[0.2em] mb-4">
+              {locale === 'es' ? 'IA & Especializacion' : 'AI & Specialization'}
+            </h3>
+            <div class="flex flex-wrap gap-2 md:gap-3">
+              {aiItems.map((item, i) => (
+                <div
+                  class="ai-tag group border border-border bg-surface/30 px-4 py-2.5 flex items-center gap-2.5 cursor-default hover:border-accent/40 transition-all duration-300"
+                  style={`--delay: ${i * 0.06}s`}
+                >
+                  <span class="w-7 h-7 rounded bg-accent/10 flex items-center justify-center font-mono text-[10px] text-accent font-bold group-hover:bg-accent/20 transition-colors">
+                    {item.label}
+                  </span>
+                  <span class="font-mono text-xs text-muted group-hover:text-foreground transition-colors">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
