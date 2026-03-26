@@ -84,8 +84,13 @@ const alternateUrls = {
     <!-- Panel nav dots (only rendered if panels exist, managed by script) -->
     <div class="panel-nav hidden" id="panel-nav"></div>
 
-    <!-- Mobile fixed progress bar (replaces section-label line on mobile) -->
-    <div class="fixed-panel-progress hidden" id="fixed-panel-progress"></div>
+    <!-- Fixed section header (name + progress line) -->
+    <div class="fixed-section-header" id="fixed-section-header" style="opacity:0;">
+      <div class="fsh-text-mask">
+        <span class="fsh-text" id="fsh-text"></span>
+      </div>
+      <div class="fsh-line" id="fsh-line"></div>
+    </div>
 
     <!-- Footer for non-panel pages -->
     <footer id="site-footer" class="border-t border-border py-6">
@@ -141,16 +146,76 @@ const alternateUrls = {
           });
         }
 
-        // Build fixed mobile progress bar
-        const fixedProgress = document.getElementById('fixed-panel-progress');
-        if (fixedProgress) {
-          fixedProgress.classList.remove('hidden');
+        // Build fixed section header
+        const fshHeader = document.getElementById('fixed-section-header');
+        const fshText = document.getElementById('fsh-text');
+        const fshLine = document.getElementById('fsh-line');
+
+        // Extract section names from panels
+        const panelNames: string[] = [];
+        panels.forEach((p, i) => {
+          if (i === 0) {
+            panelNames.push('Home');
+          } else {
+            const label = p.querySelector('.section-label span');
+            panelNames.push(label ? label.textContent || '' : '');
+          }
+        });
+
+        // Hide original section-labels on mobile (fixed header replaces them)
+        const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+        if (isMobile) {
+          document.querySelectorAll('.section-label').forEach(el => {
+            (el as HTMLElement).style.visibility = 'hidden';
+          });
+        }
+
+        // Build progress segments in the line
+        if (fshLine) {
           for (let i = 0; i < panels.length; i++) {
             const seg = document.createElement('div');
-            seg.className = 'progress-seg';
+            seg.className = 'fsh-seg';
             seg.dataset.seg = String(i);
-            fixedProgress.appendChild(seg);
+            fshLine.appendChild(seg);
           }
+        }
+
+        let currentName = '';
+        function updateSectionHeader(index: number, animate = true) {
+          if (!fshHeader || !fshText) return;
+
+          gsap.to(fshHeader, { opacity: 1, duration: 0.3 });
+
+          const newName = panelNames[index] || '';
+          if (newName === currentName) return;
+
+          if (animate && currentName) {
+            // Fancy text swap: mask wipe out then in
+            gsap.to(fshText, {
+              y: -14,
+              opacity: 0,
+              duration: 0.25,
+              ease: "power2.in",
+              onComplete: () => {
+                fshText.textContent = newName;
+                gsap.fromTo(fshText,
+                  { y: 14, opacity: 0 },
+                  { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" }
+                );
+              }
+            });
+          } else {
+            fshText.textContent = newName;
+            gsap.set(fshText, { y: 0, opacity: 1 });
+          }
+          currentName = newName;
+
+          // Update segments
+          document.querySelectorAll('.fsh-seg').forEach(seg => {
+            const segIdx = parseInt((seg as HTMLElement).dataset.seg || '-1');
+            seg.classList.toggle('active', segIdx === index);
+            seg.classList.toggle('passed', segIdx < index);
+          });
         }
 
         function updateDots(index: number) {
@@ -161,16 +226,7 @@ const alternateUrls = {
             const panelIdx = parseInt((link as HTMLElement).dataset.panel || '-1');
             link.classList.toggle('active', panelIdx === index);
           });
-          // Update fixed progress bar
-          document.querySelectorAll('#fixed-panel-progress .progress-seg').forEach(seg => {
-            const segIdx = parseInt((seg as HTMLElement).dataset.seg || '-1');
-            seg.classList.toggle('active', segIdx === index);
-            seg.classList.toggle('passed', segIdx < index);
-          });
-          // Show/hide: only visible when not on hero (hero has no section-label)
-          if (fixedProgress) {
-            fixedProgress.style.opacity = index === 0 ? '0' : '1';
-          }
+          updateSectionHeader(index);
         }
 
         function gotoSection(index: number, direction: number) {

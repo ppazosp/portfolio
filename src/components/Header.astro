@@ -17,7 +17,7 @@ const mobileLinks = [
 ---
 
 <!-- ═══ Desktop header (unchanged) ═══ -->
-<header class="header-nav fixed top-0 left-0 right-0 z-[70]">
+<header class="header-nav fixed top-0 left-0 right-0 z-[90]">
   <div class="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
     <a href={locale === 'es' ? '/es/' : '/'} class="font-display text-lg font-bold tracking-tight text-accent hover:text-foreground transition-colors z-[70]" data-panel="0" id="header-logo">
       P<span class="text-foreground">3</span>
@@ -54,7 +54,7 @@ const mobileLinks = [
         class="accent-switcher-mobile w-4 h-4 rounded-full bg-accent border border-foreground/10 cursor-pointer"
         aria-label="Change accent color"
       ></button>
-      <button id="sm-toggle" class="flex flex-col gap-1.5 w-7 h-7 items-center justify-center z-[70]" aria-label="Open menu" aria-expanded="false">
+      <button id="sm-toggle" class="flex flex-col gap-1.5 w-7 h-7 items-center justify-center z-[90]" aria-label="Open menu" aria-expanded="false">
         <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar1"></span>
         <span class="block w-5 h-px bg-foreground transition-opacity" id="bar2"></span>
         <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar3"></span>
@@ -64,7 +64,7 @@ const mobileLinks = [
 </header>
 
 <!-- ═══ Mobile staggered menu (fullscreen overlay) ═══ -->
-<div id="sm-overlay" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
+<div id="sm-overlay" class="fixed inset-0 z-[80] pointer-events-none md:hidden">
   <!-- Pre-layers -->
   <div id="sm-prelayer-0" class="sm-prelayer absolute inset-0" style="background: var(--color-accent);"></div>
   <div id="sm-prelayer-1" class="sm-prelayer absolute inset-0 bg-background"></div>
@@ -96,9 +96,6 @@ const mobileLinks = [
         <a href={altHref} class="font-mono text-sm uppercase tracking-[0.15em] text-muted hover:text-accent transition-colors">
           {altLabel}
         </a>
-        <span class="sm-counter font-mono text-[10px] text-muted/40 uppercase tracking-[0.2em]">
-          {String(mobileLinks.length).padStart(2, '0')} items
-        </span>
       </div>
     </div>
   </div>
@@ -159,7 +156,7 @@ const mobileLinks = [
   import gsap from 'gsap';
 
   // ── Accent color switcher ──
-  const accents = ['#BF00FF', '#FF4D00', '#39FF14', '#0040FF', '#FF003C', '#00FFB3'];
+  const accents = ['#FF4D00', '#BF00FF', '#39FF14', '#0040FF', '#FF003C', '#00FFB3'];
   const stored = localStorage.getItem('accent-color');
   if (stored && accents.includes(stored)) {
     document.documentElement.style.setProperty('--color-accent', stored);
@@ -175,6 +172,7 @@ const mobileLinks = [
 
   document.getElementById('accent-switcher')?.addEventListener('click', cycleAccent);
   document.querySelector('.accent-switcher-mobile')?.addEventListener('click', cycleAccent);
+  document.querySelector('.sm-accent-btn')?.addEventListener('click', cycleAccent);
 
   // ── Staggered mobile menu ──
   const toggleBtn = document.getElementById('sm-toggle');
@@ -190,7 +188,7 @@ const mobileLinks = [
 
   const itemLabels = document.querySelectorAll<HTMLElement>('.sm-item-label');
   const items = document.querySelectorAll<HTMLElement>('.sm-item');
-  const counter = document.querySelector<HTMLElement>('.sm-counter');
+  const smAccentBtn = document.querySelector<HTMLElement>('.sm-accent-btn');
 
   let menuOpen = false;
   let busy = false;
@@ -201,7 +199,7 @@ const mobileLinks = [
     gsap.set([...prelayers, panel], { xPercent: 100 });
     gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
     gsap.set(items, { '--sm-num-opacity': 0 } as any);
-    if (counter) gsap.set(counter, { opacity: 0 });
+    if (smAccentBtn) gsap.set(smAccentBtn, { opacity: 0 });
 
     function playOpen() {
       if (busy) return;
@@ -210,7 +208,7 @@ const mobileLinks = [
 
       gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
       gsap.set(items, { '--sm-num-opacity': 0 } as any);
-      if (counter) gsap.set(counter, { opacity: 0 });
+      if (smAccentBtn) gsap.set(smAccentBtn, { opacity: 0 });
 
       overlay!.style.pointerEvents = 'auto';
 
@@ -236,8 +234,8 @@ const mobileLinks = [
         stagger: { each: 0.06, from: 'start' }
       } as any, itemsStart + 0.1);
 
-      if (counter) {
-        tl.to(counter, { opacity: 1, duration: 0.5, ease: 'power2.out' }, itemsStart + 0.3);
+      if (smAccentBtn) {
+        tl.to(smAccentBtn, { opacity: 1, duration: 0.5, ease: 'power2.out' }, itemsStart + 0.3);
       }
 
       openTl = tl;
@@ -255,7 +253,7 @@ const mobileLinks = [
           overlay!.style.pointerEvents = 'none';
           gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
           gsap.set(items, { '--sm-num-opacity': 0 } as any);
-          if (counter) gsap.set(counter, { opacity: 0 });
+          if (smAccentBtn) gsap.set(smAccentBtn, { opacity: 0 });
           busy = false;
         }
       });

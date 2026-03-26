@@ -5,8 +5,8 @@
   --color-foreground: #F0F0F0;
   --color-muted: #888888;
   --color-border: #1c1c1c;
-  --color-accent: #BF00FF;
-  --color-accent-secondary: #9500FF;
+  --color-accent: #FF4D00;
+  --color-accent-secondary: #CC3D00;
   --color-surface: #0c0c0c;
 }
 
@@ -267,48 +267,72 @@
     background: var(--color-border);
   }
 
-  @media (max-width: 1024px) {
-    .section-label::after {
-      display: none;
-    }
-  }
 
-  /* Fixed mobile progress bar */
-  .fixed-panel-progress {
+  /* Fixed section header (name + progress line) */
+  .fixed-section-header {
     position: fixed;
-    top: 4.25rem;
-    left: 8rem;
-    right: 1.25rem;
     z-index: 65;
     display: flex;
     align-items: center;
-    gap: 3px;
-    height: 2px;
-    transition: opacity 0.4s;
+    gap: 1rem;
+    top: 3.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
     pointer-events: none;
   }
 
-  .fixed-panel-progress .progress-seg {
+  @media (min-width: 769px) {
+    .fixed-section-header {
+      top: 5rem;
+      left: 3rem;
+      right: 3rem;
+    }
+  }
+
+  .fsh-text-mask {
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 5rem;
+  }
+
+  .fsh-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent);
+    display: block;
+  }
+
+  .fsh-line {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .fsh-seg {
     flex: 1;
     height: 1px;
     background: var(--color-border);
-    transition: background 0.5s, height 0.3s, opacity 0.5s;
+    transition: background 0.5s ease, height 0.35s ease, opacity 0.5s ease;
+    border-radius: 1px;
   }
 
-  .fixed-panel-progress .progress-seg.passed {
+  .fsh-seg.passed {
     background: var(--color-accent);
     opacity: 0.25;
   }
 
-  .fixed-panel-progress .progress-seg.active {
+  .fsh-seg.active {
     background: var(--color-accent);
     height: 2px;
     opacity: 1;
   }
 
   @media (min-width: 1025px) {
-    .fixed-panel-progress {
-      display: none;
+    .fixed-section-header {
+      display: none !important;
     }
   }
 
