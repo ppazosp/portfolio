@@ -129,7 +129,7 @@ const { projects } = portfolioConfig;
 
     function updateIndicator() {
       dots.forEach((dot, i) => {
-        const color = allSlides[i].dataset.color || '#FF4D00';
+        const color = allSlides[i].dataset.color || '#7B61FF';
         dot.style.background = i === current ? color : 'var(--color-border)';
         dot.style.transform = i === current ? 'scale(1.4)' : 'scale(1)';
       });

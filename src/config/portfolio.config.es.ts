@@ -57,28 +57,28 @@ export const portfolioConfig = {
       tagline: "Plataforma B2B de Agentes IA",
       description: "Plataforma RAG en produccion con busqueda hibrida avanzada, agentes especializados e ingesta de documentos multi-fuente. Desplegada en pilotos empresariales en sectores de servicios profesionales. Disenada Nessie Industrial para Pescanova — un sistema de grado industrial combinando recuperacion de conocimiento y verificacion automatizada de etiquetas.",
       tech: ["Python", "TypeScript", "PostgreSQL", "pgvector", "RAG"],
-      color: "#FF4D00"
+      color: "#7B61FF"
     },
     {
       name: "APEC",
       tagline: "CMO Automatizado",
       description: "Sistema multi-agente interno que actua como un CMO automatizado. Combina agentes de scraping para investigacion de mercado (NORA) y extraccion de datos financieros (SARA) para alimentar un pipeline completo de outreach por email frio con segmentacion de prospectos, mensajes personalizados y seguimientos automaticos.",
       tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
-      color: "#FF6B35"
+      color: "#9B7DFF"
     },
     {
       name: "IRIS",
       tagline: "Inteligencia de Email",
       description: "Sistema multi-agente de gestion de email que clasifica correos entrantes por cliente, proveedor, intencion y prioridad. Genera respuestas contextuales conectadas a la base de datos de productos y extrae contexto del CRM para informar cada interaccion.",
       tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
-      color: "#E63946"
+      color: "#6448D6"
     },
     {
       name: "ACTA",
       tagline: "Plataforma de Reuniones",
       description: "Plataforma interna de reuniones que gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
-      color: "#F4A261"
+      color: "#A78BFA"
     }
   ],
 

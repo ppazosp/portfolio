@@ -5,8 +5,8 @@
   --color-foreground: #F0F0F0;
   --color-muted: #888888;
   --color-border: #1c1c1c;
-  --color-accent: #FF4D00;
-  --color-accent-secondary: #FF2D2D;
+  --color-accent: #7B61FF;
+  --color-accent-secondary: #5A3FD6;
   --color-surface: #0c0c0c;
 }
 
@@ -67,7 +67,7 @@
   }
 
   ::selection {
-    background-color: rgba(255, 77, 0, 0.25);
+    background-color: rgba(123, 97, 255, 0.25);
     color: #fff;
   }
 
@@ -146,7 +146,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 77, 0, 0.3);
+    border: 1px solid rgba(123, 97, 255, 0.3);
     background: transparent;
     cursor: pointer;
     transition: all 0.3s;
@@ -200,7 +200,7 @@
 
   /* Background dot grid */
   .bg-dot-grid {
-    background-image: radial-gradient(circle, rgba(255, 77, 0, 0.03) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(123, 97, 255, 0.03) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 

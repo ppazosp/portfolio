@@ -17,12 +17,12 @@ const links = [
 ];
 ---
 
-<section class="panel" id="contact" style="--color-accent: #FF453A; --color-accent-secondary: #D32F2F;">
+<section class="panel" id="contact">
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
-             style="background: radial-gradient(ellipse, rgba(255,69,58,0.05) 0%, transparent 70%);"></div>
+             style="background: radial-gradient(ellipse, rgba(123,97,255,0.05) 0%, transparent 70%);"></div>
 
         <div class="panel-content h-full flex flex-col text-center">
           <div class="section-label w-full mb-3">
@@ -95,7 +95,7 @@ const links = [
     link.addEventListener('mouseenter', () => {
       gsap.to(chars, {
         y: -4,
-        color: '#FF453A',
+        color: '#7B61FF',
         stagger: { each: 0.025, from: "start" },
         duration: 0.2,
         ease: "power2.out"
