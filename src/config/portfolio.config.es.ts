@@ -30,7 +30,7 @@ export const portfolioConfig = {
       { href: "/es/#about", label: "Sobre mi" },
       { href: "/es/#projects", label: "Proyectos" },
       { href: "/es/#stack", label: "Stack" },
-      { href: "/es/#experience", label: "Trayectoria" },
+      { href: "/es/#experience", label: "Camino" },
       { href: "/es/#contact", label: "Contacto" }
     ]
   },

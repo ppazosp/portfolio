@@ -56,6 +56,11 @@
     border-color: var(--color-border);
   }
 
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -63,7 +68,6 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
   }
 
   ::selection {
@@ -115,6 +119,7 @@
     width: 100%;
     top: 0;
     background: var(--color-background);
+    overflow-x: clip;
   }
 
   .panel-content {
@@ -126,7 +131,7 @@
 
   @media (max-width: 768px) {
     .panel-content {
-      padding: 4rem 1.25rem 1.5rem;
+      padding: 3.25rem 1.25rem 1rem;
     }
   }
 
@@ -224,6 +229,7 @@
     transform: translateY(30px);
     will-change: transform, opacity;
   }
+
 
   /* Split character */
   .split-char {

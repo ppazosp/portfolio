@@ -32,29 +32,29 @@ const links = [
              style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 3%, transparent) 0%, transparent 70%);"></div>
 
         <div class="panel-content h-full flex flex-col text-center">
-          <div class="section-label w-full mb-3">
+          <div class="section-label w-full mb-2 md:mb-3">
             <span>{locale === 'es' ? 'Contacto' : 'Contact'}</span>
           </div>
 
           <div class="flex-1 flex flex-col items-center justify-center">
             <!-- Masked headline wipe -->
-            <div class="panel-heading mb-6 md:mb-8">
+            <div class="panel-heading mb-5 md:mb-8">
               <div class="overflow-hidden">
                 <span class="contact-line block font-display font-extrabold tracking-[-0.04em]"
-                      style="font-size: clamp(2rem, 9vw, 8rem); line-height: 0.9;">
+                      style="font-size: clamp(2.4rem, 10vw, 8rem); line-height: 0.9;">
                   {line1}
                 </span>
               </div>
               <div class="overflow-hidden">
                 <span class="contact-line block font-display font-extrabold tracking-[-0.04em] text-accent"
-                      style="font-size: clamp(2rem, 9vw, 8rem); line-height: 0.9;">
+                      style="font-size: clamp(2.4rem, 10vw, 8rem); line-height: 0.9;">
                   {line2}
                 </span>
               </div>
             </div>
 
             <!-- Expanding decorative dividers -->
-            <div class="flex items-center justify-center gap-3 mb-8 md:mb-10">
+            <div class="flex items-center justify-center gap-3 mb-6 md:mb-10">
               <div class="contact-divider h-px w-8 md:w-16 origin-right" style="background: var(--color-accent); opacity: 0.4;"></div>
               <div class="contact-dot w-1.5 h-1.5 rounded-full" style="background: var(--color-accent);"></div>
               <div class="contact-divider h-px w-8 md:w-16 origin-left" style="background: var(--color-accent); opacity: 0.4;"></div>
@@ -62,18 +62,18 @@ const links = [
 
             <!-- Email -->
             <a href={`mailto:${personal.email}`}
-               class="contact-fade inline-block font-mono text-xs md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-8 md:mb-12"
+               class="contact-fade inline-block font-mono text-sm md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-8 md:mb-12"
                data-scramble={personal.email}>
               {personal.email}
             </a>
 
             <!-- Character wave links -->
-            <div class="flex items-center justify-center gap-4 md:gap-8 flex-wrap">
+            <div class="flex items-center justify-center gap-5 md:gap-8 flex-wrap">
               {links.map((link, i) => (
                 <Fragment>
-                  {i > 0 && <span class="contact-fade text-border select-none">|</span>}
+                  {i > 0 && <span class="contact-fade text-border select-none hidden md:inline">|</span>}
                   <a href={link.href} target="_blank" rel="noopener noreferrer"
-                     class="contact-fade contact-wave-link font-mono text-xs uppercase tracking-[0.15em] text-muted">
+                     class="contact-fade contact-wave-link font-mono text-xs uppercase tracking-[0.15em] text-muted py-1">
                     {link.label.split('').map((char) => (
                       <span class="wave-char inline-block">{char === ' ' ? '\u00A0' : char}</span>
                     ))}
@@ -83,7 +83,7 @@ const links = [
             </div>
           </div>
 
-          <div class="absolute bottom-4 md:bottom-6 left-0 right-0 px-5 md:px-12 flex items-center justify-between">
+          <div class="absolute bottom-3 md:bottom-6 left-0 right-0 px-5 md:px-12 flex items-center justify-between">
             <span class="font-mono text-[10px] text-muted/40">{footer.location}</span>
             <a href={footer.sourceCode.url} target="_blank" rel="noopener noreferrer"
                class="font-mono text-[10px] text-muted/40 hover:text-accent transition-colors">{footer.sourceCode.text}</a>

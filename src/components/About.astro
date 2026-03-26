@@ -23,13 +23,13 @@ const line3 = about.headline[2].toUpperCase();
              style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 5%, transparent) 0%, transparent 70%);"></div>
 
         <div class="panel-content h-full flex flex-col">
-          <div class="section-label mb-3">
+          <div class="section-label mb-2 md:mb-3">
             <span>{locale === 'es' ? 'Sobre mi' : 'About'}</span>
           </div>
 
-          <div class="flex-1 flex flex-col justify-center">
+          <div class="flex-1 flex flex-col justify-center md:justify-center">
             <!-- Masked headline wipe -->
-            <div class="panel-heading mb-4 md:mb-8">
+            <div class="panel-heading mb-5 md:mb-8">
               <div class="overflow-hidden">
                 <span class="about-line block font-display font-extrabold tracking-[-0.04em]"
                       style="font-size: clamp(1.8rem, 7.5vw, 7rem); line-height: 0.9;">
@@ -51,27 +51,27 @@ const line3 = about.headline[2].toUpperCase();
             </div>
 
             <!-- Decorative divider -->
-            <div class="about-fade flex items-center gap-3 mb-6 md:mb-14">
+            <div class="about-fade flex items-center gap-3 mb-4 md:mb-14">
               <div class="h-px w-8 md:w-12" style="background: var(--color-accent); opacity: 0.4;"></div>
               <div class="w-1.5 h-1.5 rounded-full" style="background: var(--color-accent); opacity: 0.6;"></div>
               <div class="h-px w-8 md:w-12" style="background: var(--color-accent); opacity: 0.4;"></div>
             </div>
 
             <!-- Content grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10">
               <!-- Stats with accent line -->
               <div class="lg:col-span-5 relative lg:pl-8">
                 <div class="about-accent-line hidden lg:block absolute left-0 top-0 w-px h-full origin-top"
                      style="background: linear-gradient(to bottom, var(--color-accent), transparent);"></div>
-                <div class="grid grid-cols-2 gap-x-6 md:gap-x-12 gap-y-4 md:gap-y-8">
+                <div class="grid grid-cols-2 gap-x-6 md:gap-x-12 gap-y-3 md:gap-y-8">
                   {about.stats.map((stat) => (
                     <div class="about-stat">
-                      <span class="block font-display text-3xl md:text-5xl lg:text-6xl font-bold text-accent about-stat-value"
+                      <span class="block font-display text-4xl md:text-5xl lg:text-6xl font-bold text-accent about-stat-value"
                             data-value={stat.value}
                             data-suffix={stat.suffix}>
                         0{stat.suffix}
                       </span>
-                      <div class="h-px w-full mt-3 mb-2" style="background: linear-gradient(to right, var(--color-accent), transparent); opacity: 0.3;"></div>
+                      <div class="h-px w-full mt-2 mb-1 md:mt-3 md:mb-2" style="background: linear-gradient(to right, var(--color-accent), transparent); opacity: 0.3;"></div>
                       <span class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-[0.15em]">
                         {stat.label}
                       </span>
@@ -81,7 +81,7 @@ const line3 = about.headline[2].toUpperCase();
               </div>
 
               <!-- Description + links -->
-              <div class="lg:col-span-7 flex flex-col justify-between gap-6">
+              <div class="lg:col-span-7 flex flex-col justify-between gap-4 md:gap-6">
                 <p class="about-fade text-sm md:text-lg text-foreground/80 leading-relaxed max-w-lg">
                   {about.description}
                 </p>
