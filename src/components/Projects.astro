@@ -27,19 +27,18 @@ const { projects } = portfolioConfig;
               <div
                 class="project-slide absolute top-0 left-0 w-full h-full flex items-center"
                 data-slide={i}
-                data-color={project.color}
                 style={i > 0 ? 'visibility: hidden;' : ''}
               >
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2 w-full items-start">
                   <!-- Color block (cols 1-5) -->
                   <div class="md:col-span-5">
-                    <div class="slide-img relative h-44 md:h-[22rem] overflow-hidden" style={`background: ${project.color};`}>
+                    <div class="slide-img relative h-44 md:h-[22rem] overflow-hidden bg-accent">
                       <span class="absolute top-3 left-4 md:top-5 md:left-6 font-display font-extrabold text-6xl md:text-8xl leading-none select-none"
                             style="color: rgba(0,0,0,0.2);">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                       <span class="absolute bottom-0 right-0 font-display font-extrabold select-none pointer-events-none translate-x-[10%] translate-y-[5%]"
-                            style={`font-size: clamp(10rem, 25vw, 20rem); color: rgba(0,0,0,0.12); line-height: 0.75;`}>
+                            style="font-size: clamp(10rem, 25vw, 20rem); color: rgba(0,0,0,0.12); line-height: 0.75;">
                         {project.name.charAt(0)}
                       </span>
                       <span class="absolute bottom-3 left-4 md:bottom-5 md:left-6 font-mono text-[8px] uppercase tracking-[0.2em]"
@@ -51,9 +50,9 @@ const { projects } = portfolioConfig;
 
                   <!-- Info (cols 7-11, 1 col gap each side) -->
                   <div class="md:col-span-5 md:col-start-7 flex flex-col">
-                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-4" style={`color: ${project.color};`}>
-                      <span style={`color: ${project.color}60;`}>{String(i + 1).padStart(2, '0')}</span>
-                      <span class="mx-2" style={`color: ${project.color}30;`}>/</span>
+                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-4 text-accent">
+                      <span class="text-accent/60">{String(i + 1).padStart(2, '0')}</span>
+                      <span class="mx-2 text-accent/30">/</span>
                       {project.tagline}
                     </div>
                     <h3 class="slide-name overflow-hidden mb-4">
@@ -62,14 +61,13 @@ const { projects } = portfolioConfig;
                         {project.name}
                       </span>
                     </h3>
-                    <div class="slide-divider h-[1px] w-full mb-5" style={`background: linear-gradient(to right, ${project.color}, transparent);`}></div>
+                    <div class="slide-divider h-[1px] w-full mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
                     <p class="slide-desc text-sm text-muted leading-relaxed mb-6">
                       {project.description}
                     </p>
                     <div class="slide-tags flex flex-wrap gap-2">
                       {project.tech.map((t) => (
-                        <span class="font-mono text-[10px] px-3 py-1 border text-muted/70"
-                              style={`border-color: ${project.color}30;`}>{t}</span>
+                        <span class="font-mono text-[10px] px-3 py-1 border text-muted/70 border-accent/30">{t}</span>
                       ))}
                     </div>
                   </div>
@@ -82,11 +80,10 @@ const { projects } = portfolioConfig;
           <div class="relative z-20 flex items-center justify-end pt-1">
             <div class="flex items-center gap-3">
               <div class="flex gap-1.5" id="project-pips">
-                {projects.map((project, i) => (
+                {projects.map((_, i) => (
                   <button
-                    class="project-dot w-2 h-2 rounded-full cursor-pointer transition-all duration-400"
+                    class={`project-dot w-2 h-2 rounded-full cursor-pointer transition-all duration-400 ${i === 0 ? 'active' : ''}`}
                     data-slide={i}
-                    style={`background: ${i === 0 ? project.color : 'var(--color-border)'};`}
                   ></button>
                 ))}
               </div>
@@ -129,11 +126,14 @@ const { projects } = portfolioConfig;
 
     function updateIndicator() {
       dots.forEach((dot, i) => {
-        const color = allSlides[i].dataset.color || '#7B61FF';
-        dot.style.background = i === current ? color : 'var(--color-border)';
-        dot.style.transform = i === current ? 'scale(1.4)' : 'scale(1)';
+        dot.classList.toggle('active', i === current);
       });
       if (counter) counter.textContent = `${String(current + 1).padStart(2, '0')} — ${String(total).padStart(2, '0')}`;
+    }
+
+    function updateIndicatorTo(idx: number) {
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+      if (counter) counter.textContent = `${String(idx + 1).padStart(2, '0')} — ${String(total).padStart(2, '0')}`;
     }
 
     function goToSlide(index: number) {
@@ -144,13 +144,15 @@ const { projects } = portfolioConfig;
       const cur = getEls(current);
       const nxt = getEls(index);
 
+      // Update dots immediately with the transition
+      updateIndicatorTo(index);
+
       const tl = gsap.timeline({
         defaults: { ease: "power3.inOut" },
         onComplete: () => {
           cur.slide.style.visibility = 'hidden';
           current = index;
           carouselAnimating = false;
-          updateIndicator();
         }
       });
 

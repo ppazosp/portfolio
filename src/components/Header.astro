@@ -29,6 +29,11 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
       <a href={altHref} class="ml-2 font-mono text-xs uppercase tracking-[0.15em] text-muted/50 hover:text-accent transition-colors border-l border-border pl-6">
         {altLabel}
       </a>
+      <button
+        id="accent-switcher"
+        class="ml-4 w-4 h-4 rounded-full bg-accent border border-foreground/10 cursor-pointer transition-transform duration-200 hover:scale-125"
+        aria-label="Change accent color"
+      ></button>
     </nav>
 
     <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 w-7 h-7 items-center justify-center" aria-label="Toggle menu">
@@ -97,6 +102,22 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
       gsap.to(bar2, { autoAlpha: 1, duration: 0.15 });
       gsap.to(bar3, { rotation: 0, y: 0, duration: 0.25 });
     }
+  });
+
+  // ── Accent color switcher ──
+  const accents = ['#7B61FF', '#FF6B35', '#30D158', '#2997FF', '#FF453A', '#00D4AA'];
+  const stored = localStorage.getItem('accent-color');
+  if (stored && accents.includes(stored)) {
+    document.documentElement.style.setProperty('--color-accent', stored);
+  }
+
+  const switcher = document.getElementById('accent-switcher');
+  switcher?.addEventListener('click', () => {
+    const current = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim();
+    const idx = accents.findIndex(c => c.toLowerCase() === current.toLowerCase());
+    const next = accents[(idx + 1) % accents.length];
+    document.documentElement.style.setProperty('--color-accent', next);
+    localStorage.setItem('accent-color', next);
   });
 
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
