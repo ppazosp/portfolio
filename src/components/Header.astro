@@ -18,8 +18,14 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
     </a>
 
     <nav class="hidden md:flex items-center gap-8">
+      <a href={locale === 'es' ? '/es/' : '/'} data-panel="0" class="nav-link roll-link font-mono text-xs uppercase tracking-[0.15em]">
+        <span class="roll-text">
+          <span class="roll-top text-muted">Home</span>
+          <span class="roll-bottom text-accent" aria-hidden="true">Home</span>
+        </span>
+      </a>
       {portfolioConfig.navigation.links.map((link, i) => (
-        <a href={link.href} data-panel={i + 1} class="roll-link font-mono text-xs uppercase tracking-[0.15em]">
+        <a href={link.href} data-panel={i + 1} class="nav-link roll-link font-mono text-xs uppercase tracking-[0.15em]">
           <span class="roll-text">
             <span class="roll-top text-muted">{link.label}</span>
             <span class="roll-bottom text-accent" aria-hidden="true">{link.label}</span>
@@ -70,7 +76,8 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
     flex-direction: column;
     transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
   }
-  .roll-link:hover .roll-text {
+  .roll-link:hover .roll-text,
+  .nav-link.active .roll-text {
     transform: translateY(-50%);
   }
   .roll-top, .roll-bottom {

@@ -8,41 +8,82 @@ interface Props {
 const { locale } = Astro.props;
 const portfolioConfig = getPortfolioConfig(locale);
 const { about, personal } = portfolioConfig;
+
+const words = about.headline.split(' ');
+const line1 = words[0].toUpperCase();
+const line2 = words[1].toUpperCase();
+const tagline = words.slice(2).join(' ');
 ---
 
 <section class="panel" id="about">
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
+        <!-- Ambient glow -->
+        <div class="absolute top-1/3 right-1/4 w-[700px] h-[500px] rounded-full pointer-events-none"
+             style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 5%, transparent) 0%, transparent 70%);"></div>
+
         <div class="panel-content h-full flex flex-col">
           <div class="section-label mb-3">
             <span>{locale === 'es' ? 'Sobre mi' : 'About'}</span>
           </div>
 
           <div class="flex-1 flex flex-col justify-center">
-            <h2 class="panel-heading font-display text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight max-w-4xl mb-10 md:mb-14">
-              {about.headline}
-            </h2>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
-              {about.stats.map((stat) => (
-                <div class="border border-border p-4 md:p-6 bg-surface/50">
-                  <span class="font-display text-3xl md:text-4xl font-bold text-accent">
-                    {stat.value}{stat.suffix}
-                  </span>
-                  <p class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-wider mt-2">{stat.label}</p>
-                </div>
-              ))}
+            <!-- Masked headline wipe -->
+            <div class="panel-heading mb-6 md:mb-8">
+              <div class="overflow-hidden">
+                <span class="about-line block font-display font-extrabold tracking-[-0.04em]"
+                      style="font-size: clamp(2.5rem, 8vw, 7.5rem); line-height: 0.9;">
+                  {line1}
+                </span>
+              </div>
+              <div class="overflow-hidden">
+                <span class="about-line block font-display font-extrabold tracking-[-0.04em] text-accent"
+                      style="font-size: clamp(2.5rem, 8vw, 7.5rem); line-height: 0.9;">
+                  {line2}
+                </span>
+              </div>
             </div>
 
-            <!-- Description + links -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <p class="text-base md:text-lg text-foreground/80 leading-relaxed">
-                {about.description}
-              </p>
-              <div class="flex items-end">
-                <div class="flex flex-wrap gap-3">
+            <!-- Decorative divider + tagline -->
+            <div class="about-fade flex items-center gap-3 mb-10 md:mb-14">
+              <div class="h-px w-8 md:w-12" style="background: var(--color-accent); opacity: 0.4;"></div>
+              <div class="w-1.5 h-1.5 rounded-full" style="background: var(--color-accent); opacity: 0.6;"></div>
+              <div class="h-px w-8 md:w-12" style="background: var(--color-accent); opacity: 0.4;"></div>
+              <span class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-[0.2em]">
+                {tagline}
+              </span>
+            </div>
+
+            <!-- Content grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+              <!-- Stats with accent line -->
+              <div class="lg:col-span-5 relative lg:pl-8">
+                <div class="about-accent-line hidden lg:block absolute left-0 top-0 w-px h-full origin-top"
+                     style="background: linear-gradient(to bottom, var(--color-accent), transparent);"></div>
+                <div class="grid grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 md:gap-y-8">
+                  {about.stats.map((stat) => (
+                    <div class="about-stat">
+                      <span class="block font-display text-4xl md:text-5xl lg:text-6xl font-bold text-accent about-stat-value"
+                            data-value={stat.value}
+                            data-suffix={stat.suffix}>
+                        0{stat.suffix}
+                      </span>
+                      <div class="h-px w-full mt-3 mb-2" style="background: linear-gradient(to right, var(--color-accent), transparent); opacity: 0.3;"></div>
+                      <span class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-[0.15em]">
+                        {stat.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Description + links -->
+              <div class="lg:col-span-7 flex flex-col justify-between gap-6">
+                <p class="about-fade text-base md:text-lg text-foreground/80 leading-relaxed max-w-lg">
+                  {about.description}
+                </p>
+                <div class="about-fade flex flex-wrap gap-3">
                   <a href={`mailto:${personal.email}`}
                      class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
                     {personal.email}
@@ -60,3 +101,100 @@ const { about, personal } = portfolioConfig;
     </div>
   </div>
 </section>
+
+<style>
+  .about-line {
+    transform: translateY(110%);
+    will-change: transform;
+  }
+  .about-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: transform, opacity;
+  }
+  .about-stat {
+    opacity: 0;
+    transform: translateY(25px);
+    will-change: transform, opacity;
+  }
+  .about-accent-line {
+    transform: scaleY(0);
+    will-change: transform;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  const panel = document.getElementById('about');
+  if (panel) {
+    let revealed = false;
+
+    function revealAbout() {
+      if (revealed) return;
+      revealed = true;
+
+      const tl = gsap.timeline({ delay: 0.5 });
+
+      // Masked headline wipe
+      tl.to('.about-line', {
+        y: 0,
+        duration: 1,
+        stagger: 0.12,
+        ease: "power4.out"
+      });
+
+      // Divider + tagline + description + links
+      tl.to('.about-fade', {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power3.out"
+      }, "-=0.5");
+
+      // Vertical accent line draws down
+      tl.to('.about-accent-line', {
+        scaleY: 1,
+        duration: 1.2,
+        ease: "power2.inOut"
+      }, "-=0.6");
+
+      // Stats entrance
+      tl.to('.about-stat', {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out"
+      }, "-=1.0");
+
+      // Stat counting
+      document.querySelectorAll('.about-stat-value').forEach(el => {
+        const target = parseInt((el as HTMLElement).dataset.value || '0');
+        const suffix = (el as HTMLElement).dataset.suffix || '';
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 2,
+          delay: 1,
+          ease: "power2.out",
+          snap: { val: 1 },
+          onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+        });
+      });
+    }
+
+    const observer = new MutationObserver(() => {
+      if (panel.style.visibility !== 'hidden' && panel.style.visibility !== '') {
+        revealAbout();
+        observer.disconnect();
+      }
+    });
+    observer.observe(panel, { attributes: true, attributeFilter: ['style'] });
+
+    if (panel.style.visibility !== 'hidden' && panel.style.visibility !== '') {
+      setTimeout(revealAbout, 600);
+    }
+  }
+</script>

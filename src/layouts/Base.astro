@@ -142,6 +142,10 @@ const alternateUrls = {
           document.querySelectorAll('.panel-dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
           });
+          document.querySelectorAll('.nav-link[data-panel]').forEach((link) => {
+            const panelIdx = parseInt((link as HTMLElement).dataset.panel || '-1');
+            link.classList.toggle('active', panelIdx === index);
+          });
         }
 
         function gotoSection(index: number, direction: number) {
