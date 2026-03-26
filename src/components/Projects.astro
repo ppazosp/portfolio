@@ -14,65 +14,74 @@ const { projects } = portfolioConfig;
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <div class="panel-content flex flex-col justify-center">
-          <div class="section-label">
-            <span>{locale === 'es' ? 'Proyectos' : 'Projects'}</span>
-          </div>
+        <div class="panel-content flex flex-col justify-center relative">
 
-          <!-- Carousel -->
-          <div class="relative overflow-hidden" id="carousel">
-            <div class="carousel-track flex transition-none" id="carousel-track">
-              {projects.map((project, i) => (
-                <div class="carousel-slide flex-shrink-0 w-full" data-index={i}>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
-                    <!-- Image placeholder -->
-                    <div class="carousel-image relative h-48 md:h-80 overflow-hidden border border-border"
-                         style={`background: linear-gradient(135deg, ${project.color}18 0%, ${project.color}06 50%, transparent 100%);`}>
-                      <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-extrabold select-none pointer-events-none"
-                            style={`font-size: clamp(8rem, 20vw, 16rem); color: ${project.color}; opacity: 0.07; line-height: 1;`}>
-                        {project.name.charAt(0)}
-                      </span>
-                      <div class="absolute inset-0 opacity-30"
-                           style={`background-image: radial-gradient(circle, ${project.color}20 1px, transparent 1px); background-size: 24px 24px;`}></div>
-                      <div class="absolute top-0 left-0 right-0 h-1" style={`background: ${project.color};`}></div>
-                      <!-- Slide number -->
-                      <div class="absolute bottom-4 right-4 font-mono text-xs text-muted/30">
-                        {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-                      </div>
+          <!-- All project slides stacked -->
+          <div class="relative flex-1 flex items-center">
+            {projects.map((project, i) => (
+              <div
+                class="project-slide absolute inset-0 flex items-center"
+                data-slide={i}
+                data-color={project.color}
+                style={i > 0 ? 'visibility: hidden;' : ''}
+              >
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 w-full items-center">
+                  <!-- Visual -->
+                  <div class="slide-img relative h-56 md:h-[28rem] overflow-hidden border border-border"
+                       style={`background: linear-gradient(160deg, ${project.color}12 0%, ${project.color}04 40%, transparent 100%);`}>
+                    <!-- Giant letter -->
+                    <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-extrabold select-none pointer-events-none"
+                          style={`font-size: clamp(10rem, 25vw, 22rem); color: ${project.color}; opacity: 0.06; line-height: 1;`}>
+                      {project.name.charAt(0)}
+                    </span>
+                    <!-- Dot pattern -->
+                    <div class="absolute inset-0 opacity-20"
+                         style={`background-image: radial-gradient(circle, ${project.color}18 1px, transparent 1px); background-size: 20px 20px;`}></div>
+                    <!-- Top accent -->
+                    <div class="absolute top-0 left-0 right-0 h-1" style={`background: ${project.color};`}></div>
+                    <!-- Number -->
+                    <div class="absolute bottom-4 left-5 font-display text-5xl md:text-7xl font-extrabold" style={`color: ${project.color}; opacity: 0.12;`}>
+                      {String(i + 1).padStart(2, '0')}
                     </div>
+                  </div>
 
-                    <!-- Info -->
-                    <div>
-                      <span class="font-mono text-[10px] text-muted/40 mb-2 block">{String(i + 1).padStart(2, '0')}</span>
-                      <h3 class="font-display text-3xl md:text-5xl font-bold mb-2 tracking-tight">{project.name}</h3>
-                      <p class="font-mono text-xs uppercase tracking-[0.15em] mb-4" style={`color: ${project.color};`}>{project.tagline}</p>
-                      <p class="text-sm text-muted leading-relaxed mb-6">{project.description}</p>
-                      <div class="flex flex-wrap gap-2">
-                        {project.tech.map((t) => (
-                          <span class="font-mono text-[10px] px-3 py-1 border border-border text-muted/60">{t}</span>
-                        ))}
-                      </div>
+                  <!-- Info -->
+                  <div class="flex flex-col justify-center">
+                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-3" style={`color: ${project.color};`}>
+                      {project.tagline}
+                    </div>
+                    <h3 class="slide-name font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-[0.95]">
+                      <span class="block overflow-hidden">
+                        <span class="slide-name-inner block">{project.name}</span>
+                      </span>
+                    </h3>
+                    <p class="slide-desc text-sm md:text-base text-muted leading-relaxed mb-6 max-w-md">
+                      {project.description}
+                    </p>
+                    <div class="slide-tags flex flex-wrap gap-2">
+                      {project.tech.map((t) => (
+                        <span class="font-mono text-[10px] px-3 py-1 border border-border text-muted/60">{t}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Bottom bar: dots + counter -->
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex gap-2" id="project-dots">
+              {projects.map((project, i) => (
+                <button
+                  class="project-dot h-1 cursor-pointer transition-all duration-300"
+                  data-slide={i}
+                  style={`width: ${i === 0 ? '2.5rem' : '1.5rem'}; background: ${i === 0 ? project.color : 'var(--color-border)'};`}
+                ></button>
               ))}
             </div>
-
-            <!-- Controls -->
-            <div class="flex items-center justify-between mt-8">
-              <button id="carousel-prev" class="font-mono text-xs text-muted hover:text-accent transition-colors px-3 py-2 border border-border hover:border-accent/40 cursor-pointer">
-                &larr; {locale === 'es' ? 'Anterior' : 'Prev'}
-              </button>
-
-              <div class="flex gap-2" id="carousel-dots">
-                {projects.map((_, i) => (
-                  <button class="carousel-dot w-8 h-1 bg-border cursor-pointer transition-all duration-300" data-slide={i}></button>
-                ))}
-              </div>
-
-              <button id="carousel-next" class="font-mono text-xs text-muted hover:text-accent transition-colors px-3 py-2 border border-border hover:border-accent/40 cursor-pointer">
-                {locale === 'es' ? 'Siguiente' : 'Next'} &rarr;
-              </button>
+            <div class="font-mono text-xs text-muted/40">
+              <span id="project-counter">01</span> / {String(projects.length).padStart(2, '0')}
             </div>
           </div>
         </div>
@@ -84,96 +93,80 @@ const { projects } = portfolioConfig;
 <script>
   import gsap from 'gsap';
 
-  const track = document.getElementById('carousel-track') as HTMLElement;
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.carousel-dot');
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
+  const allSlides = document.querySelectorAll<HTMLElement>('.project-slide');
+  const dots = document.querySelectorAll<HTMLElement>('.project-dot');
+  const counter = document.getElementById('project-counter');
 
-  if (track && slides.length > 0) {
+  if (allSlides.length > 0) {
     let current = 0;
-    let animating = false;
-    const total = slides.length;
+    let carouselAnimating = false;
+    const total = allSlides.length;
+
+    function getSlideElements(index: number) {
+      const slide = allSlides[index];
+      return {
+        slide,
+        img: slide.querySelector('.slide-img') as HTMLElement,
+        nameInner: slide.querySelector('.slide-name-inner') as HTMLElement,
+        tagline: slide.querySelector('.slide-tagline') as HTMLElement,
+        desc: slide.querySelector('.slide-desc') as HTMLElement,
+        tags: slide.querySelectorAll('.slide-tags span'),
+      };
+    }
 
     function updateDots() {
       dots.forEach((dot, i) => {
-        if (i === current) {
-          dot.classList.add('!bg-accent', '!w-12');
-        } else {
-          dot.classList.remove('!bg-accent', '!w-12');
-        }
+        const color = allSlides[i].dataset.color || '#FF4D00';
+        dot.style.width = i === current ? '2.5rem' : '1.5rem';
+        dot.style.background = i === current ? color : 'var(--color-border)';
       });
+      if (counter) counter.textContent = String(current + 1).padStart(2, '0');
     }
 
     function goToSlide(index: number) {
-      if (animating || index === current) return;
-      animating = true;
+      if (carouselAnimating || index === current || index < 0 || index >= total) return;
+      carouselAnimating = true;
 
       const direction = index > current ? 1 : -1;
+      const cur = getSlideElements(current);
+      const next = getSlideElements(index);
 
       const tl = gsap.timeline({
-        onComplete: () => { animating = false; }
+        onComplete: () => {
+          cur.slide.style.visibility = 'hidden';
+          current = index;
+          carouselAnimating = false;
+          updateDots();
+        }
       });
 
-      // Current slide exits
-      const currentSlide = slides[current];
-      const currentImg = currentSlide.querySelector('.carousel-image');
-      const currentInfo = currentSlide.querySelector('div:last-child');
-
-      tl.to(currentImg, {
-        xPercent: -30 * direction,
-        scale: 0.9,
-        autoAlpha: 0,
+      // ── Current slide OUT ──
+      tl.to(cur.img, {
+        clipPath: direction > 0 ? 'inset(0 0 100% 0)' : 'inset(100% 0 0 0)',
         duration: 0.5,
-        ease: "power2.in"
+        ease: "power3.in"
       }, 0);
+      tl.to(cur.nameInner, { yPercent: -110 * direction, duration: 0.4, ease: "power3.in" }, 0);
+      tl.to(cur.tagline, { y: -20 * direction, autoAlpha: 0, duration: 0.3 }, 0);
+      tl.to(cur.desc, { y: -20 * direction, autoAlpha: 0, duration: 0.3 }, 0.05);
+      tl.to(cur.tags, { y: -15 * direction, autoAlpha: 0, stagger: 0.02, duration: 0.2 }, 0.05);
 
-      if (currentInfo) {
-        tl.to(currentInfo.children, {
-          y: -20 * direction,
-          autoAlpha: 0,
-          stagger: 0.02,
-          duration: 0.3,
-          ease: "power2.in"
-        }, 0);
-      }
+      // ── New slide IN ──
+      gsap.set(next.slide, { visibility: 'visible' });
+      gsap.set(next.img, { clipPath: direction > 0 ? 'inset(100% 0 0 0)' : 'inset(0 0 100% 0)' });
+      gsap.set(next.nameInner, { yPercent: 110 * direction });
+      gsap.set([next.tagline, next.desc], { y: 30 * direction, autoAlpha: 0 });
+      gsap.set(next.tags, { y: 20 * direction, autoAlpha: 0 });
 
-      // Move track
-      tl.to(track, {
-        xPercent: -index * 100,
-        duration: 0.7,
-        ease: "power3.inOut",
-      }, 0.2);
-
-      // New slide enters
-      const newSlide = slides[index];
-      const newImg = newSlide.querySelector('.carousel-image');
-      const newInfo = newSlide.querySelector('div:last-child');
-
-      tl.fromTo(newImg,
-        { xPercent: 30 * direction, scale: 1.1, autoAlpha: 0 },
-        { xPercent: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "power2.out" },
-        0.4
-      );
-
-      if (newInfo) {
-        tl.fromTo(newInfo.children,
-          { y: 40 * direction, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, stagger: 0.04, duration: 0.5, ease: "power3.out" },
-          0.5
-        );
-      }
-
-      current = index;
-      updateDots();
+      tl.to(next.img, { clipPath: 'inset(0 0 0 0)', duration: 0.6, ease: "power3.out" }, 0.3);
+      tl.to(next.nameInner, { yPercent: 0, duration: 0.6, ease: "power3.out" }, 0.35);
+      tl.to(next.tagline, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.45);
+      tl.to(next.desc, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 0.5);
+      tl.to(next.tags, { y: 0, autoAlpha: 1, stagger: 0.03, duration: 0.3, ease: "power2.out" }, 0.55);
     }
 
-    // Init
-    gsap.set(track, { xPercent: 0 });
+    // Init dots
     updateDots();
-
-    prevBtn?.addEventListener('click', () => goToSlide((current - 1 + total) % total));
-    nextBtn?.addEventListener('click', () => goToSlide((current + 1) % total));
     dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
 
     // Expose carousel API for the panel Observer
@@ -182,6 +175,7 @@ const { projects } = portfolioConfig;
       prev: () => goToSlide(current - 1),
       isFirst: () => current === 0,
       isLast: () => current === total - 1,
+      isAnimating: () => carouselAnimating,
     };
   }
 </script>
