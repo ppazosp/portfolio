@@ -10,106 +10,44 @@ const portfolioConfig = getPortfolioConfig(locale);
 const { personal, hero } = portfolioConfig;
 ---
 
-<section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden">
-  <!-- Dot grid -->
-  <div class="absolute inset-0 bg-dot-grid"></div>
+<section class="panel first" id="hero">
+  <div class="panel-outer">
+    <div class="panel-inner">
+      <div class="panel-bg bg-dot-grid">
+        <!-- Ambient glow -->
+        <div class="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full pointer-events-none"
+             style="background: radial-gradient(ellipse, rgba(255,77,0,0.06) 0%, transparent 70%);"></div>
 
-  <!-- Ambient glow -->
-  <div
-    class="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] md:w-[900px] md:h-[600px] rounded-full pointer-events-none"
-    style="background: radial-gradient(ellipse, rgba(255,77,0,0.06) 0%, transparent 70%);"
-  ></div>
-  <div
-    class="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-    style="background: radial-gradient(ellipse, rgba(255,45,45,0.04) 0%, transparent 70%);"
-  ></div>
+        <div class="panel-content flex flex-col justify-center">
+          <h1 class="panel-heading font-display font-extrabold tracking-[-0.04em]"
+              style="font-size: clamp(3rem, 12vw, 13rem); line-height: 0.85;">
+            <span class="block overflow-hidden">
+              <span class="hero-line block">{personal.firstName}</span>
+            </span>
+            <span class="block overflow-hidden">
+              <span class="hero-line block">{personal.lastName1}</span>
+            </span>
+            <span class="block overflow-hidden">
+              <span class="hero-line block text-accent">{personal.lastName2}</span>
+            </span>
+          </h1>
 
-  <!-- Content -->
-  <div class="hero-parallax relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 w-full pt-24">
-    <!-- Name -->
-    <h1
-      class="font-display font-extrabold tracking-[-0.04em]"
-      style="font-size: clamp(3.5rem, 13vw, 14rem); line-height: 0.85;"
-    >
-      <span class="block overflow-hidden">
-        <span class="hero-line block">{personal.firstName}</span>
-      </span>
-      <span class="block overflow-hidden">
-        <span class="hero-line block">{personal.lastName1}</span>
-      </span>
-      <span class="block overflow-hidden">
-        <span class="hero-line block text-accent">{personal.lastName2}</span>
-      </span>
-    </h1>
+          <div class="hero-fade mt-6 md:mt-10 flex items-center gap-4">
+            <div class="h-px bg-accent w-8 md:w-12 flex-shrink-0"></div>
+            <p class="font-mono text-xs md:text-sm text-muted uppercase tracking-[0.2em]">
+              {hero.tagline}
+            </p>
+          </div>
 
-    <!-- Tagline -->
-    <div class="hero-fade mt-8 md:mt-12 flex items-center gap-4">
-      <div class="h-px bg-accent w-8 md:w-12 flex-shrink-0"></div>
-      <p class="font-mono text-xs md:text-sm text-muted uppercase tracking-[0.2em]">
-        {hero.tagline}
-      </p>
-    </div>
+          <p class="hero-fade mt-4 max-w-xl text-base md:text-lg text-muted leading-relaxed">
+            {hero.description}
+          </p>
 
-    <!-- Description -->
-    <p class="hero-fade mt-6 max-w-xl text-base md:text-lg text-muted leading-relaxed">
-      {hero.description}
-    </p>
-  </div>
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator hero-fade" style="z-index: 10;">
-    <div class="flex flex-col items-center gap-2">
-      <span class="font-mono text-[10px] text-muted/40 uppercase tracking-[0.3em]">Scroll</span>
-      <div class="w-px h-14 bg-gradient-to-b from-accent/30 to-transparent"></div>
+          <div class="hero-fade mt-8 font-mono text-[10px] text-muted/40 uppercase tracking-[0.3em]">
+            Scroll to explore
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Name lines reveal
-  gsap.to('.hero-line', {
-    y: 0,
-    duration: 1.4,
-    stagger: 0.12,
-    ease: "power4.out",
-    delay: 1.2
-  });
-
-  // Fade in elements
-  gsap.to('.hero-fade', {
-    autoAlpha: 1,
-    y: 0,
-    duration: 1,
-    stagger: 0.15,
-    delay: 2,
-    ease: "power3.out"
-  });
-
-  // Scroll indicator float
-  gsap.to('.scroll-indicator', {
-    y: 8,
-    duration: 1.8,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-    delay: 3.5
-  });
-
-  // Hero parallax on scroll
-  gsap.to('.hero-parallax', {
-    y: -100,
-    autoAlpha: 0.2,
-    ease: "none",
-    scrollTrigger: {
-      trigger: '#hero',
-      start: "top top",
-      end: "bottom top",
-      scrub: true
-    }
-  });
-</script>

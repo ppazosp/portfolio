@@ -7,161 +7,54 @@ interface Props {
 
 const { locale } = Astro.props;
 const portfolioConfig = getPortfolioConfig(locale);
-const { about } = portfolioConfig;
-
-// Split headline into words for animation
-const headlineWords = about.headline.split(' ');
+const { about, personal } = portfolioConfig;
 ---
 
-<section id="about" class="py-32 md:py-40">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-    <!-- Section label -->
-    <div class="section-label">
-      <span>{locale === 'es' ? 'Sobre mi' : 'About'}</span>
-    </div>
-
-    <!-- Headline with word-by-word reveal -->
-    <h2 class="about-headline font-display text-3xl md:text-5xl lg:text-7xl font-bold leading-[1.05] tracking-tight max-w-5xl mb-16 md:mb-24">
-      {headlineWords.map((word, i) => (
-        <span class="inline-block overflow-hidden mr-[0.3em]">
-          <span class="about-word inline-block" style={`--i: ${i}`}>
-            {word}
-          </span>
-        </span>
-      ))}
-    </h2>
-
-    <!-- Stats grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-24">
-      {about.stats.map((stat, i) => (
-        <div class="about-stat border border-border p-6 md:p-8 bg-surface/50 relative overflow-hidden group">
-          <!-- Hover glow -->
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-               style="background: radial-gradient(circle at 50% 50%, rgba(0,245,212,0.05) 0%, transparent 70%);">
+<section class="panel" id="about">
+  <div class="panel-outer">
+    <div class="panel-inner">
+      <div class="panel-bg">
+        <div class="panel-content">
+          <div class="section-label">
+            <span>{locale === 'es' ? 'Sobre mi' : 'About'}</span>
           </div>
-          <div class="relative z-10">
-            <div class="flex items-baseline gap-0.5">
-              <span
-                class="stat-number font-display text-4xl md:text-6xl font-bold text-accent"
-                data-target={stat.value}
-                data-suffix={stat.suffix}
-              >
-                0{stat.suffix}
-              </span>
+
+          <h2 class="panel-heading font-display text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight max-w-4xl mb-10 md:mb-14">
+            {about.headline}
+          </h2>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
+            {about.stats.map((stat) => (
+              <div class="border border-border p-4 md:p-6 bg-surface/50">
+                <span class="font-display text-3xl md:text-4xl font-bold text-accent">
+                  {stat.value}{stat.suffix}
+                </span>
+                <p class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-wider mt-2">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <!-- Description + links -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <p class="text-base md:text-lg text-foreground/80 leading-relaxed">
+              {about.description}
+            </p>
+            <div class="flex items-end">
+              <div class="flex flex-wrap gap-3">
+                <a href={`mailto:${personal.email}`}
+                   class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
+                  {personal.email}
+                </a>
+                <a href={personal.company.url} target="_blank" rel="noopener noreferrer"
+                   class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
+                  {personal.company.displayUrl}
+                </a>
+              </div>
             </div>
-            <p class="font-mono text-xs text-muted uppercase tracking-wider mt-3">{stat.label}</p>
           </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Description with reveal -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-      <div class="about-desc">
-        <p class="text-lg md:text-xl text-foreground/90 leading-relaxed">
-          {about.description}
-        </p>
-      </div>
-      <div class="about-desc flex items-end">
-        <div class="flex flex-wrap gap-3">
-          <a
-            href={`mailto:${portfolioConfig.personal.email}`}
-            class="magnetic-btn font-mono text-xs px-5 py-3 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all duration-300"
-          >
-            {portfolioConfig.personal.email}
-          </a>
-          <a
-            href={portfolioConfig.personal.company.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="magnetic-btn font-mono text-xs px-5 py-3 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all duration-300"
-          >
-            {portfolioConfig.personal.company.displayUrl}
-          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Word-by-word headline reveal
-  gsap.from('.about-word', {
-    y: '100%',
-    rotationX: -40,
-    duration: 1,
-    stagger: 0.06,
-    ease: "power4.out",
-    scrollTrigger: {
-      trigger: '.about-headline',
-      start: "top 75%"
-    }
-  });
-
-  // Stats stagger with scale
-  gsap.from('.about-stat', {
-    y: 80,
-    autoAlpha: 0,
-    scale: 0.9,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: "back.out(1.7)",
-    scrollTrigger: {
-      trigger: '.about-stat',
-      start: "top 85%"
-    }
-  });
-
-  // Stats counter
-  document.querySelectorAll('.stat-number').forEach((el) => {
-    const stat = el as HTMLElement;
-    const target = parseInt(stat.dataset.target || '0');
-    const suffix = stat.dataset.suffix || '';
-    const obj = { val: 0 };
-
-    gsap.to(obj, {
-      val: target,
-      duration: 2.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: stat,
-        start: "top 85%"
-      },
-      onUpdate: () => {
-        stat.textContent = Math.round(obj.val) + suffix;
-      }
-    });
-  });
-
-  // Description reveal
-  gsap.from('.about-desc', {
-    y: 50,
-    autoAlpha: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: '.about-desc',
-      start: "top 80%"
-    }
-  });
-
-  // Magnetic buttons
-  document.querySelectorAll('.magnetic-btn').forEach(btn => {
-    const el = btn as HTMLElement;
-    el.addEventListener('mousemove', (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3 });
-    });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
-    });
-  });
-</script>

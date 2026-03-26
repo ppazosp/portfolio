@@ -39,15 +39,12 @@ const alternateUrls = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-
     <link rel="alternate" hreflang="en" href={alternateUrls.en} />
     <link rel="alternate" hreflang="es" href={alternateUrls.es} />
     <link rel="alternate" hreflang="x-default" href={alternateUrls.en} />
-
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -55,20 +52,14 @@ const alternateUrls = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={portfolioConfig.seo.siteName} />
     <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_US'} />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(image, currentUrl).href} />
-
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
   </head>
   <body class="bg-background text-foreground antialiased">
     <!-- Page Loader -->
@@ -87,44 +78,170 @@ const alternateUrls = {
       <slot />
     </main>
 
-    <footer class="relative z-10 border-t border-border py-6 bg-background">
+    <!-- Panel nav dots (only rendered if panels exist, managed by script) -->
+    <div class="panel-nav hidden" id="panel-nav"></div>
+
+    <!-- Footer for non-panel pages -->
+    <footer id="site-footer" class="border-t border-border py-6">
       <div class="max-w-[1400px] mx-auto px-6 md:px-12">
         <div class="flex items-center justify-between">
-          <span class="font-mono text-xs text-muted">
-            {portfolioConfig.footer.location}
-          </span>
-          <a
-            href={portfolioConfig.footer.sourceCode.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="font-mono text-xs text-muted hover:text-accent transition-colors"
-          >
-            {portfolioConfig.footer.sourceCode.text}
-          </a>
+          <span class="font-mono text-xs text-muted">{portfolioConfig.footer.location}</span>
+          <a href={portfolioConfig.footer.sourceCode.url} target="_blank" rel="noopener noreferrer"
+             class="font-mono text-xs text-muted hover:text-accent transition-colors">{portfolioConfig.footer.sourceCode.text}</a>
         </div>
       </div>
     </footer>
 
+    <!-- ═══ Panel slideshow engine (GSAP Observer) ═══ -->
     <script>
       import gsap from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import { Observer } from 'gsap/Observer';
 
-      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(Observer);
 
-      // ── Page loader ──
-      const loader = document.getElementById('page-loader');
-      const loaderBar = document.getElementById('loader-bar');
-      const loaderText = document.getElementById('loader-text');
+      const panels = document.querySelectorAll<HTMLElement>('section.panel');
 
-      if (loader && loaderBar && loaderText) {
-        const tl = gsap.timeline();
-        tl.to(loaderBar, { width: '100%', duration: 0.8, ease: "power2.inOut" })
-          .to(loaderText, { scale: 1.2, duration: 0.3, ease: "power2.in" }, 0.4)
-          .to(loaderText, { autoAlpha: 0, scale: 0.8, duration: 0.3, ease: "power2.in" })
-          .to(loader, { yPercent: -100, duration: 0.7, ease: "power3.inOut" })
-          .set(loader, { display: 'none' });
+      // Only activate panel mode if panels exist
+      if (panels.length > 0) {
+        document.body.classList.add('panel-mode');
+        document.getElementById('site-footer')?.remove();
+
+        const outerWrappers = gsap.utils.toArray<HTMLElement>('.panel-outer');
+        const innerWrappers = gsap.utils.toArray<HTMLElement>('.panel-inner');
+        const bgElements = gsap.utils.toArray<HTMLElement>('.panel-bg');
+
+        let currentIndex = -1;
+        let animating = false;
+        const wrap = gsap.utils.wrap(0, panels.length);
+
+        // Initial state: all sections hidden off-screen
+        gsap.set(outerWrappers, { yPercent: 100 });
+        gsap.set(innerWrappers, { yPercent: -100 });
+
+        // Build panel nav dots
+        const panelNav = document.getElementById('panel-nav');
+        if (panelNav) {
+          panelNav.classList.remove('hidden');
+          panels.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'panel-dot';
+            dot.dataset.panel = String(i);
+            dot.addEventListener('click', () => {
+              if (!animating && i !== currentIndex) {
+                gotoSection(i, i > currentIndex ? 1 : -1);
+              }
+            });
+            panelNav.appendChild(dot);
+          });
+        }
+
+        function updateDots(index: number) {
+          document.querySelectorAll('.panel-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+
+        function gotoSection(index: number, direction: number) {
+          index = wrap(index);
+          animating = true;
+
+          const fromTop = direction === -1;
+          const dFactor = fromTop ? -1 : 1;
+
+          const tl = gsap.timeline({
+            defaults: { duration: 1.25, ease: "power1.inOut" },
+            onComplete: () => { animating = false; }
+          });
+
+          if (currentIndex >= 0) {
+            // Animate current section OUT
+            gsap.set(panels[currentIndex], { zIndex: 0 });
+            tl.to(outerWrappers[currentIndex], { yPercent: -100 * dFactor }, 0)
+              .to(innerWrappers[currentIndex], { yPercent: 100 * dFactor }, 0)
+              .to(bgElements[currentIndex], { scale: 1.15 }, 0);
+          }
+
+          // Animate new section IN
+          gsap.set(panels[index], { visibility: "visible", zIndex: 1 });
+          gsap.set(outerWrappers[index], { yPercent: 100 * dFactor });
+          gsap.set(innerWrappers[index], { yPercent: -100 * dFactor });
+
+          tl.to(outerWrappers[index], { yPercent: 0 }, 0)
+            .to(innerWrappers[index], { yPercent: 0 }, 0)
+            .fromTo(bgElements[index], { scale: 1.15 }, { scale: 1 }, 0);
+
+          // Animate heading text
+          const heading = panels[index].querySelector('.panel-heading');
+          if (heading) {
+            tl.from(heading, {
+              y: 60 * dFactor,
+              autoAlpha: 0,
+              duration: 0.8,
+              ease: "power3.out"
+            }, 0.4);
+          }
+
+          currentIndex = index;
+          updateDots(index);
+        }
+
+        // Observer: detect scroll/touch/wheel
+        Observer.create({
+          type: "wheel,touch,pointer",
+          wheelSpeed: -1,
+          onDown: () => !animating && gotoSection(currentIndex - 1, -1),
+          onUp: () => !animating && gotoSection(currentIndex + 1, 1),
+          tolerance: 10,
+          preventDefault: true
+        });
+
+        // Header nav click handling
+        document.querySelectorAll('[data-panel]').forEach(link => {
+          link.addEventListener('click', (e) => {
+            const target = parseInt((link as HTMLElement).dataset.panel || '0');
+            if (!isNaN(target) && target !== currentIndex && !animating) {
+              e.preventDefault();
+              gotoSection(target, target > currentIndex ? 1 : -1);
+            }
+          });
+        });
+
+        // Page loader then show first section
+        const loader = document.getElementById('page-loader');
+        const loaderBar = document.getElementById('loader-bar');
+        const loaderText = document.getElementById('loader-text');
+
+        if (loader && loaderBar && loaderText) {
+          const loaderTl = gsap.timeline({
+            onComplete: () => gotoSection(0, 1)
+          });
+          loaderTl.to(loaderBar, { width: '100%', duration: 0.6, ease: "power2.inOut" })
+            .to(loaderText, { autoAlpha: 0, scale: 0.8, duration: 0.2 })
+            .to(loader, { yPercent: -100, duration: 0.6, ease: "power3.inOut" })
+            .set(loader, { display: 'none' });
+        } else {
+          gotoSection(0, 1);
+        }
+
+        // Hero text animation (only for first section, after initial reveal)
+        setTimeout(() => {
+          gsap.to('.hero-line', { y: 0, duration: 1.2, stagger: 0.1, ease: "power4.out" });
+          gsap.to('.hero-fade', { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.12, delay: 0.5, ease: "power3.out" });
+        }, 1800);
+
+      } else {
+        // Non-panel pages (blog etc): just run the loader
+        const loader = document.getElementById('page-loader');
+        const loaderBar = document.getElementById('loader-bar');
+        const loaderText = document.getElementById('loader-text');
+        if (loader && loaderBar && loaderText) {
+          gsap.timeline()
+            .to(loaderBar, { width: '100%', duration: 0.6, ease: "power2.inOut" })
+            .to(loaderText, { autoAlpha: 0, scale: 0.8, duration: 0.2 })
+            .to(loader, { yPercent: -100, duration: 0.6, ease: "power3.inOut" })
+            .set(loader, { display: 'none' });
+        }
       }
-
     </script>
   </body>
 </html>
