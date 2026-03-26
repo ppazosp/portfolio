@@ -27,6 +27,12 @@ const { experience } = portfolioConfig;
               <div class="hidden md:flex md:col-span-1 flex-col items-center relative" id="exp-timeline-track">
                 <div class="relative w-px h-full min-h-[18rem]" style="background: var(--color-border);">
                   <div class="exp-timeline-progress absolute left-0 top-0 w-full origin-top" style="height: 0%; background: var(--color-accent);"></div>
+                  {experience.map((_, i) => (
+                    <div
+                      class="exp-timeline-dot absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full border-2 transition-all duration-500"
+                      style={`top: ${experience.length > 1 ? i * (100 / (experience.length - 1)) : 0}%; border-color: var(--color-border); background: var(--color-background);`}
+                    ></div>
+                  ))}
                 </div>
               </div>
 
@@ -60,7 +66,7 @@ const { experience } = portfolioConfig;
                     <div class="exp-divider h-[1px] w-full mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
 
                     <!-- Description -->
-                    <p class="exp-desc text-sm text-muted leading-relaxed mb-5 max-w-2xl">
+                    <p class="exp-desc text-base text-muted leading-relaxed mb-5 max-w-2xl">
                       {exp.description}
                     </p>
 
@@ -83,9 +89,8 @@ const { experience } = portfolioConfig;
               <div class="flex gap-1.5" id="exp-pips">
                 {experience.map((_, i) => (
                   <button
-                    class="exp-dot w-2 h-2 rounded-full cursor-pointer transition-all duration-400"
+                    class={`exp-dot w-2 h-2 rounded-full cursor-pointer transition-all duration-400 ${i === 0 ? 'active' : ''}`}
                     data-exp-slide={i}
-                    style={`background: ${i === 0 ? 'var(--color-accent)' : 'var(--color-border)'};`}
                   ></button>
                 ))}
               </div>
@@ -106,6 +111,7 @@ const { experience } = portfolioConfig;
 
   const allSlides = document.querySelectorAll<HTMLElement>('.exp-slide');
   const dots = document.querySelectorAll<HTMLElement>('#exp-pips .exp-dot');
+  const timelineDots = document.querySelectorAll<HTMLElement>('.exp-timeline-dot');
   const timelineProgress = document.querySelector<HTMLElement>('.exp-timeline-progress');
   const counter = document.getElementById('exp-counter');
 
@@ -126,8 +132,16 @@ const { experience } = portfolioConfig;
       };
     }
 
+    function updateTimelineDots(idx: number) {
+      timelineDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+        dot.classList.toggle('passed', i < idx);
+      });
+    }
+
     function updateIndicator() {
       dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+      updateTimelineDots(current);
       if (timelineProgress) {
         const pct = total > 1 ? (current / (total - 1)) * 100 : 0;
         gsap.to(timelineProgress, { height: `${pct}%`, duration: 0.8, ease: "power2.inOut" });
@@ -137,6 +151,7 @@ const { experience } = portfolioConfig;
 
     function updateIndicatorTo(idx: number) {
       dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+      updateTimelineDots(idx);
       if (timelineProgress) {
         const pct = total > 1 ? (idx / (total - 1)) * 100 : 0;
         gsap.to(timelineProgress, { height: `${pct}%`, duration: 0.8, ease: "power2.inOut" });

@@ -163,11 +163,12 @@
   .project-dot,
   .exp-dot {
     background: var(--color-border);
+    transform: scale(1);
   }
   .project-dot.active,
   .exp-dot.active {
     background: var(--color-accent) !important;
-    transform: scale(1.4);
+    transform: scale(1.25);
   }
 
   /* Experience timeline dots */

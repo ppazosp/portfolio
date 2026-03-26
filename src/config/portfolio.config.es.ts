@@ -18,8 +18,8 @@ export const portfolioConfig = {
   },
 
   seo: {
-    title: "Pablo Pazos Parada — CTO y Co-Fundador, OSIX Tech",
-    description: "CTO que construyo una startup de IA de 7 personas desde cero. Diseno, construyo y despliego sistemas de agentes IA en produccion para clientes empresariales.",
+    title: "Pablo Pazos Parada — Ingeniero de IA Aplicada",
+    description: "Ingeniero de IA desplegado con clientes que lleva proyectos de la idea a produccion. Construyo y despliego sistemas de agentes IA end-to-end para clientes empresariales.",
     siteName: "Pablo Pazos Parada",
     ogImage: "/og-image.jpg"
   },
@@ -36,17 +36,17 @@ export const portfolioConfig = {
   },
 
   hero: {
-    tagline: "CTO y Co-Fundador — OSIX Tech",
-    description: "Diseno, construyo y despliego sistemas de agentes IA en produccion, incluyendo plataformas RAG, flujos multi-agente y pipelines automatizados, desplegados en pilotos empresariales con grandes clientes industriales."
+    tagline: "Ingeniero de IA Aplicada — Forward Deployed",
+    description: "Llevo sistemas de agentes IA de la idea a produccion y mas alla. Plataformas RAG, flujos multi-agente, pipelines automatizados — definidos con clientes, construidos end-to-end, desplegados y mantenidos en entornos empresariales."
   },
 
   about: {
-    headline: "Integrando inteligencia en flujos empresariales",
-    description: "CTO y Co-Fundador que construyo una startup de IA de 7 personas desde cero. Trabajo directamente con clientes para definir soluciones, iterar en pilotos y llevar a produccion. Mentalidad fundadora: equilibro calidad, responsabilidad y velocidad.",
+    headline: "De idea a produccion",
+    description: "Me integro con el cliente para entender su problema, diseno la solucion, la construyo, la despliego y la mantengo. Desde la primera reunion hasta el monitoreo en produccion — soy responsable de cada paso. Co-funde una startup de IA de 7 personas donde lidere ingenieria y trabaje directamente con clientes empresariales end-to-end.",
     stats: [
       { value: 21, label: "Anos", suffix: "" },
+      { value: 4, label: "Sistemas en prod", suffix: "" },
       { value: 7, label: "Ingenieros", suffix: "" },
-      { value: 5, label: "Productos", suffix: "+" },
       { value: 150, label: "Usuarios", suffix: "+" }
     ]
   },
@@ -55,28 +55,28 @@ export const portfolioConfig = {
     {
       name: "Nessie",
       tagline: "Plataforma B2B de Agentes IA",
-      description: "Plataforma RAG en produccion con busqueda hibrida avanzada, agentes especializados e ingesta de documentos multi-fuente. Desplegada en pilotos empresariales en sectores de servicios profesionales. Disenada Nessie Industrial para Pescanova — un sistema de grado industrial combinando recuperacion de conocimiento y verificacion automatizada de etiquetas.",
+      description: "Definida directamente con clientes empresariales, arquitectada desde cero y desplegada en produccion. Plataforma RAG con busqueda hibrida, agentes especializados e ingesta multi-fuente. Disene Nessie Industrial para Pescanova — desde los requisitos de fabrica hasta un sistema en vivo combinando recuperacion de conocimiento y verificacion automatizada de etiquetas.",
       tech: ["Python", "TypeScript", "PostgreSQL", "pgvector", "RAG"],
       color: "#7B61FF"
     },
     {
       name: "APEC",
       tagline: "CMO Automatizado",
-      description: "Sistema multi-agente interno que actua como un CMO automatizado. Combina agentes de scraping para investigacion de mercado (NORA) y extraccion de datos financieros (SARA) para alimentar un pipeline completo de outreach por email frio con segmentacion de prospectos, mensajes personalizados y seguimientos automaticos.",
+      description: "Identifique la necesidad internamente, disene la arquitectura, lo construi y lo despliegue end-to-end. Sistema multi-agente que combina agentes de scraping para investigacion de mercado (NORA) y extraccion financiera (SARA) para alimentar un pipeline completo de outreach por email frio — segmentacion, mensajes personalizados, seguimientos automaticos.",
       tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
       color: "#9B7DFF"
     },
     {
       name: "IRIS",
       tagline: "Inteligencia de Email",
-      description: "Sistema multi-agente de gestion de email que clasifica correos entrantes por cliente, proveedor, intencion y prioridad. Genera respuestas contextuales conectadas a la base de datos de productos y extrae contexto del CRM para informar cada interaccion.",
+      description: "Entregado para un cliente B2B desde la toma de requisitos hasta el paso a produccion. Sistema multi-agente de email que clasifica por cliente, proveedor, intencion y prioridad — genera respuestas contextuales conectadas a su base de datos de productos y CRM. Mantenido e iterado post-lanzamiento.",
       tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
       color: "#6448D6"
     },
     {
       name: "ACTA",
-      tagline: "Plataforma de Reuniones",
-      description: "Plataforma interna de reuniones que gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
+      tagline: "Inteligencia de Reuniones",
+      description: "Construido end-to-end como herramienta interna — desde la definicion de necesidades del equipo hasta el despliegue en produccion. Gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
       color: "#A78BFA"
     }
@@ -97,21 +97,21 @@ export const portfolioConfig = {
       role: "CTO y Co-Fundador",
       period: "Junio 2025 – Presente",
       location: "Santiago de Compostela",
-      description: "Arquitecto y lider del desarrollo de multiples plataformas de agentes IA en produccion. Consolide un equipo de 7 ingenieros, actuando como lider tecnico y principal tomador de decisiones en arquitectura, logica de negocio y direccion de producto."
+      description: "Construi 4 sistemas de IA en produccion end-to-end — desde la definicion con el cliente hasta la arquitectura, despliegue y mantenimiento. Lidere un equipo de 7 ingenieros mientras trabajaba directamente con clientes empresariales como ingeniero desplegado traduciendo necesidades de negocio en productos entregados."
     },
     {
       company: "Freelance",
       role: "Desarrollador de Software",
       period: "Verano 2023 y 2024",
       location: "O Grove, Espana",
-      description: "Identifique una necesidad comunitaria y disene e implemente de forma independiente un sistema digital de reservas de pistas de padel, adoptado por mas de 150 usuarios."
+      description: "Detecte un problema real, disene la solucion, la construi solo, la despliegue y di soporte a mas de 150 usuarios. Sistema digital de reservas de pistas de padel — ciclo completo de la idea a produccion."
     },
     {
       company: "USC",
       role: "Grado en Ingenieria Informatica",
       period: "2022 – 2026",
       location: "Santiago de Compostela",
-      description: "Grado en Ingenieria Informatica con enfoque en algoritmos, arquitectura de sistemas, ingenieria de software y fundamentos de ciencias de la computacion."
+      description: "Grado en Ingenieria Informatica — algoritmos, arquitectura de sistemas, ingenieria de software y fundamentos de CS."
     }
   ],
 
