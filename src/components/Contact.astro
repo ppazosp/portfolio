@@ -17,18 +17,19 @@ const links = [
 ];
 ---
 
-<section class="panel" id="contact">
+<section class="panel" id="contact" style="--color-accent: #FF453A; --color-accent-secondary: #D32F2F;">
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
-             style="background: radial-gradient(ellipse, rgba(255,77,0,0.05) 0%, transparent 70%);"></div>
+             style="background: radial-gradient(ellipse, rgba(255,69,58,0.05) 0%, transparent 70%);"></div>
 
-        <div class="panel-content flex flex-col items-center justify-center text-center">
-          <div class="section-label w-full mb-8">
+        <div class="panel-content h-full flex flex-col text-center">
+          <div class="section-label w-full mb-3">
             <span>{locale === 'es' ? 'Contacto' : 'Contact'}</span>
           </div>
 
+          <div class="flex-1 flex flex-col items-center justify-center">
           <h2 class="panel-heading font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[0.95]">
             {contact.headline}
           </h2>
@@ -52,6 +53,7 @@ const links = [
                 </a>
               </Fragment>
             ))}
+          </div>
           </div>
 
           <div class="absolute bottom-6 left-0 right-0 px-12 flex items-center justify-between">
@@ -93,7 +95,7 @@ const links = [
     link.addEventListener('mouseenter', () => {
       gsap.to(chars, {
         y: -4,
-        color: '#FF4D00',
+        color: '#FF453A',
         stagger: { each: 0.025, from: "start" },
         duration: 0.2,
         ease: "power2.out"

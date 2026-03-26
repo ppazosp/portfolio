@@ -29,15 +29,16 @@ const techItems = [
 const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
 ---
 
-<section class="panel" id="stack">
+<section class="panel" id="stack" style="--color-accent: #30D158; --color-accent-secondary: #248A3D;">
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <div class="panel-content flex flex-col justify-center">
-          <div class="section-label">
+        <div class="panel-content h-full flex flex-col">
+          <div class="section-label mb-3">
             <span>Stack</span>
           </div>
 
+          <div class="flex-1 flex flex-col justify-center">
           <h2 class="panel-heading font-display text-2xl md:text-4xl font-bold tracking-tight mb-8 md:mb-10 text-center">
             {locale === 'es' ? 'Tecnologias' : 'Technologies'}
           </h2>
@@ -71,6 +72,7 @@ const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons"
           <p class="font-mono text-[10px] text-muted/30 text-center mt-6">
             {locale === 'es' ? 'mueve el raton' : 'move your mouse around'}
           </p>
+          </div>
         </div>
       </div>
     </div>

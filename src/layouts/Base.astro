@@ -185,8 +185,15 @@ const alternateUrls = {
           updateDots(index);
         }
 
-        // Find the projects panel index
+        // Find carousel panel indices
         const projectsPanelIndex = Array.from(panels).findIndex(p => p.id === 'projects');
+        const experiencePanelIndex = Array.from(panels).findIndex(p => p.id === 'experience');
+
+        function getActiveCarousel() {
+          if (currentIndex === projectsPanelIndex) return (window as any).__carousel;
+          if (currentIndex === experiencePanelIndex) return (window as any).__expCarousel;
+          return null;
+        }
 
         // Observer: detect scroll/touch/wheel
         Observer.create({
@@ -194,8 +201,8 @@ const alternateUrls = {
           wheelSpeed: -1,
           onDown: () => {
             if (animating) return;
-            const c = (window as any).__carousel;
-            if (currentIndex === projectsPanelIndex && c) {
+            const c = getActiveCarousel();
+            if (c) {
               if (c.isAnimating()) return;
               if (!c.isFirst()) { c.prev(); return; }
             }
@@ -203,8 +210,8 @@ const alternateUrls = {
           },
           onUp: () => {
             if (animating) return;
-            const c = (window as any).__carousel;
-            if (currentIndex === projectsPanelIndex && c) {
+            const c = getActiveCarousel();
+            if (c) {
               if (c.isAnimating()) return;
               if (!c.isLast()) { c.next(); return; }
             }

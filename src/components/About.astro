@@ -10,46 +10,48 @@ const portfolioConfig = getPortfolioConfig(locale);
 const { about, personal } = portfolioConfig;
 ---
 
-<section class="panel" id="about">
+<section class="panel" id="about" style="--color-accent: #2997FF; --color-accent-secondary: #1A6ED8;">
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <div class="panel-content">
-          <div class="section-label">
+        <div class="panel-content h-full flex flex-col">
+          <div class="section-label mb-3">
             <span>{locale === 'es' ? 'Sobre mi' : 'About'}</span>
           </div>
 
-          <h2 class="panel-heading font-display text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight max-w-4xl mb-10 md:mb-14">
-            {about.headline}
-          </h2>
+          <div class="flex-1 flex flex-col justify-center">
+            <h2 class="panel-heading font-display text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight max-w-4xl mb-10 md:mb-14">
+              {about.headline}
+            </h2>
 
-          <!-- Stats -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
-            {about.stats.map((stat) => (
-              <div class="border border-border p-4 md:p-6 bg-surface/50">
-                <span class="font-display text-3xl md:text-4xl font-bold text-accent">
-                  {stat.value}{stat.suffix}
-                </span>
-                <p class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-wider mt-2">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
+              {about.stats.map((stat) => (
+                <div class="border border-border p-4 md:p-6 bg-surface/50">
+                  <span class="font-display text-3xl md:text-4xl font-bold text-accent">
+                    {stat.value}{stat.suffix}
+                  </span>
+                  <p class="font-mono text-[10px] md:text-xs text-muted uppercase tracking-wider mt-2">{stat.label}</p>
+                </div>
+              ))}
+            </div>
 
-          <!-- Description + links -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <p class="text-base md:text-lg text-foreground/80 leading-relaxed">
-              {about.description}
-            </p>
-            <div class="flex items-end">
-              <div class="flex flex-wrap gap-3">
-                <a href={`mailto:${personal.email}`}
-                   class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
-                  {personal.email}
-                </a>
-                <a href={personal.company.url} target="_blank" rel="noopener noreferrer"
-                   class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
-                  {personal.company.displayUrl}
-                </a>
+            <!-- Description + links -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <p class="text-base md:text-lg text-foreground/80 leading-relaxed">
+                {about.description}
+              </p>
+              <div class="flex items-end">
+                <div class="flex flex-wrap gap-3">
+                  <a href={`mailto:${personal.email}`}
+                     class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
+                    {personal.email}
+                  </a>
+                  <a href={personal.company.url} target="_blank" rel="noopener noreferrer"
+                     class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
+                    {personal.company.displayUrl}
+                  </a>
+                </div>
               </div>
             </div>
           </div>

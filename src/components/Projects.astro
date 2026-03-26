@@ -14,10 +14,10 @@ const { projects } = portfolioConfig;
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <div class="panel-content relative h-full flex flex-col justify-center">
+        <div class="panel-content relative h-full flex flex-col">
 
           <!-- Section header -->
-          <div class="section-label mb-6 relative z-20">
+          <div class="section-label mb-3 relative z-20">
             <span>{locale === 'es' ? 'Proyectos' : 'Projects'}</span>
           </div>
 
@@ -30,8 +30,8 @@ const { projects } = portfolioConfig;
                 data-color={project.color}
                 style={i > 0 ? 'visibility: hidden;' : ''}
               >
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 w-full items-center">
-                  <!-- Color block (5 cols) -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-2 w-full items-start">
+                  <!-- Color block (cols 1-5) -->
                   <div class="md:col-span-5">
                     <div class="slide-img relative h-44 md:h-[22rem] overflow-hidden" style={`background: ${project.color};`}>
                       <span class="absolute top-3 left-4 md:top-5 md:left-6 font-display font-extrabold text-6xl md:text-8xl leading-none select-none"
@@ -49,19 +49,21 @@ const { projects } = portfolioConfig;
                     </div>
                   </div>
 
-                  <!-- Info (7 cols) -->
-                  <div class="md:col-span-6 md:col-start-7">
-                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-2" style={`color: ${project.color};`}>
+                  <!-- Info (cols 7-11, 1 col gap each side) -->
+                  <div class="md:col-span-5 md:col-start-7 flex flex-col">
+                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-4" style={`color: ${project.color};`}>
+                      <span style={`color: ${project.color}60;`}>{String(i + 1).padStart(2, '0')}</span>
+                      <span class="mx-2" style={`color: ${project.color}30;`}>/</span>
                       {project.tagline}
                     </div>
-                    <h3 class="slide-name overflow-hidden mb-3">
+                    <h3 class="slide-name overflow-hidden mb-4">
                       <span class="slide-name-inner block font-display font-extrabold tracking-[-0.03em] leading-[0.9]"
                             style="font-size: clamp(2rem, 5vw, 4.5rem);">
                         {project.name}
                       </span>
                     </h3>
-                    <div class="slide-divider h-0.5 w-12 mb-4" style={`background: ${project.color};`}></div>
-                    <p class="slide-desc text-sm text-muted leading-relaxed mb-5 max-w-md">
+                    <div class="slide-divider h-[1px] w-full mb-5" style={`background: linear-gradient(to right, ${project.color}, transparent);`}></div>
+                    <p class="slide-desc text-sm text-muted leading-relaxed mb-6">
                       {project.description}
                     </p>
                     <div class="slide-tags flex flex-wrap gap-2">
@@ -76,8 +78,8 @@ const { projects } = portfolioConfig;
             ))}
           </div>
 
-          <!-- Counter (bottom right) -->
-          <div class="relative z-20 flex items-center justify-end pt-3">
+          <!-- Counter (bottom right, tight to content) -->
+          <div class="relative z-20 flex items-center justify-end pt-1">
             <div class="flex items-center gap-3">
               <div class="flex gap-1.5" id="project-pips">
                 {projects.map((project, i) => (
