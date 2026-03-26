@@ -87,7 +87,7 @@ const alternateUrls = {
       <slot />
     </main>
 
-    <footer class="border-t border-border py-6">
+    <footer class="relative z-10 border-t border-border py-6 bg-background">
       <div class="max-w-[1400px] mx-auto px-6 md:px-12">
         <div class="flex items-center justify-between">
           <span class="font-mono text-xs text-muted">
@@ -105,40 +105,48 @@ const alternateUrls = {
       </div>
     </footer>
 
-    <!-- Page loader animation -->
     <script>
       import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ── Page loader ──
       const loader = document.getElementById('page-loader');
       const loaderBar = document.getElementById('loader-bar');
       const loaderText = document.getElementById('loader-text');
 
       if (loader && loaderBar && loaderText) {
         const tl = gsap.timeline();
-
-        tl.to(loaderBar, {
-          width: '100%',
-          duration: 0.8,
-          ease: "power2.inOut"
-        })
-        .to(loaderText, {
-          scale: 1.2,
-          duration: 0.3,
-          ease: "power2.in"
-        }, 0.4)
-        .to(loaderText, {
-          autoAlpha: 0,
-          scale: 0.8,
-          duration: 0.3,
-          ease: "power2.in"
-        })
-        .to(loader, {
-          yPercent: -100,
-          duration: 0.7,
-          ease: "power3.inOut"
-        })
-        .set(loader, { display: 'none' });
+        tl.to(loaderBar, { width: '100%', duration: 0.8, ease: "power2.inOut" })
+          .to(loaderText, { scale: 1.2, duration: 0.3, ease: "power2.in" }, 0.4)
+          .to(loaderText, { autoAlpha: 0, scale: 0.8, duration: 0.3, ease: "power2.in" })
+          .to(loader, { yPercent: -100, duration: 0.7, ease: "power3.inOut" })
+          .set(loader, { display: 'none' });
       }
+
+      // ── Theater depth scroll ──
+      // Each section scales down + fades as the next section covers it
+      const sections = gsap.utils.toArray<HTMLElement>('main > section:not(#hero)');
+
+      sections.forEach((section, i) => {
+        if (i < sections.length - 1) {
+          const nextSection = sections[i + 1];
+          if (nextSection) {
+            gsap.to(section, {
+              scale: 0.9,
+              autoAlpha: 0.3,
+              filter: 'blur(3px)',
+              scrollTrigger: {
+                trigger: nextSection,
+                start: 'top bottom',
+                end: 'top 20%',
+                scrub: 1
+              }
+            });
+          }
+        }
+      });
     </script>
   </body>
 </html>

@@ -57,35 +57,35 @@ export const portfolioConfig = {
       tagline: "B2B AI Agent Platform",
       description: "Production RAG platform featuring advanced hybrid search, specialized agents, and multi-source document ingestion. Deployed in enterprise pilots across professional services sectors. Designed Nessie Industrial for Pescanova — a factory-grade system combining knowledge retrieval and automated label verification.",
       tech: ["Python", "TypeScript", "PostgreSQL", "pgvector", "RAG"],
-      color: "#00F5D4"
+      color: "#FF4D00"
     },
     {
       name: "APEC",
       tagline: "Automated CMO",
       description: "Internal multi-agent system that acts as an automated CMO. Combines scraping agents for market research (NORA) and financial data extraction (SARA) to feed an end-to-end cold email outreach pipeline with prospect targeting, personalized messaging, and automated follow-ups.",
       tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
-      color: "#FF4D00"
+      color: "#FF6B35"
     },
     {
       name: "IRIS",
       tagline: "Email Intelligence",
       description: "Multi-agent email management system that classifies incoming emails by client, provider, intent, and priority. Generates context-aware responses connected to product database and pulls client context from CRM to inform every interaction.",
       tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
-      color: "#A855F7"
+      color: "#E63946"
     },
     {
       name: "ACTA",
       tagline: "Meeting Platform",
       description: "Internal meeting platform handling transcription, speaker diarization, summary generation, and automatic task assignment per team member.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
-      color: "#22C55E"
+      color: "#F4A261"
     },
     {
       name: "Padel Courts",
       tagline: "Booking System",
       description: "Identified a community need while working as a security guard and independently designed and shipped a digital booking system for padel courts, adopted by 150+ users, automating scheduling and eliminating manual processes.",
       tech: ["Full-Stack", "React", "Node.js", "PostgreSQL"],
-      color: "#EAB308"
+      color: "#E76F51"
     }
   ],
 

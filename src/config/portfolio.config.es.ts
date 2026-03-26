@@ -57,35 +57,35 @@ export const portfolioConfig = {
       tagline: "Plataforma B2B de Agentes IA",
       description: "Plataforma RAG en produccion con busqueda hibrida avanzada, agentes especializados e ingesta de documentos multi-fuente. Desplegada en pilotos empresariales en sectores de servicios profesionales. Disenada Nessie Industrial para Pescanova — un sistema de grado industrial combinando recuperacion de conocimiento y verificacion automatizada de etiquetas.",
       tech: ["Python", "TypeScript", "PostgreSQL", "pgvector", "RAG"],
-      color: "#00F5D4"
+      color: "#FF4D00"
     },
     {
       name: "APEC",
       tagline: "CMO Automatizado",
       description: "Sistema multi-agente interno que actua como un CMO automatizado. Combina agentes de scraping para investigacion de mercado (NORA) y extraccion de datos financieros (SARA) para alimentar un pipeline completo de outreach por email frio con segmentacion de prospectos, mensajes personalizados y seguimientos automaticos.",
       tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
-      color: "#FF4D00"
+      color: "#FF6B35"
     },
     {
       name: "IRIS",
       tagline: "Inteligencia de Email",
       description: "Sistema multi-agente de gestion de email que clasifica correos entrantes por cliente, proveedor, intencion y prioridad. Genera respuestas contextuales conectadas a la base de datos de productos y extrae contexto del CRM para informar cada interaccion.",
       tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
-      color: "#A855F7"
+      color: "#E63946"
     },
     {
       name: "ACTA",
       tagline: "Plataforma de Reuniones",
       description: "Plataforma interna de reuniones que gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
-      color: "#22C55E"
+      color: "#F4A261"
     },
     {
       name: "Pistas de Padel",
       tagline: "Sistema de Reservas",
       description: "Identifique una necesidad comunitaria mientras trabajaba como vigilante de seguridad y disene e implemente de forma independiente un sistema digital de reservas de pistas de padel, adoptado por mas de 150 usuarios, automatizando la programacion y eliminando procesos manuales.",
       tech: ["Full-Stack", "React", "Node.js", "PostgreSQL"],
-      color: "#EAB308"
+      color: "#E76F51"
     }
   ],
 

@@ -3,10 +3,10 @@
 :root {
   --color-background: #050505;
   --color-foreground: #F0F0F0;
-  --color-muted: #777777;
-  --color-border: #1a1a1a;
-  --color-accent: #00F5D4;
-  --color-accent-warm: #FF4D00;
+  --color-muted: #888888;
+  --color-border: #1c1c1c;
+  --color-accent: #FF4D00;
+  --color-accent-secondary: #FF2D2D;
   --color-surface: #0c0c0c;
 }
 
@@ -16,7 +16,7 @@
   --color-muted: var(--color-muted);
   --color-border: var(--color-border);
   --color-accent: var(--color-accent);
-  --color-accent-warm: var(--color-accent-warm);
+  --color-accent-secondary: var(--color-accent-secondary);
   --color-surface: var(--color-surface);
 
   --font-display: 'Syne', sans-serif;
@@ -56,10 +56,6 @@
     border-color: var(--color-border);
   }
 
-  html {
-    scroll-behavior: auto;
-  }
-
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -71,7 +67,7 @@
   }
 
   ::selection {
-    background-color: rgba(0, 245, 212, 0.25);
+    background-color: rgba(255, 77, 0, 0.25);
     color: #fff;
   }
 
@@ -108,6 +104,21 @@
     width: 0;
   }
 
+  /* Hero stays pinned behind everything */
+  #hero {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  /* All sections after hero slide over it */
+  main > section:not(#hero),
+  main > .marquee-wrapper {
+    position: relative;
+    z-index: 10;
+    background: var(--color-background);
+  }
+
   /* Hero initial states */
   .hero-line {
     transform: translateY(110%);
@@ -120,7 +131,7 @@
     will-change: transform, opacity;
   }
 
-  /* Split character animation base */
+  /* Split character animation */
   .split-char {
     display: inline-block;
     will-change: transform, opacity;
@@ -128,11 +139,11 @@
 
   /* Background patterns */
   .bg-dot-grid {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(255, 77, 0, 0.03) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 
-  /* Section label with line */
+  /* Section label */
   .section-label {
     display: flex;
     align-items: center;
@@ -178,7 +189,7 @@
     transition: background-color 0.3s, border-color 0.3s;
   }
 
-  /* Project image placeholder */
+  /* Project visual placeholder */
   .project-visual {
     position: relative;
     overflow: hidden;
