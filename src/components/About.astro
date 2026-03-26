@@ -9,10 +9,9 @@ const { locale } = Astro.props;
 const portfolioConfig = getPortfolioConfig(locale);
 const { about, personal } = portfolioConfig;
 
-const words = about.headline.split(' ');
-const line1 = words[0].toUpperCase();
-const toWord = words[1].toUpperCase();
-const rest = words.slice(2).join(' ').toUpperCase();
+const line1 = about.headline[0].toUpperCase();
+const accentLine = about.headline[1].toUpperCase();
+const line3 = about.headline[2].toUpperCase();
 ---
 
 <section class="panel" id="about">
@@ -40,13 +39,13 @@ const rest = words.slice(2).join(' ').toUpperCase();
               <div class="overflow-hidden">
                 <span class="about-line block font-display font-extrabold tracking-[-0.04em] text-accent"
                       style="font-size: clamp(1.8rem, 7.5vw, 7rem); line-height: 0.9;">
-                  {toWord}
+                  {accentLine}
                 </span>
               </div>
               <div class="overflow-hidden">
                 <span class="about-line block font-display font-extrabold tracking-[-0.04em]"
                       style="font-size: clamp(1.8rem, 7.5vw, 7rem); line-height: 0.9;">
-                  {rest}
+                  {line3}
                 </span>
               </div>
             </div>

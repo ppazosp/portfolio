@@ -41,7 +41,7 @@ export const portfolioConfig = {
   },
 
   about: {
-    headline: "Idea to production",
+    headline: ["Idea", "to", "production"],
     description: "I embed with clients to understand their problem, architect the solution, build it, ship it, and keep it running. From first whiteboard session to production monitoring, I own every step. Co-Founded a 7-person AI startup where I led engineering and worked directly with enterprise clients end-to-end.",
     stats: [
       { value: 21, label: "Years old", suffix: "" },

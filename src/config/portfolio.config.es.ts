@@ -41,7 +41,7 @@ export const portfolioConfig = {
   },
 
   about: {
-    headline: "De idea a produccion",
+    headline: ["De idea", "a", "produccion"],
     description: "Me integro con el cliente para entender su problema, diseno la solucion, la construyo, la despliego y la mantengo. Desde la primera reunion hasta el monitoreo en produccion, soy responsable de cada paso. Co-funde una startup de IA de 7 personas donde lidere ingenieria y trabaje directamente con clientes empresariales end-to-end.",
     stats: [
       { value: 21, label: "Anos", suffix: "" },
