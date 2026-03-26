@@ -80,21 +80,11 @@ const line3 = about.headline[2].toUpperCase();
                 </div>
               </div>
 
-              <!-- Description + links -->
+              <!-- Description -->
               <div class="lg:col-span-7 flex flex-col justify-between gap-4 md:gap-6">
                 <p class="about-fade text-sm md:text-lg text-foreground/80 leading-relaxed max-w-lg">
                   {about.description}
                 </p>
-                <div class="about-fade flex flex-wrap gap-3">
-                  <a href={`mailto:${personal.email}`}
-                     class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
-                    {personal.email}
-                  </a>
-                  <a href={personal.company.url} target="_blank" rel="noopener noreferrer"
-                     class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent/50 transition-all">
-                    {personal.company.displayUrl}
-                  </a>
-                </div>
               </div>
             </div>
           </div>
