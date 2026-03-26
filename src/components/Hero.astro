@@ -10,7 +10,7 @@ const portfolioConfig = getPortfolioConfig(locale);
 const { personal, hero } = portfolioConfig;
 ---
 
-<section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden">
+<section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden" style="transform-style: preserve-3d;">
   <!-- Dot grid -->
   <div class="absolute inset-0 bg-dot-grid"></div>
 
@@ -100,11 +100,14 @@ const { personal, hero } = portfolioConfig;
     delay: 3.5
   });
 
-  // Hero content parallax + scale down as you scroll (stays pinned behind)
+  // Hero recedes dramatically into depth as you scroll away
   gsap.to('.hero-parallax', {
-    y: -80,
-    scale: 0.92,
-    autoAlpha: 0.3,
+    y: -150,
+    scale: 0.65,
+    rotationX: 12,
+    autoAlpha: 0.05,
+    filter: 'blur(12px)',
+    transformOrigin: "center top",
     ease: "none",
     scrollTrigger: {
       trigger: '#hero',

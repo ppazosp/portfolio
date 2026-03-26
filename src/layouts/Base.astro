@@ -83,7 +83,7 @@ const alternateUrls = {
 
     <Header locale={locale} />
 
-    <main id="main">
+    <main id="main" style="perspective: 1200px; perspective-origin: 50% 50%;">
       <slot />
     </main>
 
@@ -126,25 +126,47 @@ const alternateUrls = {
       }
 
       // ── Theater depth scroll ──
-      // Each section scales down + fades as the next section covers it
+      // Sections recede into 3D depth as the next one approaches
       const sections = gsap.utils.toArray<HTMLElement>('main > section:not(#hero)');
 
       sections.forEach((section, i) => {
+        // Ensure transform-style for 3D
+        section.style.transformStyle = 'preserve-3d';
+
         if (i < sections.length - 1) {
           const nextSection = sections[i + 1];
           if (nextSection) {
             gsap.to(section, {
-              scale: 0.9,
-              autoAlpha: 0.3,
-              filter: 'blur(3px)',
+              scale: 0.75,
+              y: -60,
+              rotationX: 8,
+              autoAlpha: 0.15,
+              filter: 'blur(10px)',
+              transformOrigin: "center top",
               scrollTrigger: {
                 trigger: nextSection,
                 start: 'top bottom',
-                end: 'top 20%',
+                end: 'top 10%',
                 scrub: 1
               }
             });
           }
+        }
+
+        // Entrance: each section rises from slight depth
+        if (i > 0) {
+          gsap.from(section, {
+            y: 120,
+            rotationX: -4,
+            autoAlpha: 0.6,
+            transformOrigin: "center bottom",
+            scrollTrigger: {
+              trigger: section,
+              start: 'top bottom',
+              end: 'top 40%',
+              scrub: 1
+            }
+          });
         }
       });
     </script>
