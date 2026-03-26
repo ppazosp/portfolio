@@ -6,9 +6,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const portfolioConfig = getPortfolioConfig(locale);
 
-// Tech items with devicon slugs
 const techItems = [
   { name: "Python", icon: "python/python-original.svg" },
   { name: "TypeScript", icon: "typescript/typescript-original.svg" },
@@ -16,19 +14,16 @@ const techItems = [
   { name: "React", icon: "react/react-original.svg" },
   { name: "Next.js", icon: "nextjs/nextjs-original.svg", invert: true },
   { name: "Astro", icon: "astro/astro-original.svg", invert: true },
-  { name: "Tailwind CSS", icon: "tailwindcss/tailwindcss-original.svg" },
+  { name: "Tailwind", icon: "tailwindcss/tailwindcss-original.svg" },
   { name: "Node.js", icon: "nodejs/nodejs-original.svg" },
   { name: "FastAPI", icon: "fastapi/fastapi-original.svg" },
   { name: "PostgreSQL", icon: "postgresql/postgresql-original.svg" },
   { name: "Docker", icon: "docker/docker-original.svg" },
   { name: "Git", icon: "git/git-original.svg" },
-];
-
-const aiItems = [
-  { name: "LLM APIs", label: "LLM" },
-  { name: "RAG Pipelines", label: "RAG" },
-  { name: "Multi-Agent", label: "MAS" },
-  { name: "Prompt Eng.", label: "PE" },
+  { name: "LLM APIs", icon: null, label: "LLM" },
+  { name: "RAG", icon: null, label: "RAG" },
+  { name: "Multi-Agent", icon: null, label: "MAS" },
+  { name: "Prompt Eng.", icon: null, label: "PE" },
 ];
 
 const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
@@ -38,63 +33,110 @@ const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons"
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <div class="panel-content">
+        <div class="panel-content flex flex-col justify-center">
           <div class="section-label">
             <span>Stack</span>
           </div>
 
-          <h2 class="panel-heading font-display text-2xl md:text-4xl font-bold tracking-tight mb-8 md:mb-10">
+          <h2 class="panel-heading font-display text-2xl md:text-4xl font-bold tracking-tight mb-8 md:mb-10 text-center">
             {locale === 'es' ? 'Tecnologias' : 'Technologies'}
           </h2>
 
-          <!-- Main tech grid with icons -->
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4 mb-8">
+          <!-- Floating repulsion grid -->
+          <div class="float-container relative flex flex-wrap justify-center gap-4 md:gap-5 max-w-4xl mx-auto" id="float-container">
             {techItems.map((item, i) => (
               <div
-                class="tech-card group relative border border-border bg-surface/30 p-4 md:p-5 flex flex-col items-center gap-3 cursor-default hover:border-accent/40 transition-all duration-300"
-                style={`--delay: ${i * 0.05}s`}
+                class="float-item flex flex-col items-center gap-2 border border-border bg-surface/40 px-4 py-4 md:px-5 md:py-5 cursor-default select-none"
+                style={`--fi: ${i};`}
               >
-                <img
-                  src={`${DEVICON_BASE}/${item.icon}`}
-                  alt={item.name}
-                  width="36"
-                  height="36"
-                  class={`transition-transform duration-300 group-hover:scale-110 ${item.invert ? 'invert' : ''}`}
-                  loading="lazy"
-                />
-                <span class="font-mono text-[10px] text-muted group-hover:text-foreground transition-colors text-center leading-tight">
-                  {item.name}
-                </span>
-                <!-- Hover glow -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                     style="background: radial-gradient(circle at 50% 30%, rgba(255,77,0,0.08) 0%, transparent 70%);"></div>
+                {item.icon ? (
+                  <img
+                    src={`${DEVICON_BASE}/${item.icon}`}
+                    alt={item.name}
+                    width="32"
+                    height="32"
+                    class={`pointer-events-none ${item.invert ? 'invert' : ''}`}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span class="w-8 h-8 flex items-center justify-center rounded bg-accent/10 font-mono text-[10px] text-accent font-bold">
+                    {item.label}
+                  </span>
+                )}
+                <span class="font-mono text-[10px] text-muted whitespace-nowrap">{item.name}</span>
               </div>
             ))}
           </div>
 
-          <!-- AI / Specialization row -->
-          <div>
-            <h3 class="font-mono text-[10px] text-accent uppercase tracking-[0.2em] mb-4">
-              {locale === 'es' ? 'IA & Especializacion' : 'AI & Specialization'}
-            </h3>
-            <div class="flex flex-wrap gap-2 md:gap-3">
-              {aiItems.map((item, i) => (
-                <div
-                  class="ai-tag group border border-border bg-surface/30 px-4 py-2.5 flex items-center gap-2.5 cursor-default hover:border-accent/40 transition-all duration-300"
-                  style={`--delay: ${i * 0.06}s`}
-                >
-                  <span class="w-7 h-7 rounded bg-accent/10 flex items-center justify-center font-mono text-[10px] text-accent font-bold group-hover:bg-accent/20 transition-colors">
-                    {item.label}
-                  </span>
-                  <span class="font-mono text-xs text-muted group-hover:text-foreground transition-colors">
-                    {item.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p class="font-mono text-[10px] text-muted/30 text-center mt-6">
+            {locale === 'es' ? 'mueve el raton' : 'move your mouse around'}
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import gsap from 'gsap';
+
+  const container = document.getElementById('float-container');
+  const items = document.querySelectorAll<HTMLElement>('.float-item');
+
+  if (container && items.length > 0) {
+    const repelRadius = 160;
+    const repelStrength = 60;
+
+    // Idle floating
+    items.forEach((item, i) => {
+      gsap.to(item, {
+        y: `random(-6, 6)`,
+        x: `random(-4, 4)`,
+        rotation: `random(-2, 2)`,
+        duration: `random(2.5, 4)`,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: i * 0.15
+      });
+    });
+
+    // Mouse repulsion
+    container.addEventListener('mousemove', (e) => {
+      const containerRect = container.getBoundingClientRect();
+
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = cx - e.clientX;
+        const dy = cy - e.clientY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < repelRadius) {
+          const force = (1 - dist / repelRadius) * repelStrength;
+          const angle = Math.atan2(dy, dx);
+          gsap.to(item, {
+            x: `+=${Math.cos(angle) * force * 0.3}`,
+            y: `+=${Math.sin(angle) * force * 0.3}`,
+            scale: 1.08,
+            duration: 0.25,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        }
+      });
+    });
+
+    container.addEventListener('mouseleave', () => {
+      items.forEach(item => {
+        gsap.to(item, {
+          scale: 1,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.5)",
+          overwrite: "auto"
+        });
+      });
+    });
+  }
+</script>

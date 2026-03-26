@@ -21,7 +21,6 @@ const links = [
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <!-- Ambient glow -->
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
              style="background: radial-gradient(ellipse, rgba(255,77,0,0.05) 0%, transparent 70%);"></div>
 
@@ -34,30 +33,27 @@ const links = [
             {contact.headline}
           </h2>
 
-          <!-- Email with scramble -->
           <a href={`mailto:${personal.email}`}
              class="inline-block font-mono text-sm md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-12"
              data-scramble={personal.email}>
             {personal.email}
           </a>
 
-          <!-- Rolling text links -->
+          <!-- Character wave links -->
           <div class="flex items-center justify-center gap-6 md:gap-8 flex-wrap">
             {links.map((link, i) => (
               <Fragment>
                 {i > 0 && <span class="text-border select-none">|</span>}
                 <a href={link.href} target="_blank" rel="noopener noreferrer"
-                   class="roll-link font-mono text-xs uppercase tracking-[0.15em]">
-                  <span class="roll-text">
-                    <span class="roll-top text-muted">{link.label}</span>
-                    <span class="roll-bottom text-accent" aria-hidden="true">{link.label}</span>
-                  </span>
+                   class="contact-wave-link font-mono text-xs uppercase tracking-[0.15em] text-muted">
+                  {link.label.split('').map((char) => (
+                    <span class="wave-char inline-block">{char === ' ' ? '\u00A0' : char}</span>
+                  ))}
                 </a>
               </Fragment>
             ))}
           </div>
 
-          <!-- Footer info -->
           <div class="absolute bottom-6 left-0 right-0 px-12 flex items-center justify-between">
             <span class="font-mono text-[10px] text-muted/40">{footer.location}</span>
             <a href={footer.sourceCode.url} target="_blank" rel="noopener noreferrer"
@@ -69,35 +65,10 @@ const links = [
   </div>
 </section>
 
-<style>
-  .roll-link {
-    display: inline-block;
-    overflow: hidden;
-    height: 1.4em;
-    line-height: 1.4em;
-    cursor: pointer;
-  }
-
-  .roll-text {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
-  }
-
-  .roll-link:hover .roll-text {
-    transform: translateY(-50%);
-  }
-
-  .roll-top,
-  .roll-bottom {
-    display: block;
-    height: 1.4em;
-    line-height: 1.4em;
-  }
-</style>
-
 <script>
-  // Text scramble on email hover
+  import gsap from 'gsap';
+
+  // Text scramble on email
   const scrambleEl = document.querySelector('[data-scramble]') as HTMLElement;
   if (scrambleEl) {
     const originalText = scrambleEl.dataset.scramble || '';
@@ -115,4 +86,28 @@ const links = [
     });
     scrambleEl.addEventListener('mouseleave', () => { scrambleEl.textContent = originalText; });
   }
+
+  // Character wave on contact links
+  document.querySelectorAll('.contact-wave-link').forEach(link => {
+    const chars = link.querySelectorAll('.wave-char');
+    link.addEventListener('mouseenter', () => {
+      gsap.to(chars, {
+        y: -4,
+        color: '#FF4D00',
+        stagger: { each: 0.025, from: "start" },
+        duration: 0.2,
+        ease: "power2.out"
+      });
+    });
+    link.addEventListener('mouseleave', () => {
+      gsap.to(chars, {
+        y: 0,
+        color: '',
+        stagger: { each: 0.02, from: "end" },
+        duration: 0.3,
+        ease: "power2.inOut",
+        clearProps: "color"
+      });
+    });
+  });
 </script>

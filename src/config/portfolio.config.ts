@@ -12,8 +12,8 @@ export const portfolioConfig = {
     linkedin: "pablo-pazos-parada",
     company: {
       name: "OSIX Tech",
-      url: "https://osixtech.com",
-      displayUrl: "osixtech.com"
+      url: "https://osix.tech",
+      displayUrl: "osix.tech"
     }
   },
 
@@ -79,13 +79,6 @@ export const portfolioConfig = {
       description: "Internal meeting platform handling transcription, speaker diarization, summary generation, and automatic task assignment per team member.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
       color: "#F4A261"
-    },
-    {
-      name: "Padel Courts",
-      tagline: "Booking System",
-      description: "Identified a community need while working as a security guard and independently designed and shipped a digital booking system for padel courts, adopted by 150+ users, automating scheduling and eliminating manual processes.",
-      tech: ["Full-Stack", "React", "Node.js", "PostgreSQL"],
-      color: "#E76F51"
     }
   ],
 

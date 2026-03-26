@@ -19,29 +19,19 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
 
     <nav class="hidden md:flex items-center gap-8">
       {portfolioConfig.navigation.links.map((link, i) => (
-        <a
-          href={link.href}
-          data-panel={i + 1}
-          class="nav-link font-mono text-xs uppercase tracking-[0.15em] text-muted"
-        >
-          {link.label.split('').map((char) => (
-            <span class="nav-char inline-block">{char}</span>
-          ))}
+        <a href={link.href} data-panel={i + 1} class="roll-link font-mono text-xs uppercase tracking-[0.15em]">
+          <span class="roll-text">
+            <span class="roll-top text-muted">{link.label}</span>
+            <span class="roll-bottom text-accent" aria-hidden="true">{link.label}</span>
+          </span>
         </a>
       ))}
-      <a
-        href={altHref}
-        class="ml-2 font-mono text-xs uppercase tracking-[0.15em] text-muted/50 hover:text-accent transition-colors border-l border-border pl-6"
-      >
+      <a href={altHref} class="ml-2 font-mono text-xs uppercase tracking-[0.15em] text-muted/50 hover:text-accent transition-colors border-l border-border pl-6">
         {altLabel}
       </a>
     </nav>
 
-    <button
-      id="mobile-menu-btn"
-      class="md:hidden flex flex-col gap-1.5 w-7 h-7 items-center justify-center"
-      aria-label="Toggle menu"
-    >
+    <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 w-7 h-7 items-center justify-center" aria-label="Toggle menu">
       <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar1"></span>
       <span class="block w-5 h-px bg-foreground transition-opacity" id="bar2"></span>
       <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar3"></span>
@@ -51,53 +41,43 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
   <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-background/95 backdrop-blur-md">
     <div class="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
       {portfolioConfig.navigation.links.map((link, i) => (
-        <a
-          href={link.href}
-          data-panel={i + 1}
-          class="font-mono text-sm text-muted hover:text-foreground transition-colors mobile-nav-link"
-        >
+        <a href={link.href} data-panel={i + 1} class="font-mono text-sm text-muted hover:text-foreground transition-colors mobile-nav-link">
           {link.label}
         </a>
       ))}
       <div class="pt-2 border-t border-border">
-        <a href={altHref} class="font-mono text-sm text-muted/50 hover:text-accent transition-colors">
-          {altLabel}
-        </a>
+        <a href={altHref} class="font-mono text-sm text-muted/50 hover:text-accent transition-colors">{altLabel}</a>
       </div>
     </div>
   </div>
 </header>
 
+<style>
+  .roll-link {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.4em;
+    line-height: 1.4em;
+    cursor: pointer;
+  }
+  .roll-text {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .roll-link:hover .roll-text {
+    transform: translateY(-50%);
+  }
+  .roll-top, .roll-bottom {
+    display: block;
+    height: 1.4em;
+    line-height: 1.4em;
+  }
+</style>
+
 <script>
   import gsap from 'gsap';
 
-  // ── Character wave animation on nav links ──
-  document.querySelectorAll('.nav-link').forEach(link => {
-    const chars = link.querySelectorAll('.nav-char');
-
-    link.addEventListener('mouseenter', () => {
-      gsap.to(chars, {
-        y: -3,
-        color: '#FF4D00',
-        stagger: { each: 0.025, from: "start" },
-        duration: 0.2,
-        ease: "power2.out"
-      });
-    });
-
-    link.addEventListener('mouseleave', () => {
-      gsap.to(chars, {
-        y: 0,
-        color: '',
-        stagger: { each: 0.02, from: "end" },
-        duration: 0.3,
-        ease: "power2.inOut",
-        clearProps: "color"
-      });
-    });
-  });
-
-  // ── Mobile menu ──
   const mobileBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   let menuOpen = false;

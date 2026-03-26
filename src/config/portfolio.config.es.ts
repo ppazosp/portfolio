@@ -12,8 +12,8 @@ export const portfolioConfig = {
     linkedin: "pablo-pazos-parada",
     company: {
       name: "OSIX Tech",
-      url: "https://osixtech.com",
-      displayUrl: "osixtech.com"
+      url: "https://osix.tech",
+      displayUrl: "osix.tech"
     }
   },
 
@@ -79,13 +79,6 @@ export const portfolioConfig = {
       description: "Plataforma interna de reuniones que gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
       color: "#F4A261"
-    },
-    {
-      name: "Pistas de Padel",
-      tagline: "Sistema de Reservas",
-      description: "Identifique una necesidad comunitaria mientras trabajaba como vigilante de seguridad y disene e implemente de forma independiente un sistema digital de reservas de pistas de padel, adoptado por mas de 150 usuarios, automatizando la programacion y eliminando procesos manuales.",
-      tech: ["Full-Stack", "React", "Node.js", "PostgreSQL"],
-      color: "#E76F51"
     }
   ],
 
