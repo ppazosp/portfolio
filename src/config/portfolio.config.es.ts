@@ -90,7 +90,7 @@ export const portfolioConfig = {
       role: "CTO y Co-Fundador",
       period: "Junio 2025 – Presente",
       location: "Santiago de Compostela",
-      description: "Construi 4 sistemas de IA en produccion end-to-end, desde la definicion con el cliente hasta la arquitectura, despliegue y mantenimiento. Lidere un equipo de 7 ingenieros mientras trabajaba directamente con clientes empresariales como ingeniero desplegado traduciendo necesidades de negocio en productos entregados."
+      description: "Construi +5 sistemas de IA en produccion end-to-end, desde la definicion con el cliente hasta la arquitectura, despliegue y mantenimiento. Lidere un equipo de 7 ingenieros mientras trabajaba directamente con clientes empresariales como ingeniero desplegado traduciendo necesidades de negocio en productos entregados."
     },
     {
       company: "Freelance",
