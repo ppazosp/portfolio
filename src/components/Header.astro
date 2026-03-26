@@ -22,9 +22,11 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
         <a
           href={link.href}
           data-panel={i + 1}
-          class="font-mono text-xs uppercase tracking-[0.15em] text-muted hover:text-foreground transition-colors"
+          class="nav-link font-mono text-xs uppercase tracking-[0.15em] text-muted"
         >
-          {link.label}
+          {link.label.split('').map((char) => (
+            <span class="nav-char inline-block">{char}</span>
+          ))}
         </a>
       ))}
       <a
@@ -69,6 +71,33 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
 <script>
   import gsap from 'gsap';
 
+  // ── Character wave animation on nav links ──
+  document.querySelectorAll('.nav-link').forEach(link => {
+    const chars = link.querySelectorAll('.nav-char');
+
+    link.addEventListener('mouseenter', () => {
+      gsap.to(chars, {
+        y: -3,
+        color: '#FF4D00',
+        stagger: { each: 0.025, from: "start" },
+        duration: 0.2,
+        ease: "power2.out"
+      });
+    });
+
+    link.addEventListener('mouseleave', () => {
+      gsap.to(chars, {
+        y: 0,
+        color: '',
+        stagger: { each: 0.02, from: "end" },
+        duration: 0.3,
+        ease: "power2.inOut",
+        clearProps: "color"
+      });
+    });
+  });
+
+  // ── Mobile menu ──
   const mobileBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   let menuOpen = false;
