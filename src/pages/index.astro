@@ -1,13 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import Blog from '../components/Blog.astro';
-import Arcade from '../components/Arcade.astro';
-import Expertise from '../components/Expertise.astro';
-import Versatility from '../components/Versatility.astro';
-import Principles from '../components/Principles.astro';
+import About from '../components/About.astro';
 import Projects from '../components/Projects.astro';
+import TechStack from '../components/TechStack.astro';
 import Experience from '../components/Experience.astro';
+import Contact from '../components/Contact.astro';
 import LanguageDetector from '../components/LanguageDetector.astro';
 import { getPortfolioConfig } from '../lib/i18n';
 
@@ -18,11 +16,9 @@ const portfolioConfig = getPortfolioConfig(locale);
 <LanguageDetector />
 <Base title={portfolioConfig.seo.title} locale={locale}>
   <Hero locale={locale} />
-  <Blog locale={locale} />
-  <Arcade locale={locale} />
-  <Expertise locale={locale} />
-  <Versatility locale={locale} />
-  <Principles locale={locale} />
+  <About locale={locale} />
   <Projects locale={locale} />
+  <TechStack locale={locale} />
   <Experience locale={locale} />
+  <Contact locale={locale} />
 </Base>

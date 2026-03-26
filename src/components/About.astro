@@ -1,0 +1,111 @@
+---
+import { getPortfolioConfig, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const portfolioConfig = getPortfolioConfig(locale);
+const { about } = portfolioConfig;
+---
+
+<section id="about" class="py-32 md:py-40">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+    <!-- Section label -->
+    <div class="section-label">
+      <span>{locale === 'es' ? 'Sobre mi' : 'About'}</span>
+    </div>
+
+    <!-- Headline -->
+    <h2 class="about-reveal font-display text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight max-w-4xl mb-16 md:mb-24">
+      {about.headline}
+    </h2>
+
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-24">
+      {about.stats.map((stat) => (
+        <div class="about-reveal border border-border p-6 md:p-8 bg-surface/50">
+          <div class="flex items-baseline gap-0.5">
+            <span
+              class="stat-number font-display text-4xl md:text-5xl font-bold text-accent"
+              data-target={stat.value}
+              data-suffix={stat.suffix}
+            >
+              0{stat.suffix}
+            </span>
+          </div>
+          <p class="font-mono text-xs text-muted uppercase tracking-wider mt-3">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Description -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+      <div class="about-reveal">
+        <p class="text-lg md:text-xl text-foreground/90 leading-relaxed">
+          {about.description}
+        </p>
+      </div>
+      <div class="about-reveal flex items-end">
+        <div class="flex flex-wrap gap-3">
+          <a
+            href={`mailto:${portfolioConfig.personal.email}`}
+            class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent transition-colors"
+          >
+            {portfolioConfig.personal.email}
+          </a>
+          <a
+            href={portfolioConfig.personal.company.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono text-xs px-4 py-2 border border-border text-muted hover:text-accent hover:border-accent transition-colors"
+          >
+            {portfolioConfig.personal.company.displayUrl}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Section reveals
+  gsap.from('.about-reveal', {
+    y: 60,
+    autoAlpha: 0,
+    duration: 1,
+    stagger: 0.12,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: '#about',
+      start: "top 70%"
+    }
+  });
+
+  // Stats counter animation
+  document.querySelectorAll('.stat-number').forEach((el) => {
+    const stat = el as HTMLElement;
+    const target = parseInt(stat.dataset.target || '0');
+    const suffix = stat.dataset.suffix || '';
+    const obj = { val: 0 };
+
+    gsap.to(obj, {
+      val: target,
+      duration: 2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: stat,
+        start: "top 85%"
+      },
+      onUpdate: () => {
+        stat.textContent = Math.round(obj.val) + suffix;
+      }
+    });
+  });
+</script>
