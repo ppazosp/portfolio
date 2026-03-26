@@ -109,7 +109,7 @@ export const portfolioConfig = {
   ],
 
   contact: {
-    headline: "Construyamos algo",
+    headline: "Creemos algo",
     cv: "/docs/pablo-pazos-parada-cv.pdf"
   },
 
