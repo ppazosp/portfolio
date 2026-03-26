@@ -185,12 +185,33 @@ const alternateUrls = {
           updateDots(index);
         }
 
+        // Find the projects panel index
+        const projectsPanelIndex = Array.from(panels).findIndex(p => p.id === 'projects');
+
         // Observer: detect scroll/touch/wheel
         Observer.create({
           type: "wheel,touch,pointer",
           wheelSpeed: -1,
-          onDown: () => !animating && gotoSection(currentIndex - 1, -1),
-          onUp: () => !animating && gotoSection(currentIndex + 1, 1),
+          onDown: () => {
+            if (animating) return;
+            // If on projects panel, cycle carousel backwards first
+            const c = (window as any).__carousel;
+            if (currentIndex === projectsPanelIndex && c && !c.isFirst()) {
+              c.prev();
+              return;
+            }
+            gotoSection(currentIndex - 1, -1);
+          },
+          onUp: () => {
+            if (animating) return;
+            // If on projects panel, cycle carousel forward first
+            const c = (window as any).__carousel;
+            if (currentIndex === projectsPanelIndex && c && !c.isLast()) {
+              c.next();
+              return;
+            }
+            gotoSection(currentIndex + 1, 1);
+          },
           tolerance: 10,
           preventDefault: true
         });

@@ -111,33 +111,57 @@ const { projects } = portfolioConfig;
 
       const direction = index > current ? 1 : -1;
 
-      gsap.to(track, {
-        xPercent: -index * 100,
-        duration: 0.8,
-        ease: "power3.inOut",
+      const tl = gsap.timeline({
         onComplete: () => { animating = false; }
       });
 
-      // Animate image of incoming slide
-      const img = slides[index].querySelector('.carousel-image');
-      if (img) {
-        gsap.fromTo(img,
-          { clipPath: direction > 0 ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)' },
-          { clipPath: 'inset(0 0% 0 0%)', duration: 0.9, ease: "power3.inOut" }
-        );
+      // Current slide exits
+      const currentSlide = slides[current];
+      const currentImg = currentSlide.querySelector('.carousel-image');
+      const currentInfo = currentSlide.querySelector('div:last-child');
+
+      tl.to(currentImg, {
+        xPercent: -30 * direction,
+        scale: 0.9,
+        autoAlpha: 0,
+        duration: 0.5,
+        ease: "power2.in"
+      }, 0);
+
+      if (currentInfo) {
+        tl.to(currentInfo.children, {
+          y: -20 * direction,
+          autoAlpha: 0,
+          stagger: 0.02,
+          duration: 0.3,
+          ease: "power2.in"
+        }, 0);
       }
 
-      // Animate text
-      const info = slides[index].querySelector('div:last-child');
-      if (info) {
-        gsap.from(info.children, {
-          y: 30 * direction,
-          autoAlpha: 0,
-          stagger: 0.05,
-          duration: 0.5,
-          ease: "power2.out",
-          delay: 0.2
-        });
+      // Move track
+      tl.to(track, {
+        xPercent: -index * 100,
+        duration: 0.7,
+        ease: "power3.inOut",
+      }, 0.2);
+
+      // New slide enters
+      const newSlide = slides[index];
+      const newImg = newSlide.querySelector('.carousel-image');
+      const newInfo = newSlide.querySelector('div:last-child');
+
+      tl.fromTo(newImg,
+        { xPercent: 30 * direction, scale: 1.1, autoAlpha: 0 },
+        { xPercent: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "power2.out" },
+        0.4
+      );
+
+      if (newInfo) {
+        tl.fromTo(newInfo.children,
+          { y: 40 * direction, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, stagger: 0.04, duration: 0.5, ease: "power3.out" },
+          0.5
+        );
       }
 
       current = index;
@@ -151,5 +175,13 @@ const { projects } = portfolioConfig;
     prevBtn?.addEventListener('click', () => goToSlide((current - 1 + total) % total));
     nextBtn?.addEventListener('click', () => goToSlide((current + 1) % total));
     dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
+
+    // Expose carousel API for the panel Observer
+    (window as any).__carousel = {
+      next: () => goToSlide(current + 1),
+      prev: () => goToSlide(current - 1),
+      isFirst: () => current === 0,
+      isLast: () => current === total - 1,
+    };
   }
 </script>
