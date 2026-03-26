@@ -39,9 +39,6 @@ const marqueeRows = [
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <!-- Ambient glow -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
-             style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 5%, transparent) 0%, transparent 70%);"></div>
 
         <div class="panel-content h-full flex flex-col">
           <div class="section-label mb-3">
@@ -51,7 +48,7 @@ const marqueeRows = [
           <div class="flex-1 relative overflow-hidden" id="stack-container">
 
             <!-- Marquee rows distributed vertically -->
-            <div class="absolute inset-0 flex flex-col justify-between py-0 md:py-10">
+            <div class="absolute inset-0 flex flex-col justify-center gap-14 md:justify-between md:gap-0 md:py-10">
               {marqueeRows.map((row) => (
                 <div class="stack-row overflow-hidden" data-speed={row.speed} data-direction={row.direction}>
                   <div class="stack-row-inner flex items-center whitespace-nowrap will-change-transform">

@@ -5,8 +5,8 @@
   --color-foreground: #F0F0F0;
   --color-muted: #888888;
   --color-border: #1c1c1c;
-  --color-accent: #7B61FF;
-  --color-accent-secondary: #5A3FD6;
+  --color-accent: #BF00FF;
+  --color-accent-secondary: #9500FF;
   --color-surface: #0c0c0c;
 }
 
@@ -265,6 +265,51 @@
     flex: 1;
     height: 1px;
     background: var(--color-border);
+  }
+
+  @media (max-width: 1024px) {
+    .section-label::after {
+      display: none;
+    }
+  }
+
+  /* Fixed mobile progress bar */
+  .fixed-panel-progress {
+    position: fixed;
+    top: 4.25rem;
+    left: 8rem;
+    right: 1.25rem;
+    z-index: 65;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 2px;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .fixed-panel-progress .progress-seg {
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+    transition: background 0.5s, height 0.3s, opacity 0.5s;
+  }
+
+  .fixed-panel-progress .progress-seg.passed {
+    background: var(--color-accent);
+    opacity: 0.25;
+  }
+
+  .fixed-panel-progress .progress-seg.active {
+    background: var(--color-accent);
+    height: 2px;
+    opacity: 1;
+  }
+
+  @media (min-width: 1025px) {
+    .fixed-panel-progress {
+      display: none;
+    }
   }
 
   /* Magnetic button */

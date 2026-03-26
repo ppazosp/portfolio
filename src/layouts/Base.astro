@@ -84,6 +84,9 @@ const alternateUrls = {
     <!-- Panel nav dots (only rendered if panels exist, managed by script) -->
     <div class="panel-nav hidden" id="panel-nav"></div>
 
+    <!-- Mobile fixed progress bar (replaces section-label line on mobile) -->
+    <div class="fixed-panel-progress hidden" id="fixed-panel-progress"></div>
+
     <!-- Footer for non-panel pages -->
     <footer id="site-footer" class="border-t border-border py-6">
       <div class="max-w-[1400px] mx-auto px-6 md:px-12">
@@ -138,6 +141,18 @@ const alternateUrls = {
           });
         }
 
+        // Build fixed mobile progress bar
+        const fixedProgress = document.getElementById('fixed-panel-progress');
+        if (fixedProgress) {
+          fixedProgress.classList.remove('hidden');
+          for (let i = 0; i < panels.length; i++) {
+            const seg = document.createElement('div');
+            seg.className = 'progress-seg';
+            seg.dataset.seg = String(i);
+            fixedProgress.appendChild(seg);
+          }
+        }
+
         function updateDots(index: number) {
           document.querySelectorAll('.panel-dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
@@ -146,6 +161,16 @@ const alternateUrls = {
             const panelIdx = parseInt((link as HTMLElement).dataset.panel || '-1');
             link.classList.toggle('active', panelIdx === index);
           });
+          // Update fixed progress bar
+          document.querySelectorAll('#fixed-panel-progress .progress-seg').forEach(seg => {
+            const segIdx = parseInt((seg as HTMLElement).dataset.seg || '-1');
+            seg.classList.toggle('active', segIdx === index);
+            seg.classList.toggle('passed', segIdx < index);
+          });
+          // Show/hide: only visible when not on hero (hero has no section-label)
+          if (fixedProgress) {
+            fixedProgress.style.opacity = index === 0 ? '0' : '1';
+          }
         }
 
         function gotoSection(index: number, direction: number) {

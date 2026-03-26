@@ -25,11 +25,6 @@ const links = [
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <!-- Layered ambient glows -->
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
-             style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 7%, transparent) 0%, transparent 70%);"></div>
-        <div class="absolute top-1/4 left-1/4 w-[500px] h-[400px] rounded-full pointer-events-none"
-             style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 3%, transparent) 0%, transparent 70%);"></div>
 
         <div class="panel-content h-full flex flex-col text-center">
           <div class="section-label w-full mb-2 md:mb-3">
@@ -60,12 +55,13 @@ const links = [
               <div class="contact-divider h-px w-8 md:w-16 origin-left" style="background: var(--color-accent); opacity: 0.4;"></div>
             </div>
 
-            <!-- Email -->
-            <a href={`mailto:${personal.email}`}
-               class="contact-fade inline-block font-mono text-sm md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-8 md:mb-12"
-               data-scramble={personal.email}>
+            <!-- Email (copy on click) -->
+            <button type="button"
+               class="contact-fade inline-block font-mono text-sm md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-8 md:mb-12 cursor-pointer"
+               data-scramble={personal.email}
+               data-copy={personal.email}>
               {personal.email}
-            </a>
+            </button>
 
             <!-- Character wave links -->
             <div class="flex items-center justify-center gap-5 md:gap-8 flex-wrap">
@@ -173,10 +169,11 @@ const links = [
     }
   }
 
-  // Text scramble on email hover
+  // Text scramble on email hover + copy on click
   const scrambleEl = document.querySelector('[data-scramble]') as HTMLElement;
   if (scrambleEl) {
     const originalText = scrambleEl.dataset.scramble || '';
+    const emailToCopy = scrambleEl.dataset.copy || originalText;
     const chars = '!@#$%^&*()_+-={}[]|:;<>?/~`';
     scrambleEl.addEventListener('mouseenter', () => {
       let iteration = 0;
@@ -190,6 +187,13 @@ const links = [
       }, 25);
     });
     scrambleEl.addEventListener('mouseleave', () => { scrambleEl.textContent = originalText; });
+    scrambleEl.addEventListener('click', () => {
+      navigator.clipboard.writeText(emailToCopy).then(() => {
+        const prev = scrambleEl.textContent;
+        scrambleEl.textContent = 'copied!';
+        setTimeout(() => { scrambleEl.textContent = originalText; }, 1200);
+      });
+    });
   }
 
   // Character wave on link hover
