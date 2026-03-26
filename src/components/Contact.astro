@@ -29,7 +29,7 @@ const links = [
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
              style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 7%, transparent) 0%, transparent 70%);"></div>
         <div class="absolute top-1/4 left-1/4 w-[500px] h-[400px] rounded-full pointer-events-none"
-             style="background: radial-gradient(ellipse, rgba(255,77,0,0.03) 0%, transparent 70%);"></div>
+             style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 3%, transparent) 0%, transparent 70%);"></div>
 
         <div class="panel-content h-full flex flex-col text-center">
           <div class="section-label w-full mb-3">
@@ -41,13 +41,13 @@ const links = [
             <div class="panel-heading mb-6 md:mb-8">
               <div class="overflow-hidden">
                 <span class="contact-line block font-display font-extrabold tracking-[-0.04em]"
-                      style="font-size: clamp(2.5rem, 9vw, 8rem); line-height: 0.9;">
+                      style="font-size: clamp(2rem, 9vw, 8rem); line-height: 0.9;">
                   {line1}
                 </span>
               </div>
               <div class="overflow-hidden">
                 <span class="contact-line block font-display font-extrabold tracking-[-0.04em] text-accent"
-                      style="font-size: clamp(2.5rem, 9vw, 8rem); line-height: 0.9;">
+                      style="font-size: clamp(2rem, 9vw, 8rem); line-height: 0.9;">
                   {line2}
                 </span>
               </div>
@@ -62,13 +62,13 @@ const links = [
 
             <!-- Email -->
             <a href={`mailto:${personal.email}`}
-               class="contact-fade inline-block font-mono text-sm md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-12"
+               class="contact-fade inline-block font-mono text-xs md:text-lg text-accent hover:text-foreground transition-colors border-b border-accent/30 hover:border-foreground pb-1 mb-8 md:mb-12"
                data-scramble={personal.email}>
               {personal.email}
             </a>
 
             <!-- Character wave links -->
-            <div class="flex items-center justify-center gap-6 md:gap-8 flex-wrap">
+            <div class="flex items-center justify-center gap-4 md:gap-8 flex-wrap">
               {links.map((link, i) => (
                 <Fragment>
                   {i > 0 && <span class="contact-fade text-border select-none">|</span>}
@@ -83,7 +83,7 @@ const links = [
             </div>
           </div>
 
-          <div class="absolute bottom-6 left-0 right-0 px-12 flex items-center justify-between">
+          <div class="absolute bottom-4 md:bottom-6 left-0 right-0 px-5 md:px-12 flex items-center justify-between">
             <span class="font-mono text-[10px] text-muted/40">{footer.location}</span>
             <a href={footer.sourceCode.url} target="_blank" rel="noopener noreferrer"
                class="font-mono text-[10px] text-muted/40 hover:text-accent transition-colors">{footer.sourceCode.text}</a>

@@ -30,44 +30,44 @@ const rest = words.slice(2).join(' ').toUpperCase();
 
           <div class="flex-1 flex flex-col justify-center">
             <!-- Masked headline wipe -->
-            <div class="panel-heading mb-6 md:mb-8">
+            <div class="panel-heading mb-4 md:mb-8">
               <div class="overflow-hidden">
                 <span class="about-line block font-display font-extrabold tracking-[-0.04em]"
-                      style="font-size: clamp(2.3rem, 7.5vw, 7rem); line-height: 0.9;">
+                      style="font-size: clamp(1.8rem, 7.5vw, 7rem); line-height: 0.9;">
                   {line1}
                 </span>
               </div>
               <div class="overflow-hidden">
                 <span class="about-line block font-display font-extrabold tracking-[-0.04em] text-accent"
-                      style="font-size: clamp(2.3rem, 7.5vw, 7rem); line-height: 0.9;">
+                      style="font-size: clamp(1.8rem, 7.5vw, 7rem); line-height: 0.9;">
                   {toWord}
                 </span>
               </div>
               <div class="overflow-hidden">
                 <span class="about-line block font-display font-extrabold tracking-[-0.04em]"
-                      style="font-size: clamp(2.3rem, 7.5vw, 7rem); line-height: 0.9;">
+                      style="font-size: clamp(1.8rem, 7.5vw, 7rem); line-height: 0.9;">
                   {rest}
                 </span>
               </div>
             </div>
 
             <!-- Decorative divider -->
-            <div class="about-fade flex items-center gap-3 mb-10 md:mb-14">
+            <div class="about-fade flex items-center gap-3 mb-6 md:mb-14">
               <div class="h-px w-8 md:w-12" style="background: var(--color-accent); opacity: 0.4;"></div>
               <div class="w-1.5 h-1.5 rounded-full" style="background: var(--color-accent); opacity: 0.6;"></div>
               <div class="h-px w-8 md:w-12" style="background: var(--color-accent); opacity: 0.4;"></div>
             </div>
 
             <!-- Content grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10">
               <!-- Stats with accent line -->
               <div class="lg:col-span-5 relative lg:pl-8">
                 <div class="about-accent-line hidden lg:block absolute left-0 top-0 w-px h-full origin-top"
                      style="background: linear-gradient(to bottom, var(--color-accent), transparent);"></div>
-                <div class="grid grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 md:gap-y-8">
+                <div class="grid grid-cols-2 gap-x-6 md:gap-x-12 gap-y-4 md:gap-y-8">
                   {about.stats.map((stat) => (
                     <div class="about-stat">
-                      <span class="block font-display text-4xl md:text-5xl lg:text-6xl font-bold text-accent about-stat-value"
+                      <span class="block font-display text-3xl md:text-5xl lg:text-6xl font-bold text-accent about-stat-value"
                             data-value={stat.value}
                             data-suffix={stat.suffix}>
                         0{stat.suffix}
@@ -83,7 +83,7 @@ const rest = words.slice(2).join(' ').toUpperCase();
 
               <!-- Description + links -->
               <div class="lg:col-span-7 flex flex-col justify-between gap-6">
-                <p class="about-fade text-base md:text-lg text-foreground/80 leading-relaxed max-w-lg">
+                <p class="about-fade text-sm md:text-lg text-foreground/80 leading-relaxed max-w-lg">
                   {about.description}
                 </p>
                 <div class="about-fade flex flex-wrap gap-3">

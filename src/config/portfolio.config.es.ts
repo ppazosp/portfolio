@@ -30,7 +30,7 @@ export const portfolioConfig = {
       { href: "/es/#about", label: "Sobre mi" },
       { href: "/es/#projects", label: "Proyectos" },
       { href: "/es/#stack", label: "Stack" },
-      { href: "/es/#experience", label: "Experiencia" },
+      { href: "/es/#experience", label: "Trayectoria" },
       { href: "/es/#contact", label: "Contacto" }
     ]
   },
@@ -53,30 +53,23 @@ export const portfolioConfig = {
 
   projects: [
     {
-      name: "Nessie",
-      tagline: "Plataforma B2B de Agentes IA",
-      description: "Definida directamente con clientes empresariales, arquitectada desde cero y desplegada en produccion. Plataforma RAG con busqueda hibrida, agentes especializados e ingesta multi-fuente. Disene Nessie Industrial, llevandolo desde los requisitos de fabrica hasta un sistema en vivo combinando recuperacion de conocimiento y verificacion automatizada de etiquetas.",
-      tech: ["Python", "TypeScript", "PostgreSQL", "pgvector", "RAG"],
-      color: "#7B61FF"
-    },
-    {
       name: "APEC",
-      tagline: "CMO Automatizado",
-      description: "Identifique la necesidad internamente, disene la arquitectura, lo construi y lo despliegue end-to-end. Sistema multi-agente que combina agentes de scraping para investigacion de mercado (NORA) y extraccion financiera (SARA) para alimentar un pipeline completo de outreach por email frio cubriendo segmentacion, mensajes personalizados y seguimientos automaticos.",
+      tagline: "OSIX · CMO Automatizado",
+      description: "Construido integramente en solitario. Identifique la necesidad internamente, disene la arquitectura, lo construi y lo despliegue end-to-end. Sistema multi-agente que combina agentes de scraping para investigacion de mercado (NORA) y extraccion financiera (SARA) para alimentar un pipeline completo de outreach por email frio cubriendo segmentacion, mensajes personalizados y seguimientos automaticos.",
       tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
       color: "#9B7DFF"
     },
     {
       name: "IRIS",
-      tagline: "Inteligencia de Email",
-      description: "Entregado para un cliente B2B desde la toma de requisitos hasta el paso a produccion. Sistema multi-agente de email que clasifica por cliente, proveedor, intencion y prioridad, generando respuestas contextuales conectadas a su base de datos de productos y CRM. Mantenido e iterado post-lanzamiento.",
+      tagline: "OSIX · Inteligencia de Email",
+      description: "Construido integramente en solitario. Entregado para un cliente B2B desde la toma de requisitos hasta el paso a produccion. Sistema multi-agente de email que clasifica por cliente, proveedor, intencion y prioridad, generando respuestas contextuales conectadas a su base de datos de productos y CRM. Mantenido e iterado post-lanzamiento.",
       tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
       color: "#6448D6"
     },
     {
       name: "ACTA",
-      tagline: "Inteligencia de Reuniones",
-      description: "Construido end-to-end como herramienta interna, desde la definicion de necesidades del equipo hasta el despliegue en produccion. Gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
+      tagline: "OSIX · Inteligencia de Reuniones",
+      description: "Construido integramente en solitario end-to-end como herramienta interna, desde la definicion de necesidades del equipo hasta el despliegue en produccion. Gestiona transcripcion, diarizacion de hablantes, generacion de resumenes y asignacion automatica de tareas por miembro del equipo.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
       color: "#A78BFA"
     }

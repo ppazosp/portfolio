@@ -30,7 +30,7 @@ export const portfolioConfig = {
       { href: "/#about", label: "About" },
       { href: "/#projects", label: "Projects" },
       { href: "/#stack", label: "Stack" },
-      { href: "/#experience", label: "Experience" },
+      { href: "/#experience", label: "Journey" },
       { href: "/#contact", label: "Contact" }
     ]
   },

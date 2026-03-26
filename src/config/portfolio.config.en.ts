@@ -30,7 +30,7 @@ export const portfolioConfig = {
       { href: "/#about", label: "About" },
       { href: "/#projects", label: "Projects" },
       { href: "/#stack", label: "Stack" },
-      { href: "/#experience", label: "Experience" },
+      { href: "/#experience", label: "Journey" },
       { href: "/#contact", label: "Contact" }
     ]
   },
@@ -53,30 +53,23 @@ export const portfolioConfig = {
 
   projects: [
     {
-      name: "Nessie",
-      tagline: "B2B AI Agent Platform",
-      description: "Scoped directly with enterprise clients, architected from scratch, and deployed into production. Production RAG platform with hybrid search, specialized agents, and multi-source ingestion. Designed Nessie Industrial, taking it from factory floor requirements to a live system combining knowledge retrieval and automated label verification.",
-      tech: ["Python", "TypeScript", "PostgreSQL", "pgvector", "RAG"],
-      color: "#7B61FF"
-    },
-    {
       name: "APEC",
-      tagline: "Automated CMO",
-      description: "Identified the need internally, designed the architecture, built and shipped it end-to-end. Multi-agent system combining scraping agents for market research (NORA) and financial data extraction (SARA) to feed a complete cold email outreach pipeline covering prospect targeting, personalized messaging, and automated follow-ups.",
+      tagline: "OSIX · Automated CMO",
+      description: "Built entirely solo. Identified the need internally, designed the architecture, and shipped it end-to-end. Multi-agent system combining scraping agents for market research (NORA) and financial data extraction (SARA) to feed a complete cold email outreach pipeline covering prospect targeting, personalized messaging, and automated follow-ups.",
       tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
       color: "#9B7DFF"
     },
     {
       name: "IRIS",
-      tagline: "Email Intelligence",
-      description: "Shipped for a B2B client from requirements gathering to production handoff. Multi-agent email system that classifies by client, provider, intent, and priority, then generates context-aware responses connected to their product database and CRM. Maintained and iterated post-launch.",
+      tagline: "OSIX · Email Intelligence",
+      description: "Built entirely solo. Shipped for a B2B client from requirements gathering to production handoff. Multi-agent email system that classifies by client, provider, intent, and priority, then generates context-aware responses connected to their product database and CRM. Maintained and iterated post-launch.",
       tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
       color: "#6448D6"
     },
     {
       name: "ACTA",
-      tagline: "Meeting Intelligence",
-      description: "Built end-to-end as an internal tool, from scoping team needs to production deployment. Handles transcription, speaker diarization, summary generation, and automatic task assignment per team member.",
+      tagline: "OSIX · Meeting Intelligence",
+      description: "Built entirely solo end-to-end as an internal tool, from scoping team needs to production deployment. Handles transcription, speaker diarization, summary generation, and automatic task assignment per team member.",
       tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
       color: "#A78BFA"
     }

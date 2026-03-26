@@ -16,7 +16,7 @@ const { experience } = portfolioConfig;
       <div class="panel-bg">
         <div class="panel-content h-full flex flex-col">
           <div class="section-label mb-3">
-            <span>{locale === 'es' ? 'Experiencia' : 'Experience'}</span>
+            <span>{locale === 'es' ? 'Trayectoria' : 'Journey'}</span>
           </div>
 
           <!-- Slides area -->
@@ -40,33 +40,33 @@ const { experience } = portfolioConfig;
               <div class="md:col-span-11 relative" style="min-height: 18rem;">
                 {experience.map((exp, i) => (
                   <div
-                    class="exp-slide md:absolute md:top-0 md:left-0 md:w-full"
+                    class="exp-slide absolute top-0 left-0 w-full"
                     data-exp={i}
                     style={i > 0 ? 'visibility: hidden;' : ''}
                   >
                     <!-- Period + location label -->
-                    <div class="exp-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-4" style="color: var(--color-accent);">
+                    <div class="exp-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-2 md:mb-4" style="color: var(--color-accent);">
                       <span style="color: var(--color-accent); opacity: 0.5;">{String(i + 1).padStart(2, '0')}</span>
                       <span class="mx-2" style="color: var(--color-accent); opacity: 0.25;">/</span>
                       {exp.period}
                     </div>
 
                     <!-- Company name -->
-                    <h3 class="exp-name overflow-hidden mb-2">
+                    <h3 class="exp-name overflow-hidden mb-1 md:mb-2">
                       <span class="exp-name-inner block font-display font-extrabold tracking-[-0.03em] leading-[0.9]"
-                            style="font-size: clamp(2rem, 5vw, 4.5rem);">
+                            style="font-size: clamp(1.6rem, 5vw, 4.5rem);">
                         {exp.company}
                       </span>
                     </h3>
 
                     <!-- Role -->
-                    <p class="exp-role font-mono text-xs text-muted mb-4">{exp.role}</p>
+                    <p class="exp-role font-mono text-xs text-muted mb-2 md:mb-4">{exp.role}</p>
 
                     <!-- Divider -->
-                    <div class="exp-divider h-[1px] w-full mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
+                    <div class="exp-divider h-[1px] w-full mb-3 md:mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
 
                     <!-- Description -->
-                    <p class="exp-desc text-base text-muted leading-relaxed mb-5 max-w-2xl">
+                    <p class="exp-desc text-xs md:text-base text-muted leading-relaxed mb-3 md:mb-5 max-w-2xl">
                       {exp.description}
                     </p>
 

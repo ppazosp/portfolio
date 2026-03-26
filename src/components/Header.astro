@@ -9,11 +9,17 @@ const { locale } = Astro.props;
 const portfolioConfig = getPortfolioConfig(locale);
 const altHref = locale === 'en' ? '/es/' : '/';
 const altLabel = locale === 'en' ? 'ES' : 'EN';
+
+const mobileLinks = [
+  { href: locale === 'es' ? '/es/' : '/', label: 'Home', panel: 0 },
+  ...portfolioConfig.navigation.links.map((link, i) => ({ href: link.href, label: link.label, panel: i + 1 })),
+];
 ---
 
-<header class="header-nav fixed top-0 left-0 right-0 z-50">
+<!-- ═══ Desktop header (unchanged) ═══ -->
+<header class="header-nav fixed top-0 left-0 right-0 z-[70]">
   <div class="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
-    <a href={locale === 'es' ? '/es/' : '/'} class="font-display text-lg font-bold tracking-tight text-accent hover:text-foreground transition-colors" data-panel="0">
+    <a href={locale === 'es' ? '/es/' : '/'} class="font-display text-lg font-bold tracking-tight text-accent hover:text-foreground transition-colors z-[70]" data-panel="0" id="header-logo">
       P<span class="text-foreground">3</span>
     </a>
 
@@ -42,26 +48,61 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
       ></button>
     </nav>
 
-    <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 w-7 h-7 items-center justify-center" aria-label="Toggle menu">
-      <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar1"></span>
-      <span class="block w-5 h-px bg-foreground transition-opacity" id="bar2"></span>
-      <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar3"></span>
-    </button>
-  </div>
-
-  <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-background/95 backdrop-blur-md">
-    <div class="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
-      {portfolioConfig.navigation.links.map((link, i) => (
-        <a href={link.href} data-panel={i + 1} class="font-mono text-sm text-muted hover:text-foreground transition-colors mobile-nav-link">
-          {link.label}
-        </a>
-      ))}
-      <div class="pt-2 border-t border-border">
-        <a href={altHref} class="font-mono text-sm text-muted/50 hover:text-accent transition-colors">{altLabel}</a>
-      </div>
+    <!-- ═══ Mobile controls ═══ -->
+    <div class="md:hidden flex items-center gap-4">
+      <button
+        class="accent-switcher-mobile w-4 h-4 rounded-full bg-accent border border-foreground/10 cursor-pointer"
+        aria-label="Change accent color"
+      ></button>
+      <button id="sm-toggle" class="flex flex-col gap-1.5 w-7 h-7 items-center justify-center z-[70]" aria-label="Open menu" aria-expanded="false">
+        <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar1"></span>
+        <span class="block w-5 h-px bg-foreground transition-opacity" id="bar2"></span>
+        <span class="block w-5 h-px bg-foreground transition-transform origin-center" id="bar3"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- ═══ Mobile staggered menu (fullscreen overlay) ═══ -->
+<div id="sm-overlay" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
+  <!-- Pre-layers -->
+  <div id="sm-prelayer-0" class="sm-prelayer absolute inset-0" style="background: var(--color-accent);"></div>
+  <div id="sm-prelayer-1" class="sm-prelayer absolute inset-0 bg-background"></div>
+
+  <!-- Main panel -->
+  <div id="sm-panel" class="sm-panel absolute inset-0 bg-background flex flex-col overflow-y-auto">
+    <div class="flex-1 flex flex-col justify-center px-8 pt-24 pb-8">
+      <!-- Nav items -->
+      <ul class="flex flex-col gap-3 list-none m-0 p-0" id="sm-nav-list">
+        {mobileLinks.map((link, idx) => (
+          <li class="sm-item-wrap overflow-hidden leading-none">
+            <a
+              href={link.href}
+              data-panel={link.panel}
+              class="sm-item relative inline-block font-display font-extrabold uppercase leading-none tracking-[-0.02em] text-foreground no-underline transition-colors duration-150"
+              style="font-size: clamp(1.8rem, 8vw, 3rem);"
+              data-index={idx + 1}
+            >
+              <span class="sm-item-label inline-block origin-bottom-left will-change-transform">
+                {link.label}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Bottom section -->
+      <div class="mt-auto pt-10 flex items-center justify-between">
+        <a href={altHref} class="font-mono text-sm uppercase tracking-[0.15em] text-muted hover:text-accent transition-colors">
+          {altLabel}
+        </a>
+        <span class="sm-counter font-mono text-[10px] text-muted/40 uppercase tracking-[0.2em]">
+          {String(mobileLinks.length).padStart(2, '0')} items
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
   .roll-link {
@@ -85,31 +126,37 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
     height: 1.4em;
     line-height: 1.4em;
   }
+
+  /* Staggered menu initial states */
+  .sm-prelayer,
+  .sm-panel {
+    will-change: transform;
+  }
+
+  .sm-item {
+    --sm-num-opacity: 0;
+  }
+  .sm-item::after {
+    content: attr(data-index);
+    position: absolute;
+    top: 0.15em;
+    right: -2em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.3em;
+    font-weight: 400;
+    color: var(--color-accent);
+    letter-spacing: 0;
+    pointer-events: none;
+    user-select: none;
+    opacity: var(--sm-num-opacity);
+  }
+  .sm-item:hover {
+    color: var(--color-accent);
+  }
 </style>
 
 <script>
   import gsap from 'gsap';
-
-  const mobileBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  let menuOpen = false;
-
-  mobileBtn?.addEventListener('click', () => {
-    menuOpen = !menuOpen;
-    mobileMenu?.classList.toggle('hidden', !menuOpen);
-    const bar1 = document.getElementById('bar1');
-    const bar2 = document.getElementById('bar2');
-    const bar3 = document.getElementById('bar3');
-    if (menuOpen) {
-      gsap.to(bar1, { rotation: 45, y: 4, duration: 0.25 });
-      gsap.to(bar2, { autoAlpha: 0, duration: 0.15 });
-      gsap.to(bar3, { rotation: -45, y: -4, duration: 0.25 });
-    } else {
-      gsap.to(bar1, { rotation: 0, y: 0, duration: 0.25 });
-      gsap.to(bar2, { autoAlpha: 1, duration: 0.15 });
-      gsap.to(bar3, { rotation: 0, y: 0, duration: 0.25 });
-    }
-  });
 
   // ── Accent color switcher ──
   const accents = ['#7B61FF', '#FF6B35', '#30D158', '#2997FF', '#FF453A', '#00D4AA'];
@@ -118,22 +165,133 @@ const altLabel = locale === 'en' ? 'ES' : 'EN';
     document.documentElement.style.setProperty('--color-accent', stored);
   }
 
-  const switcher = document.getElementById('accent-switcher');
-  switcher?.addEventListener('click', () => {
+  function cycleAccent() {
     const current = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim();
     const idx = accents.findIndex(c => c.toLowerCase() === current.toLowerCase());
     const next = accents[(idx + 1) % accents.length];
     document.documentElement.style.setProperty('--color-accent', next);
     localStorage.setItem('accent-color', next);
-  });
+  }
 
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
+  document.getElementById('accent-switcher')?.addEventListener('click', cycleAccent);
+  document.querySelector('.accent-switcher-mobile')?.addEventListener('click', cycleAccent);
+
+  // ── Staggered mobile menu ──
+  const toggleBtn = document.getElementById('sm-toggle');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+  const overlay = document.getElementById('sm-overlay');
+  const panel = document.getElementById('sm-panel');
+  const prelayers = [
+    document.getElementById('sm-prelayer-0'),
+    document.getElementById('sm-prelayer-1'),
+  ].filter(Boolean) as HTMLElement[];
+
+  const itemLabels = document.querySelectorAll<HTMLElement>('.sm-item-label');
+  const items = document.querySelectorAll<HTMLElement>('.sm-item');
+  const counter = document.querySelector<HTMLElement>('.sm-counter');
+
+  let menuOpen = false;
+  let busy = false;
+  let openTl: gsap.core.Timeline | null = null;
+
+  if (toggleBtn && bar1 && bar2 && bar3 && overlay && panel) {
+    // Initial states
+    gsap.set([...prelayers, panel], { xPercent: 100 });
+    gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
+    gsap.set(items, { '--sm-num-opacity': 0 } as any);
+    if (counter) gsap.set(counter, { opacity: 0 });
+
+    function playOpen() {
+      if (busy) return;
+      busy = true;
+      openTl?.kill();
+
+      gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
+      gsap.set(items, { '--sm-num-opacity': 0 } as any);
+      if (counter) gsap.set(counter, { opacity: 0 });
+
+      overlay!.style.pointerEvents = 'auto';
+
+      const tl = gsap.timeline({
+        onComplete: () => { busy = false; }
+      });
+
+      prelayers.forEach((layer, i) => {
+        tl.to(layer, { xPercent: 0, duration: 0.5, ease: 'power4.out' }, i * 0.07);
+      });
+
+      const panelStart = prelayers.length * 0.07 + 0.08;
+      tl.to(panel, { xPercent: 0, duration: 0.65, ease: 'power4.out' }, panelStart);
+
+      const itemsStart = panelStart + 0.65 * 0.15;
+      tl.to(itemLabels, {
+        yPercent: 0, rotate: 0, duration: 1, ease: 'power4.out',
+        stagger: { each: 0.08, from: 'start' }
+      }, itemsStart);
+
+      tl.to(items, {
+        '--sm-num-opacity': 1, duration: 0.6, ease: 'power2.out',
+        stagger: { each: 0.06, from: 'start' }
+      } as any, itemsStart + 0.1);
+
+      if (counter) {
+        tl.to(counter, { opacity: 1, duration: 0.5, ease: 'power2.out' }, itemsStart + 0.3);
+      }
+
+      openTl = tl;
+    }
+
+    function playClose() {
+      openTl?.kill();
+      openTl = null;
+      busy = true;
+
+      gsap.to([...prelayers, panel], {
+        xPercent: 100, duration: 0.32, ease: 'power3.in',
+        overwrite: 'auto',
+        onComplete: () => {
+          overlay!.style.pointerEvents = 'none';
+          gsap.set(itemLabels, { yPercent: 140, rotate: 10 });
+          gsap.set(items, { '--sm-num-opacity': 0 } as any);
+          if (counter) gsap.set(counter, { opacity: 0 });
+          busy = false;
+        }
+      });
+    }
+
+    function animateIcon(opening: boolean) {
+      if (opening) {
+        gsap.to(bar1, { rotation: 45, y: 4, duration: 0.25 });
+        gsap.to(bar2, { autoAlpha: 0, duration: 0.15 });
+        gsap.to(bar3, { rotation: -45, y: -4, duration: 0.25 });
+      } else {
+        gsap.to(bar1, { rotation: 0, y: 0, duration: 0.25 });
+        gsap.to(bar2, { autoAlpha: 1, duration: 0.15 });
+        gsap.to(bar3, { rotation: 0, y: 0, duration: 0.25 });
+      }
+    }
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      toggleBtn!.setAttribute('aria-expanded', String(menuOpen));
+      if (menuOpen) { playOpen(); } else { playClose(); }
+      animateIcon(menuOpen);
+    }
+
+    function closeMenu() {
+      if (!menuOpen) return;
       menuOpen = false;
-      mobileMenu?.classList.add('hidden');
-      gsap.to('#bar1', { rotation: 0, y: 0, duration: 0.25 });
-      gsap.to('#bar2', { autoAlpha: 1, duration: 0.15 });
-      gsap.to('#bar3', { rotation: 0, y: 0, duration: 0.25 });
+      toggleBtn!.setAttribute('aria-expanded', 'false');
+      playClose();
+      animateIcon(false);
+    }
+
+    toggleBtn.addEventListener('click', toggleMenu);
+
+    document.querySelectorAll<HTMLElement>('#sm-nav-list .sm-item').forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
-  });
+  }
 </script>

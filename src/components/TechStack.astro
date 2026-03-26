@@ -39,6 +39,10 @@ const marqueeRows = [
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
+        <!-- Ambient glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
+             style="background: radial-gradient(ellipse, color-mix(in srgb, var(--color-accent) 5%, transparent) 0%, transparent 70%);"></div>
+
         <div class="panel-content h-full flex flex-col">
           <div class="section-label mb-3">
             <span>Stack</span>
@@ -83,7 +87,7 @@ const marqueeRows = [
                 <div class="relative">
                   <h2
                     class="panel-heading font-display font-extrabold tracking-[-0.04em] leading-[0.85]"
-                    style="font-size: clamp(3.5rem, 12vw, 9rem);"
+                    style="font-size: clamp(2.5rem, 12vw, 9rem);"
                   >
                     {locale === 'es' ? 'SIN' : 'NO'}<br/>
                     <span style="color: var(--color-accent);">{locale === 'es' ? 'LÍMITES' : 'LIMITS'}</span>

@@ -22,7 +22,7 @@ const { projects } = portfolioConfig;
           </div>
 
           <!-- Slides area -->
-          <div class="relative flex-1 min-h-0 max-h-[75vh]">
+          <div class="relative flex-1 min-h-0 max-h-[65vh] md:max-h-[75vh]">
             {projects.map((project, i) => (
               <div
                 class="project-slide absolute top-0 left-0 w-full h-full flex items-center"
@@ -32,16 +32,16 @@ const { projects } = portfolioConfig;
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2 w-full items-start">
                   <!-- Color block (cols 1-5) -->
                   <div class="md:col-span-5">
-                    <div class="slide-img relative h-44 md:h-[22rem] overflow-hidden bg-accent">
-                      <span class="absolute top-3 left-4 md:top-5 md:left-6 font-display font-extrabold text-6xl md:text-8xl leading-none select-none"
+                    <div class="slide-img relative h-32 md:h-[22rem] overflow-hidden bg-accent">
+                      <span class="absolute top-2 left-3 md:top-5 md:left-6 font-display font-extrabold text-4xl md:text-8xl leading-none select-none"
                             style="color: rgba(0,0,0,0.2);">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                       <span class="absolute bottom-0 right-0 font-display font-extrabold select-none pointer-events-none translate-x-[10%] translate-y-[5%]"
-                            style="font-size: clamp(10rem, 25vw, 20rem); color: rgba(0,0,0,0.12); line-height: 0.75;">
+                            style="font-size: clamp(6rem, 25vw, 20rem); color: rgba(0,0,0,0.12); line-height: 0.75;">
                         {project.name.charAt(0)}
                       </span>
-                      <span class="absolute bottom-3 left-4 md:bottom-5 md:left-6 font-mono text-[8px] uppercase tracking-[0.2em]"
+                      <span class="absolute bottom-2 left-3 md:bottom-5 md:left-6 font-mono text-[8px] uppercase tracking-[0.2em]"
                             style="color: rgba(0,0,0,0.3);">
                         {locale === 'es' ? 'Imagen proximamente' : 'Image coming soon'}
                       </span>
@@ -50,19 +50,19 @@ const { projects } = portfolioConfig;
 
                   <!-- Info (cols 7-11, 1 col gap each side) -->
                   <div class="md:col-span-5 md:col-start-7 flex flex-col">
-                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-4 text-accent">
+                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mb-2 md:mb-4 text-accent">
                       <span class="text-accent/60">{String(i + 1).padStart(2, '0')}</span>
                       <span class="mx-2 text-accent/30">/</span>
                       {project.tagline}
                     </div>
-                    <h3 class="slide-name overflow-hidden mb-4">
+                    <h3 class="slide-name overflow-hidden mb-2 md:mb-4">
                       <span class="slide-name-inner block font-display font-extrabold tracking-[-0.03em] leading-[0.9]"
-                            style="font-size: clamp(2rem, 5vw, 4.5rem);">
+                            style="font-size: clamp(1.6rem, 5vw, 4.5rem);">
                         {project.name}
                       </span>
                     </h3>
-                    <div class="slide-divider h-[1px] w-full mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
-                    <p class="slide-desc text-base text-muted leading-relaxed mb-6">
+                    <div class="slide-divider h-[1px] w-full mb-3 md:mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
+                    <p class="slide-desc text-xs md:text-base text-muted leading-relaxed mb-3 md:mb-6">
                       {project.description}
                     </p>
                     <div class="slide-tags flex flex-wrap gap-2">
