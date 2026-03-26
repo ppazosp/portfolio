@@ -104,21 +104,6 @@
     width: 0;
   }
 
-  /* Hero stays pinned behind everything */
-  #hero {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-
-  /* All sections after hero slide over it */
-  main > section:not(#hero),
-  main > .marquee-wrapper {
-    position: relative;
-    z-index: 10;
-    background: var(--color-background);
-  }
-
   /* Hero initial states */
   .hero-line {
     transform: translateY(110%);
