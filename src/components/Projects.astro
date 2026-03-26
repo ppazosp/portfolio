@@ -14,18 +14,18 @@ const { projects } = portfolioConfig;
   <div class="panel-outer">
     <div class="panel-inner">
       <div class="panel-bg">
-        <div class="panel-content flex flex-col justify-center relative">
+        <div class="panel-content relative h-full flex flex-col">
 
-          <!-- Section header -->
-          <div class="section-label">
+          <!-- Section header (pinned top) -->
+          <div class="section-label relative z-20 flex-shrink-0">
             <span>{locale === 'es' ? 'Proyectos' : 'Projects'}</span>
           </div>
 
           <!-- Stacked full-screen project slides -->
-          <div class="relative flex-1 flex items-center">
+          <div class="relative flex-1">
             {projects.map((project, i) => (
               <div
-                class="project-slide absolute inset-0 flex items-center"
+                class="project-slide absolute top-0 left-0 w-full h-full flex items-center"
                 data-slide={i}
                 data-color={project.color}
                 style={i > 0 ? 'visibility: hidden;' : ''}
@@ -98,8 +98,8 @@ const { projects } = portfolioConfig;
             ))}
           </div>
 
-          <!-- Bottom: progress dots -->
-          <div class="flex items-center justify-between mt-2 relative z-20">
+          <!-- Bottom: progress dots (pinned bottom) -->
+          <div class="flex items-center justify-between relative z-20 flex-shrink-0 pt-4">
             <div class="flex gap-2" id="project-dots">
               {projects.map((project, i) => (
                 <button
