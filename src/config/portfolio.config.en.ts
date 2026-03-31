@@ -21,7 +21,7 @@ export const portfolioConfig = {
     title: "Pablo Pazos Parada - Applied AI Engineer",
     description: "Forward Deployed AI Engineer who takes projects from idea to production. I build and ship AI agent systems end-to-end for enterprise clients.",
     siteName: "Pablo Pazos Parada",
-    ogImage: "/og-image.jpg"
+    ogImage: "/og-image.png"
   },
 
   navigation: {
