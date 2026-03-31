@@ -98,11 +98,12 @@
        id="rect4" />
     <rect
        x="20"
-       y="16"
+       y="8"
        width="8"
-       height="4"
+       height="20"
        fill="#ff4d00"
-       id="rect5" />
+       id="rect5"
+       style="stroke-width:2.23607" />
     <rect
        x="4"
        y="20"
@@ -142,31 +143,31 @@
   <!-- Text column aligned to logo height (203–427) -->
   <!-- PABLO — top-aligned with logo top -->
   <text
-     x="515"
-     y="286"
+     x="514.52899"
+     y="285.61264"
      fill="#f0f0f0"
-     font-family="'Syne', sans-serif"
-     font-size="95"
+     font-family="Syne, sans-serif"
+     font-size="95px"
      font-weight="800"
      letter-spacing="-2"
      id="text10">PABLO</text>
   <!-- PAZOS -->
   <text
-     x="515"
-     y="370"
+     x="514.54944"
+     y="369.6629"
      fill="#f0f0f0"
-     font-family="'Syne', sans-serif"
-     font-size="95"
+     font-family="Syne, sans-serif"
+     font-size="95px"
      font-weight="800"
      letter-spacing="-2"
      id="text11">PAZOS</text>
   <!-- APPLIED AI ENGINEER -->
   <text
-     x="515"
-     y="415"
+     x="519.06158"
+     y="414.55508"
      fill="#ff4d00"
      font-family="'JetBrains Mono', monospace"
-     font-size="22"
+     font-size="22px"
      font-weight="500"
      letter-spacing="2"
      id="text12">APPLIED AI ENGINEER</text>
