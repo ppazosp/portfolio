@@ -6,7 +6,7 @@ import paraglide from '@inlang/paraglide-astro';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pablopazos.dev',
+  site: 'https://ppazosp.dev',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],

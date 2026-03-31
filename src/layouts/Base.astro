@@ -48,7 +48,7 @@ const alternateUrls = {
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, currentUrl).href} />
+    <meta name="image" property="og:image" content={new URL(image, Astro.site || currentUrl).href} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={portfolioConfig.seo.siteName} />
     <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_US'} />
