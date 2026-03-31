@@ -21,7 +21,7 @@ export const portfolioConfig = {
     title: "Pablo Pazos Parada - Applied AI Engineer",
     description: "Applied AI Engineer and Co-Founder who built a 7-person AI startup from zero. I design, build, and ship production AI agent systems — RAG platforms, multi-agent workflows, and automated pipelines — deployed in enterprise pilots with large industrial clients.",
     siteName: "Pablo Pazos Parada",
-    ogImage: "/og-image.jpg"
+    ogImage: "/og-image.png"
   },
 
   navigation: {

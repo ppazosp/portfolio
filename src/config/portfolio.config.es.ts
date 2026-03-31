@@ -21,7 +21,7 @@ export const portfolioConfig = {
     title: "Pablo Pazos Parada - Ingeniero de IA Aplicada",
     description: "Ingeniero de IA Aplicada y Co-Fundador que construyo una startup de IA de 7 personas desde cero. Diseno, construyo y despliego sistemas de agentes IA en produccion — plataformas RAG, flujos multi-agente y pipelines automatizados — desplegados en pilotos empresariales con grandes clientes industriales.",
     siteName: "Pablo Pazos Parada",
-    ogImage: "/og-image.jpg"
+    ogImage: "/og-image.png"
   },
 
   navigation: {
