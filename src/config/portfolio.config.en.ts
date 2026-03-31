@@ -1,3 +1,5 @@
+import { getAge } from './portfolio.config';
+
 export const portfolioConfig = {
   personal: {
     name: "Pablo Pazos Parada",
@@ -44,7 +46,7 @@ export const portfolioConfig = {
     headline: ["Idea", "to", "production"],
     description: "I embed with clients to understand their problem, architect the solution, build it, ship it, and keep it running. From first whiteboard session to production monitoring, I own every step. Co-Founded a 7-member AI startup where I led engineering and worked directly with enterprise clients end-to-end.",
     stats: [
-      { value: 21, label: "Years old", suffix: "" },
+      { value: getAge(), label: "Years old", suffix: "" },
       { value: 5, label: "Systems in prod", suffix: "+" },
       { value: 6, label: "Engineers led", suffix: "" },
       { value: 3, label: "Clients served", suffix: "+" }
