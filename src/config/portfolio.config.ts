@@ -62,24 +62,17 @@ export const portfolioConfig = {
     {
       name: "APEC",
       tagline: "Automated CMO",
-      description: "Identified the need internally, designed the architecture, built and shipped it end-to-end. Multi-agent system combining scraping agents for market research (NORA) and financial data extraction (SARA) to feed a complete cold email outreach pipeline covering prospect targeting, personalized messaging, and automated follow-ups.",
-      tech: ["Python", "Multi-Agent", "LLM APIs", "Automation"],
+      description: "Multi-agent sales intelligence platform. An orchestrator, a research agent with headless browser scraping, and a financial data extractor feed a real-time campaign dashboard. End-to-end cold email pipeline: prospect targeting, personalized messaging, open/click tracking, and anti-detection scheduling. Live agent coordination via Realtime subscriptions.",
+      tech: ["Python", "Next.js", "Supabase", "Playwright", "Anthropic API", "Gmail API"],
       color: "#9B7DFF"
     },
     {
       name: "IRIS",
       tagline: "Email Intelligence",
-      description: "Shipped for a B2B client from requirements gathering to production handoff. Multi-agent email system that classifies by client, provider, intent, and priority, then generates context-aware responses connected to their product database and CRM. Maintained and iterated post-launch.",
-      tech: ["Python", "NLP", "CRM Integration", "LLM APIs"],
+      description: "Multi-agent email management system shipped for a B2B client. One model handles classification and tool-calling across six functions (product search, stock check, client history, payment info) while a second generates context-aware email drafts. Plugged directly into the client's ERP for real-time product, invoice, and client data. Near-instant email ingestion via push notifications, live processing updates streamed to the dashboard.",
+      tech: ["FastAPI", "React", "Supabase", "OpenAI API", "Anthropic API", "ERP Integration"],
       color: "#6448D6"
     },
-    {
-      name: "ACTA",
-      tagline: "Meeting Intelligence",
-      description: "Built end-to-end as an internal tool, from scoping team needs to production deployment. Handles transcription, speaker diarization, summary generation, and automatic task assignment per team member.",
-      tech: ["Python", "Whisper", "Pyannote", "Voice AI"],
-      color: "#A78BFA"
-    }
   ],
 
   techStack: [

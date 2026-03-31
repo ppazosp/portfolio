@@ -29,50 +29,69 @@ const { projects } = portfolioConfig;
                 data-slide={i}
                 style={i > 0 ? 'visibility: hidden;' : ''}
               >
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-2 w-full items-start">
-                  <!-- Color block (cols 1-5) -->
-                  <div class="md:col-span-5">
-                    <div class="slide-img relative w-full aspect-[5/4] md:aspect-auto md:h-[22rem] overflow-hidden bg-accent">
-                      <span class="absolute top-2 left-3 md:top-5 md:left-6 font-display font-extrabold text-5xl md:text-8xl leading-none select-none"
-                            style="color: rgba(0,0,0,0.2);">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <span class="absolute bottom-0 right-0 font-display font-extrabold select-none pointer-events-none translate-x-[10%] translate-y-[5%]"
-                            style="font-size: clamp(8rem, 30vw, 20rem); color: rgba(0,0,0,0.12); line-height: 0.75;">
-                        {project.name.charAt(0)}
-                      </span>
+                <div class="relative w-full">
+
+                  <!-- Giant watermark number -->
+                  <span class="proj-watermark absolute select-none pointer-events-none font-display font-extrabold"
+                        style={`font-size: clamp(12rem, 35vw, 28rem); line-height: 0.8; top: 50%; right: -2%; transform: translateY(-55%); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--color-accent) 12%, transparent);`}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+
+                  <!-- Tagline row -->
+                  <div class="proj-tagline font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] mb-3 md:mb-5 flex items-center gap-3">
+                    <span class="text-accent font-bold">{String(i + 1).padStart(2, '0')}</span>
+                    <span class="h-px flex-1 max-w-12 bg-accent/30"></span>
+                    <span class="text-accent/70">{project.tagline}</span>
+                  </div>
+
+                  <!-- Top accent line -->
+                  <div class="proj-line-top h-px w-full mb-3 md:mb-5" style="background: linear-gradient(to right, var(--color-accent), var(--color-accent) 30%, transparent);"></div>
+
+                  <!-- Massive project name -->
+                  <div class="proj-name-wrap overflow-hidden mb-3 md:mb-5">
+                    <h3 class="proj-name-inner font-display font-extrabold tracking-[-0.04em] leading-[0.85] text-foreground"
+                        style="font-size: clamp(3rem, 11vw, 9rem);">
+                      {project.name}
+                    </h3>
+                  </div>
+
+                  <!-- Bottom accent line -->
+                  <div class="proj-line-bot h-px w-full mb-4 md:mb-8" style="background: linear-gradient(to right, var(--color-accent) 60%, transparent);"></div>
+
+                  <!-- Description + Tags grid -->
+                  <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-8">
+                    <!-- Description with vertical accent + solo stamp -->
+                    <div class="md:col-span-7 relative pl-4 md:pl-6">
+                      <div class="proj-accent-bar absolute left-0 top-0 w-px h-full origin-top" style="background: linear-gradient(to bottom, var(--color-accent), transparent);"></div>
+                      <p class="proj-desc text-xs md:text-base text-muted leading-relaxed line-clamp-4 md:line-clamp-none">
+                        {project.description}
+                      </p>
+                      <!-- Solo stamp -->
+                      <div class="proj-solo mt-3 md:mt-5 flex items-center gap-2.5">
+                        <div class="solo-line h-px w-4 bg-accent"></div>
+                        <span class="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-accent font-medium">
+                          {locale === 'es' ? 'Construido en solitario' : 'Built entirely solo'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Tech tags -->
+                    <div class="md:col-span-4 md:col-start-9 flex flex-col gap-1.5 md:gap-2">
+                      <span class="proj-tags-label font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-accent/50 mb-1">{locale === 'es' ? 'Stack' : 'Stack'}</span>
+                      <div class="flex flex-wrap md:flex-col gap-1.5 md:gap-2">
+                        {project.tech.map((t) => (
+                          <span class="proj-tag font-mono text-[10px] md:text-xs px-2.5 py-0.5 md:px-3 md:py-1 border border-accent/20 text-muted/70 hover:border-accent/50 hover:text-foreground/80 transition-colors duration-300 w-fit">{t}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <!-- Info (cols 7-11, 1 col gap each side) -->
-                  <div class="md:col-span-5 md:col-start-7 flex flex-col">
-                    <div class="slide-tagline font-mono text-[10px] uppercase tracking-[0.2em] mt-2 mb-2 md:mt-0 md:mb-4 text-accent">
-                      <span class="text-accent/60">{String(i + 1).padStart(2, '0')}</span>
-                      <span class="mx-2 text-accent/30">/</span>
-                      {project.tagline}
-                    </div>
-                    <h3 class="slide-name overflow-hidden mb-2.5 md:mb-4">
-                      <span class="slide-name-inner block font-display font-extrabold tracking-[-0.03em] leading-[0.9]"
-                            style="font-size: clamp(2.2rem, 7vw, 4.5rem);">
-                        {project.name}
-                      </span>
-                    </h3>
-                    <div class="slide-divider h-[1px] w-full mb-2 md:mb-5" style="background: linear-gradient(to right, var(--color-accent), transparent);"></div>
-                    <p class="slide-desc text-xs md:text-base text-muted leading-relaxed mb-2.5 md:mb-6 line-clamp-5 md:line-clamp-none">
-                      {project.description}
-                    </p>
-                    <div class="slide-tags flex flex-wrap gap-1.5 md:gap-2">
-                      {project.tech.map((t) => (
-                        <span class="font-mono text-[10px] px-2.5 py-0.5 md:px-3 md:py-1 border text-muted/70 border-accent/30">{t}</span>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <!-- Counter (bottom right, tight to content) -->
+          <!-- Counter (bottom right) -->
           <div class="relative z-20 flex items-center justify-end pt-1">
             <div class="flex items-center gap-3">
               <div class="flex gap-1.5" id="project-pips">
@@ -111,19 +130,21 @@ const { projects } = portfolioConfig;
       const s = allSlides[i];
       return {
         slide: s,
-        img: s.querySelector('.slide-img') as HTMLElement,
-        nameInner: s.querySelector('.slide-name-inner') as HTMLElement,
-        tagline: s.querySelector('.slide-tagline') as HTMLElement,
-        divider: s.querySelector('.slide-divider') as HTMLElement,
-        desc: s.querySelector('.slide-desc') as HTMLElement,
-        tags: s.querySelectorAll('.slide-tags span'),
+        watermark: s.querySelector('.proj-watermark') as HTMLElement,
+        tagline: s.querySelector('.proj-tagline') as HTMLElement,
+        lineTop: s.querySelector('.proj-line-top') as HTMLElement,
+        nameInner: s.querySelector('.proj-name-inner') as HTMLElement,
+        lineBot: s.querySelector('.proj-line-bot') as HTMLElement,
+        accentBar: s.querySelector('.proj-accent-bar') as HTMLElement,
+        desc: s.querySelector('.proj-desc') as HTMLElement,
+        solo: s.querySelector('.proj-solo') as HTMLElement,
+        tagsLabel: s.querySelector('.proj-tags-label') as HTMLElement,
+        tags: s.querySelectorAll('.proj-tag'),
       };
     }
 
     function updateIndicator() {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === current);
-      });
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
       if (counter) counter.textContent = `${String(current + 1).padStart(2, '0')} — ${String(total).padStart(2, '0')}`;
     }
 
@@ -140,7 +161,6 @@ const { projects } = portfolioConfig;
       const cur = getEls(current);
       const nxt = getEls(index);
 
-      // Update dots immediately with the transition
       updateIndicatorTo(index);
 
       const tl = gsap.timeline({
@@ -153,28 +173,43 @@ const { projects } = portfolioConfig;
       });
 
       // ── OUT ──
-      tl.to(cur.img, { xPercent: -15 * dir, scale: 0.92, autoAlpha: 0, duration: 0.9 }, 0);
-      tl.to(cur.nameInner, { yPercent: -120 * dir, duration: 0.7 }, 0);
-      tl.to(cur.tagline, { y: -15 * dir, autoAlpha: 0, duration: 0.5 }, 0);
-      tl.to(cur.divider, { scaleX: 0, transformOrigin: 'left', duration: 0.5 }, 0);
-      tl.to(cur.desc, { y: -20 * dir, autoAlpha: 0, duration: 0.5 }, 0.1);
-      tl.to(cur.tags, { y: -10 * dir, autoAlpha: 0, stagger: 0.02, duration: 0.4 }, 0.1);
+      tl.to(cur.watermark, { autoAlpha: 0, scale: 0.9, duration: 0.6 }, 0);
+      tl.to(cur.tagline, { y: -20 * dir, autoAlpha: 0, duration: 0.4 }, 0);
+      tl.to(cur.lineTop, { scaleX: 0, transformOrigin: 'right', duration: 0.5 }, 0);
+      tl.to(cur.nameInner, { yPercent: -120 * dir, duration: 0.7 }, 0.05);
+      tl.to(cur.lineBot, { scaleX: 0, transformOrigin: 'left', duration: 0.5 }, 0.1);
+      tl.to(cur.accentBar, { scaleY: 0, transformOrigin: 'top', duration: 0.4 }, 0.1);
+      tl.to(cur.desc, { y: -20 * dir, autoAlpha: 0, duration: 0.4 }, 0.1);
+      tl.to(cur.solo.querySelector('.solo-line'), { scaleX: 0, transformOrigin: 'right', duration: 0.3 }, 0.12);
+      tl.to(cur.solo.querySelector('span'), { x: -10, autoAlpha: 0, duration: 0.3 }, 0.15);
+      tl.to(cur.tagsLabel, { autoAlpha: 0, duration: 0.3 }, 0.1);
+      tl.to(cur.tags, { y: -10 * dir, autoAlpha: 0, stagger: 0.02, duration: 0.3 }, 0.15);
 
       // ── IN ──
       gsap.set(nxt.slide, { visibility: 'visible' });
-      gsap.set(nxt.img, { xPercent: 20 * dir, scale: 1.08, autoAlpha: 0 });
-      gsap.set(nxt.nameInner, { yPercent: 120 * dir });
+      gsap.set(nxt.watermark, { autoAlpha: 0, scale: 1.1 });
       gsap.set(nxt.tagline, { y: 25 * dir, autoAlpha: 0 });
-      gsap.set(nxt.divider, { scaleX: 0, transformOrigin: 'left' });
+      gsap.set(nxt.lineTop, { scaleX: 0, transformOrigin: 'left' });
+      gsap.set(nxt.nameInner, { yPercent: 120 * dir });
+      gsap.set(nxt.lineBot, { scaleX: 0, transformOrigin: 'left' });
+      gsap.set(nxt.accentBar, { scaleY: 0, transformOrigin: 'top' });
       gsap.set(nxt.desc, { y: 30 * dir, autoAlpha: 0 });
+      gsap.set(nxt.solo.querySelector('.solo-line'), { scaleX: 0, transformOrigin: 'left' });
+      gsap.set(nxt.solo.querySelector('span'), { x: 15, autoAlpha: 0 });
+      gsap.set(nxt.tagsLabel, { autoAlpha: 0 });
       gsap.set(nxt.tags, { y: 15 * dir, autoAlpha: 0 });
 
-      tl.to(nxt.img, { xPercent: 0, scale: 1, autoAlpha: 1, duration: 1, ease: "power2.out" }, 0.5);
-      tl.to(nxt.nameInner, { yPercent: 0, duration: 0.9, ease: "power4.out" }, 0.6);
-      tl.to(nxt.divider, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.8);
-      tl.to(nxt.tagline, { y: 0, autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 0.7);
-      tl.to(nxt.desc, { y: 0, autoAlpha: 1, duration: 0.7, ease: "power2.out" }, 0.85);
-      tl.to(nxt.tags, { y: 0, autoAlpha: 1, stagger: 0.04, duration: 0.5, ease: "power2.out" }, 0.95);
+      tl.to(nxt.watermark, { autoAlpha: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.4);
+      tl.to(nxt.tagline, { y: 0, autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 0.55);
+      tl.to(nxt.lineTop, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0.6);
+      tl.to(nxt.nameInner, { yPercent: 0, duration: 0.9, ease: "power4.out" }, 0.55);
+      tl.to(nxt.lineBot, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0.7);
+      tl.to(nxt.accentBar, { scaleY: 1, duration: 0.8, ease: "power2.out" }, 0.75);
+      tl.to(nxt.desc, { y: 0, autoAlpha: 1, duration: 0.7, ease: "power2.out" }, 0.8);
+      tl.to(nxt.solo.querySelector('.solo-line'), { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.92);
+      tl.to(nxt.solo.querySelector('span'), { x: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" }, 1.0);
+      tl.to(nxt.tagsLabel, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 0.8);
+      tl.to(nxt.tags, { y: 0, autoAlpha: 1, stagger: 0.05, duration: 0.5, ease: "power2.out" }, 0.85);
     }
 
     updateIndicator();
