@@ -45,9 +45,9 @@ export const portfolioConfig = {
     description: "Me integro con el cliente para entender su problema, diseno la solucion, la construyo, la despliego y la mantengo. Desde la primera reunion hasta el monitoreo en produccion, soy responsable de cada paso. Co-funde una startup de IA de 7 personas donde lidere ingenieria y trabaje directamente con clientes empresariales end-to-end.",
     stats: [
       { value: 21, label: "Anos", suffix: "" },
-      { value: 4, label: "Sistemas en prod", suffix: "" },
-      { value: 7, label: "Ingenieros", suffix: "" },
-      { value: 150, label: "Usuarios", suffix: "+" }
+      { value: 5, label: "Sistemas en prod", suffix: "+" },
+      { value: 6, label: "Ingenieros", suffix: "" },
+      { value: 3, label: "Clientes", suffix: "+" }
     ]
   },
 
